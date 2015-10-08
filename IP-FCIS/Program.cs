@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ImageProcessingTask1
+namespace IP_FCIS
 {
     static class Program
     {

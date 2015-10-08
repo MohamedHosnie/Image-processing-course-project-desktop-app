@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ImageProcessingTask1.Classes;
+using IP_FCIS.Classes;
 
 //using System.Runtime.InteropServices;
 
-namespace ImageProcessingTask1
+namespace IP_FCIS
 {
     public partial class Form1 : Form
     {

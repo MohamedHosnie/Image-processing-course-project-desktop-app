@@ -1,4 +1,4 @@
-﻿namespace ImageProcessingTask1
+﻿namespace IP_FCIS
 {
     partial class Form1
     {

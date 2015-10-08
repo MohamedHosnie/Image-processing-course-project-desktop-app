@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ImageProcessingTask1.Classes 
+namespace IP_FCIS.Classes 
 {
     class PPMImage : ImageP
     {
