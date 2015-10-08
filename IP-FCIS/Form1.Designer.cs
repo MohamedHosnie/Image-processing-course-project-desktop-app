@@ -32,11 +32,14 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bitmapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pPMToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.scaleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.rotateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.shearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullTransformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.githubRepoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
@@ -91,26 +94,10 @@
             // 
             // loadToolStripMenuItem
             // 
-            this.loadToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.bitmapToolStripMenuItem,
-            this.pPMToolStripMenuItem});
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             this.loadToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.loadToolStripMenuItem.Text = "Open";
-            // 
-            // bitmapToolStripMenuItem
-            // 
-            this.bitmapToolStripMenuItem.Name = "bitmapToolStripMenuItem";
-            this.bitmapToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
-            this.bitmapToolStripMenuItem.Text = "Bitmap";
-            this.bitmapToolStripMenuItem.Click += new System.EventHandler(this.bitmapToolStripMenuItem_Click);
-            // 
-            // pPMToolStripMenuItem
-            // 
-            this.pPMToolStripMenuItem.Name = "pPMToolStripMenuItem";
-            this.pPMToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
-            this.pPMToolStripMenuItem.Text = "PPM";
-            this.pPMToolStripMenuItem.Click += new System.EventHandler(this.pPMToolStripMenuItem_Click);
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
@@ -121,15 +108,53 @@
             // 
             // editToolStripMenuItem
             // 
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.scaleToolStripMenuItem,
+            this.rotateToolStripMenuItem,
+            this.shearToolStripMenuItem,
+            this.fullTransformationToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
             // 
+            // scaleToolStripMenuItem
+            // 
+            this.scaleToolStripMenuItem.Name = "scaleToolStripMenuItem";
+            this.scaleToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.scaleToolStripMenuItem.Text = "Scale";
+            // 
+            // rotateToolStripMenuItem
+            // 
+            this.rotateToolStripMenuItem.Name = "rotateToolStripMenuItem";
+            this.rotateToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.rotateToolStripMenuItem.Text = "Rotation";
+            // 
+            // shearToolStripMenuItem
+            // 
+            this.shearToolStripMenuItem.Name = "shearToolStripMenuItem";
+            this.shearToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.shearToolStripMenuItem.Text = "Shear";
+            // 
+            // fullTransformationToolStripMenuItem
+            // 
+            this.fullTransformationToolStripMenuItem.Name = "fullTransformationToolStripMenuItem";
+            this.fullTransformationToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
+            this.fullTransformationToolStripMenuItem.Text = "Full Transformation";
+            // 
             // helpToolStripMenuItem
             // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.githubRepoToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // githubRepoToolStripMenuItem
+            // 
+            this.githubRepoToolStripMenuItem.Name = "githubRepoToolStripMenuItem";
+            this.githubRepoToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.githubRepoToolStripMenuItem.Text = "Github Repo";
+            this.githubRepoToolStripMenuItem.Click += new System.EventHandler(this.githubRepoToolStripMenuItem_Click);
             // 
             // panel1
             // 
@@ -251,7 +276,7 @@
             this.toolStripButton2});
             this.toolStrip1.Location = new System.Drawing.Point(3, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(182, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(151, 25);
             this.toolStrip1.TabIndex = 9;
             // 
             // openToolStripButton
@@ -262,6 +287,7 @@
             this.openToolStripButton.Name = "openToolStripButton";
             this.openToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.openToolStripButton.Text = "&Open";
+            this.openToolStripButton.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // saveToolStripButton
             // 
@@ -309,7 +335,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(400, 250);
             this.Name = "Form1";
-            this.Text = "ImageProcessing1";
+            this.Text = "IP-FCIS";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -341,8 +367,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem bitmapToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem pPMToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
@@ -361,6 +385,11 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripMenuItem scaleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem rotateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem shearToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fullTransformationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem githubRepoToolStripMenuItem;
     }
 }
 

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using IP_FCIS.Classes;
+using System.IO;
 
 //using System.Runtime.InteropServices;
 
@@ -22,48 +23,27 @@ namespace IP_FCIS
 
         ImageP opened_image;
 
-        private void bitmapToolStripMenuItem_Click(object sender, EventArgs e)
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
                 OpenFileDialog open = new OpenFileDialog();
-                open.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png, *.bmp) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png; *.bmp";
+                open.Filter = "Image files (*.ppm, *.jpg, *.jpeg, *.jpe, *.jfif, *.png, *.bmp) | *.ppm; *.jpg; *.jpeg; *.jpe; *.jfif; *.png; *.bmp";
                 if (open.ShowDialog() == DialogResult.OK)
                 {
-                    CommonImage img = new CommonImage(open.FileName);
-                    opened_image = img;
-                    pictureBox1.Width = img.get_width();
-                    pictureBox1.Height = img.get_height();
-                    pictureBox1.Image = img.get_bitmap();
+                    string ext = Path.GetExtension(open.FileName);
+                    if(ext == ".ppm")
+                    {
+                        opened_image = new PPMImage(open.FileName);
 
+                    } else
+                    {
+                        opened_image = new CommonImage(open.FileName);
+                    }
 
-                    toolStripStatusLabel1.Text = "Width: " + img.get_width();
-                    toolStripStatusLabel2.Text = "Height: " + img.get_height();
-                }
-
-            } catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            
-        }
-
-        private void pPMToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                OpenFileDialog open = new OpenFileDialog();
-                open.Filter = "Image files (*.ppm) | *.ppm";
-                if (open.ShowDialog() == DialogResult.OK)
-                {
-                    PPMImage img = new PPMImage(open.FileName);
-                    opened_image = img;
-                    pictureBox1.Width = img.get_width();
-                    pictureBox1.Height = img.get_height();
-                    pictureBox1.Image = img.get_bitmap();
-
-                    toolStripStatusLabel1.Text = "Width: " + img.get_width();
-                    toolStripStatusLabel2.Text = "Height: " + img.get_height();
+                    pictureBox1.Image = opened_image.get_bitmap();
+                    toolStripStatusLabel1.Text = "Width: " + opened_image.get_width();
+                    toolStripStatusLabel2.Text = "Height: " + opened_image.get_height();
                 }
 
             } catch(Exception ex)
@@ -106,6 +86,11 @@ namespace IP_FCIS
         private void Form1_Load(object sender, EventArgs e)
         {
             //AllocConsole();
+        }
+
+        private void githubRepoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/AlexanderHosnie/IP-FCIS");
         }
 
         //[DllImport("kernel32.dll", SetLastError = true)]
