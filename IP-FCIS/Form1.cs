@@ -21,12 +21,12 @@ namespace IP_FCIS
             InitializeComponent();
         }
 
-        ImageP opened_image;
+        public static ImageP opened_image;
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 OpenFileDialog open = new OpenFileDialog();
                 open.Filter = "Image files (*.ppm, *.jpg, *.jpeg, *.jpe, *.jfif, *.png, *.bmp) | *.ppm; *.jpg; *.jpeg; *.jpe; *.jfif; *.png; *.bmp";
                 if (open.ShowDialog() == DialogResult.OK)
@@ -46,10 +46,17 @@ namespace IP_FCIS
                     toolStripStatusLabel2.Text = "Height: " + opened_image.get_height();
                 }
 
-            } catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            //} catch(Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+        }
+
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveForm saveform = new SaveForm();
+            saveform.Show();
+            
         }
 
         private void toolStripButton1_Click(object sender, EventArgs e)

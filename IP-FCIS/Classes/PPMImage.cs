@@ -27,8 +27,9 @@ namespace IP_FCIS.Classes
             width = Int32.Parse(size[0]);
             height = Int32.Parse(size[1]);
             bitmap = new Bitmap(width, height);
-            string max_color = sr.ReadLine(); //max color
-            flag += max_color.Length;
+            string smax_color = sr.ReadLine(); //max color
+            max_color = Convert.ToByte(smax_color);
+            flag += smax_color.Length;
             
             if (original_format == "P3")
             {
@@ -40,7 +41,11 @@ namespace IP_FCIS.Classes
                 {
                     for (int x = 0; x < width; x++)
                     {
-                        Color color = Color.FromArgb(Int32.Parse(Image_array[z]), Int32.Parse(Image_array[z + 1]), Int32.Parse(Image_array[z + 2]));
+                        int R = Int32.Parse(Image_array[z]),
+                            B = Int32.Parse(Image_array[z + 1]),
+                            G = Int32.Parse(Image_array[z + 2]);
+
+                        Color color = Color.FromArgb(R, B, G);
                         buffer2d[x, y] = color;
                         bitmap.SetPixel(x, y, color);
                         z += 3;
@@ -59,7 +64,10 @@ namespace IP_FCIS.Classes
                 {
                     for (int x = 0; x < width; x++)
                     {
-                        Color color = Color.FromArgb(fl[z], fl[z + 1], fl[z + 2]);
+                        byte R = fl[z],
+                             G = fl[z + 1], 
+                             B = fl[z + 2];
+                        Color color = Color.FromArgb(R, G, B);
                         buffer2d[x, y] = color;
                         bitmap.SetPixel(x, y, color);
                         z += 3;

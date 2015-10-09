@@ -14,18 +14,23 @@ namespace IP_FCIS.Classes
             bitmap = new Bitmap(_directory);
             height = bitmap.Height;
             width = bitmap.Width;
-        }
-        public Color[,] get_buffer2d()
-        {
+            max_color = 0;
             buffer2d = new Color[width, height];
             for (int x = 0; x < width; x++)
             {
                 for (int y = 0; y < height; y++)
                 {
                     buffer2d[x, y] = bitmap.GetPixel(x, y);
+                    if (buffer2d[x, y].R > max_color) max_color = buffer2d[x, y].R;
+                    if (buffer2d[x, y].G > max_color) max_color = buffer2d[x, y].G;
+                    if (buffer2d[x, y].B > max_color) max_color = buffer2d[x, y].B;
                 }
             }
+        }
+        public Color[,] get_buffer2d()
+        {
             return buffer2d;
         }
+
     }
 }
