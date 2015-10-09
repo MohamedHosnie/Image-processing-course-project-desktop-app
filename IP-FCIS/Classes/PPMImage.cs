@@ -57,6 +57,8 @@ namespace IP_FCIS.Classes
             }
             else if(original_format == "P6")
             {
+                sr.Close();
+
                 byte[] fl = File.ReadAllBytes(_directory);
                 buffer2d = new Color[width, height];
                 int z = flag + 1;

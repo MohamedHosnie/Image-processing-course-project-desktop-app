@@ -35,7 +35,6 @@ namespace IP_FCIS.Classes
         {
             return max_color;
         }
-
         public void save_ppm(string ppm_type, string file_name)
         {
             using (StreamWriter sw = new StreamWriter(file_name))
@@ -66,13 +65,32 @@ namespace IP_FCIS.Classes
                         }
                     }
 
+                    sw.Close();
                 }
                 else if (ppm_type == "P6")
                 {
                     sw.WriteLine("P6");
+                    sw.WriteLine("# This file was saved by some simple app");
+                    sw.WriteLine(Convert.ToString(width) + " " + Convert.ToString(height));
+                    sw.WriteLine(Convert.ToString(this.max_color));
 
+                    sw.Close();
 
+                    BinaryWriter bw = new BinaryWriter(new FileStream(file_name, FileMode.Append));
+                    for (int y = 0; y < height; y++)
+                    {
+                        for (int x = 0; x < width; x++)
+                        {
+                            bw.Write(buffer2d[x, y].R);
+                            bw.Write(buffer2d[x, y].G);
+                            bw.Write(buffer2d[x, y].B);
+                        }
+                    }
+
+                    bw.Close();
                 }
+
+                System.Media.SystemSounds.Asterisk.Play();
             }
 
         }

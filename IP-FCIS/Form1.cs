@@ -25,14 +25,14 @@ namespace IP_FCIS
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //try
-            //{
+            try
+            {
                 OpenFileDialog open = new OpenFileDialog();
                 open.Filter = "Image files (*.ppm, *.jpg, *.jpeg, *.jpe, *.jfif, *.png, *.bmp) | *.ppm; *.jpg; *.jpeg; *.jpe; *.jfif; *.png; *.bmp";
                 if (open.ShowDialog() == DialogResult.OK)
                 {
                     string ext = Path.GetExtension(open.FileName);
-                    if(ext == ".ppm")
+                    if (ext.ToLower() == ".ppm")
                     {
                         opened_image = new PPMImage(open.FileName);
 
@@ -46,16 +46,24 @@ namespace IP_FCIS
                     toolStripStatusLabel2.Text = "Height: " + opened_image.get_height();
                 }
 
-            //} catch(Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveForm saveform = new SaveForm();
-            saveform.Show();
+            if(opened_image != null)
+            {
+                SaveForm saveform = new SaveForm();
+                saveform.Show();
+
+            } else
+            {
+                MessageBox.Show("No image to save.");
+            }
             
         }
 

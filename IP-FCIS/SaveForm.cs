@@ -20,26 +20,34 @@ namespace IP_FCIS
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //try
-            //{
+            try
+            {
                 string ppm_type = comboBox1.Text;
-                this.Hide();
-                SaveFileDialog savefile = new SaveFileDialog();
-                savefile.FileName = "untitled.ppm";
-                savefile.Filter = "Image files (*.ppm)  | *.ppm";
-
-                if (savefile.ShowDialog() == DialogResult.OK)
+                if(ppm_type != "")
                 {
-                    Form1.opened_image.save_ppm(ppm_type, savefile.FileName);
+                    this.Hide();
+                    SaveFileDialog savefile = new SaveFileDialog();
+                    savefile.FileName = "untitled.ppm";
+                    savefile.Filter = "Image files (*.ppm)  | *.ppm";
+
+                    if (savefile.ShowDialog() == DialogResult.OK)
+                    {
+                        Form1.opened_image.save_ppm(ppm_type, savefile.FileName);
+                    }
+
+                    this.Close();
+                }
+                else
+                {
+                    this.Hide();
+                    MessageBox.Show("No imgae to save or no type is selected.");
                 }
 
-                this.Close();
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
 
         }
