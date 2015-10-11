@@ -14,22 +14,22 @@ namespace IP_FCIS.Classes
         {
             int flag = 0;
             StreamReader sr = new StreamReader(_directory);
-            original_format = sr.ReadLine();
-            flag = original_format.Length;
+            original_format = sr.ReadLine(); //Console.WriteLine(original_format);
+            flag = original_format.Length+1;
             while (sr.Peek() == '#')
             {
-                string ln = sr.ReadLine();
-                flag += ln.Length;
+                string ln = sr.ReadLine(); //Console.WriteLine(ln);
+                flag += ln.Length+1;
             }
-            string size_str = sr.ReadLine();
-            flag += size_str.Length;
+            string size_str = sr.ReadLine(); //Console.WriteLine(size_str);
+            flag += size_str.Length+1;
             string[] size = size_str.Split(' ');
             width = Int32.Parse(size[0]);
             height = Int32.Parse(size[1]);
             bitmap = new Bitmap(width, height);
-            string smax_color = sr.ReadLine(); //max color
+            string smax_color = sr.ReadLine(); //Console.WriteLine(smax_color); //max color 
             max_color = Convert.ToByte(smax_color);
-            flag += smax_color.Length;
+            flag += smax_color.Length+1;
             
             if (original_format == "P3")
             {
@@ -44,7 +44,6 @@ namespace IP_FCIS.Classes
                         int R = Int32.Parse(Image_array[z]),
                             B = Int32.Parse(Image_array[z + 1]),
                             G = Int32.Parse(Image_array[z + 2]);
-
                         Color color = Color.FromArgb(R, B, G);
                         buffer2d[x, y] = color;
                         bitmap.SetPixel(x, y, color);
@@ -57,11 +56,9 @@ namespace IP_FCIS.Classes
             }
             else if(original_format == "P6")
             {
-                sr.Close();
-
                 byte[] fl = File.ReadAllBytes(_directory);
                 buffer2d = new Color[width, height];
-                int z = flag + 1;
+                int z = flag;
                 for (int y = 0; y < height; y++)
                 {
                     for (int x = 0; x < width; x++)
@@ -69,6 +66,7 @@ namespace IP_FCIS.Classes
                         byte R = fl[z],
                              G = fl[z + 1], 
                              B = fl[z + 2];
+                        //Console.WriteLine(R + " " + G + " " + B);
                         Color color = Color.FromArgb(R, G, B);
                         buffer2d[x, y] = color;
                         bitmap.SetPixel(x, y, color);
@@ -84,5 +82,7 @@ namespace IP_FCIS.Classes
         {
             return buffer2d;
         }
+
+
     }
 }

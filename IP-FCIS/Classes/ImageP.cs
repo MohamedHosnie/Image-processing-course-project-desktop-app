@@ -69,10 +69,10 @@ namespace IP_FCIS.Classes
                 }
                 else if (ppm_type == "P6")
                 {
-                    sw.WriteLine("P6");
-                    sw.WriteLine("# This file was saved by some simple app");
-                    sw.WriteLine(Convert.ToString(width) + " " + Convert.ToString(height));
-                    sw.WriteLine(Convert.ToString(this.max_color));
+                    sw.Write("P6\n");
+                    sw.Write("# This file was saved by some simple app\n");
+                    sw.Write(Convert.ToString(width) + " " + Convert.ToString(height) + "\n");
+                    sw.Write(Convert.ToString(this.max_color) + "\n");
 
                     sw.Close();
 
@@ -94,6 +94,21 @@ namespace IP_FCIS.Classes
             }
 
         }
+        public void scale()
+        {
 
+        }
+        public void rotate()
+        {
+
+        }
+        public void shear()
+        {
+
+        }
+        public void full_transform()
+        {
+
+        }
     }
 }
