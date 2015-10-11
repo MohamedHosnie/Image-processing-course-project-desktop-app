@@ -79,7 +79,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "SaveForm";
+            this.Text = "Save As...";
             this.ResumeLayout(false);
             this.PerformLayout();
 

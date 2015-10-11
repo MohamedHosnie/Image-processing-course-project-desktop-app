@@ -323,7 +323,7 @@
             this.MinimumSize = new System.Drawing.Size(400, 250);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "IP-FCIS";
+            this.Text = "Image Processing";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
