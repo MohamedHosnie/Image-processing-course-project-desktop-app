@@ -65,14 +65,14 @@
             this.ScaleX.Location = new System.Drawing.Point(30, 29);
             this.ScaleX.Name = "ScaleX";
             this.ScaleX.Size = new System.Drawing.Size(85, 20);
-            this.ScaleX.TabIndex = 2;
+            this.ScaleX.TabIndex = 0;
             // 
             // ScaleY
             // 
             this.ScaleY.Location = new System.Drawing.Point(141, 29);
             this.ScaleY.Name = "ScaleY";
             this.ScaleY.Size = new System.Drawing.Size(80, 20);
-            this.ScaleY.TabIndex = 4;
+            this.ScaleY.TabIndex = 1;
             // 
             // label3
             // 
@@ -88,7 +88,7 @@
             this.ScaleOK.Location = new System.Drawing.Point(234, 27);
             this.ScaleOK.Name = "ScaleOK";
             this.ScaleOK.Size = new System.Drawing.Size(75, 23);
-            this.ScaleOK.TabIndex = 5;
+            this.ScaleOK.TabIndex = 2;
             this.ScaleOK.Text = "Scale";
             this.ScaleOK.UseVisualStyleBackColor = true;
             this.ScaleOK.Click += new System.EventHandler(this.ScaleOK_Click);
@@ -124,14 +124,14 @@
             this.RotateAngle.Location = new System.Drawing.Point(51, 29);
             this.RotateAngle.Name = "RotateAngle";
             this.RotateAngle.Size = new System.Drawing.Size(170, 20);
-            this.RotateAngle.TabIndex = 2;
+            this.RotateAngle.TabIndex = 3;
             // 
             // RotateOK
             // 
             this.RotateOK.Location = new System.Drawing.Point(234, 27);
             this.RotateOK.Name = "RotateOK";
             this.RotateOK.Size = new System.Drawing.Size(75, 23);
-            this.RotateOK.TabIndex = 5;
+            this.RotateOK.TabIndex = 4;
             this.RotateOK.Text = "Rotate";
             this.RotateOK.UseVisualStyleBackColor = true;
             this.RotateOK.Click += new System.EventHandler(this.RotateOK_Click);
@@ -164,14 +164,14 @@
             this.ShearX.Location = new System.Drawing.Point(30, 29);
             this.ShearX.Name = "ShearX";
             this.ShearX.Size = new System.Drawing.Size(85, 20);
-            this.ShearX.TabIndex = 2;
+            this.ShearX.TabIndex = 5;
             // 
             // ShearOK
             // 
             this.ShearOK.Location = new System.Drawing.Point(234, 27);
             this.ShearOK.Name = "ShearOK";
             this.ShearOK.Size = new System.Drawing.Size(75, 23);
-            this.ShearOK.TabIndex = 5;
+            this.ShearOK.TabIndex = 7;
             this.ShearOK.Text = "Shear";
             this.ShearOK.UseVisualStyleBackColor = true;
             this.ShearOK.Click += new System.EventHandler(this.ShearOK_Click);
@@ -190,7 +190,7 @@
             this.ShearY.Location = new System.Drawing.Point(141, 29);
             this.ShearY.Name = "ShearY";
             this.ShearY.Size = new System.Drawing.Size(80, 20);
-            this.ShearY.TabIndex = 4;
+            this.ShearY.TabIndex = 6;
             // 
             // label5
             // 
