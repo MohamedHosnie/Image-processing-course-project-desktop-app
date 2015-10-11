@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.IO;
+using System.Drawing.Drawing2D;
 
 namespace IP_FCIS.Classes
 {
@@ -94,8 +95,62 @@ namespace IP_FCIS.Classes
             }
 
         }
-        public void scale()
+        public void scale(float ScaleX, float ScaleY)
         {
+            Matrix mat = new Matrix();
+            mat.Scale(ScaleX, ScaleY);
+
+            Point[] ps = new Point[4];
+            ps[0].X = 0; ps[0].Y = 0;
+            ps[1].X = width - 1; ps[1].Y = 0;
+            ps[2].X = 0; ps[2].Y = height - 1;
+            ps[3].X = width - 1; ps[3].Y = height - 1;
+
+            mat.TransformPoints(ps);
+
+            int MinX = ps[0].X, MinY = ps[0].Y;
+            for (int i = 0; i < 4; i++)
+            {
+                if (ps[i].X < MinX) MinX = ps[i].X;
+                if (ps[i].Y < MinY) MinY = ps[i].Y;
+            }
+
+            int new_width = (ps[3].X - ps[0].X);
+            int new_height = (ps[3].Y - ps[0].Y);
+
+            //mat.Translate(-MinX, -MinY);
+
+            mat.Invert();
+
+            bitmap = new Bitmap(new_width, new_height);
+
+            Color[,] new_buffer2d = new Color[new_width, new_height];
+
+            Point[] pt = new Point[1];
+            for (int y = 0; y < new_height; y++)
+            {
+                for(int x = 0; x < new_width; x++)
+                {
+                    pt[0].X = x; pt[0].Y = y;
+                    mat.TransformPoints(pt);
+                    if (pt[0].X < width && pt[0].Y < height)
+                        new_buffer2d[x, y] = buffer2d[pt[0].X, pt[0].Y];
+                    else
+                        new_buffer2d[pt[0].X, pt[0].Y] = Color.FromArgb(0, 0, 0);
+                }
+            }
+
+            width = new_width;
+            height = new_height;
+            buffer2d = new_buffer2d;
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    bitmap.SetPixel(x, y, buffer2d[x, y]);
+                }
+            }
 
         }
         public void rotate()

@@ -32,7 +32,7 @@ namespace IP_FCIS
 
                     if (savefile.ShowDialog() == DialogResult.OK)
                     {
-                        Form1.opened_image.save_ppm(ppm_type, savefile.FileName);
+                        MainForm.opened_image.save_ppm(ppm_type, savefile.FileName);
                     }
 
                     this.Close();

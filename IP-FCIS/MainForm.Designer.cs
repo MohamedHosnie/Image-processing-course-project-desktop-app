@@ -1,6 +1,6 @@
 ﻿namespace IP_FCIS
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,17 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.OpenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.scaleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rotateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.shearToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.fullTransformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.geometricTransformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.githubRepoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -87,19 +84,19 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.loadToolStripMenuItem,
+            this.OpenToolStripMenuItem,
             this.saveAsToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
-            // loadToolStripMenuItem
+            // OpenToolStripMenuItem
             // 
-            this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
-            this.loadToolStripMenuItem.Text = "Open";
-            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            this.OpenToolStripMenuItem.Name = "OpenToolStripMenuItem";
+            this.OpenToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.OpenToolStripMenuItem.Text = "Open";
+            this.OpenToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem
             // 
@@ -118,37 +115,17 @@
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.scaleToolStripMenuItem,
-            this.rotateToolStripMenuItem,
-            this.shearToolStripMenuItem,
-            this.fullTransformationToolStripMenuItem});
+            this.geometricTransformationToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
             // 
-            // scaleToolStripMenuItem
+            // geometricTransformationToolStripMenuItem
             // 
-            this.scaleToolStripMenuItem.Name = "scaleToolStripMenuItem";
-            this.scaleToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.scaleToolStripMenuItem.Text = "Scale";
-            // 
-            // rotateToolStripMenuItem
-            // 
-            this.rotateToolStripMenuItem.Name = "rotateToolStripMenuItem";
-            this.rotateToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.rotateToolStripMenuItem.Text = "Rotation";
-            // 
-            // shearToolStripMenuItem
-            // 
-            this.shearToolStripMenuItem.Name = "shearToolStripMenuItem";
-            this.shearToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.shearToolStripMenuItem.Text = "Shear";
-            // 
-            // fullTransformationToolStripMenuItem
-            // 
-            this.fullTransformationToolStripMenuItem.Name = "fullTransformationToolStripMenuItem";
-            this.fullTransformationToolStripMenuItem.Size = new System.Drawing.Size(177, 22);
-            this.fullTransformationToolStripMenuItem.Text = "Full Transformation";
+            this.geometricTransformationToolStripMenuItem.Name = "geometricTransformationToolStripMenuItem";
+            this.geometricTransformationToolStripMenuItem.Size = new System.Drawing.Size(213, 22);
+            this.geometricTransformationToolStripMenuItem.Text = "Geometric Transformation";
+            this.geometricTransformationToolStripMenuItem.Click += new System.EventHandler(this.geometricTransformationToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -285,7 +262,7 @@
             this.toolStripButton2});
             this.toolStrip1.Location = new System.Drawing.Point(3, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(182, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(151, 25);
             this.toolStrip1.TabIndex = 9;
             // 
             // openToolStripButton
@@ -296,7 +273,7 @@
             this.openToolStripButton.Name = "openToolStripButton";
             this.openToolStripButton.Size = new System.Drawing.Size(23, 22);
             this.openToolStripButton.Text = "&Open";
-            this.openToolStripButton.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            this.openToolStripButton.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // saveToolStripButton
             // 
@@ -322,7 +299,7 @@
             this.toolStripButton1.Size = new System.Drawing.Size(43, 22);
             this.toolStripButton1.Text = "Zoom";
             this.toolStripButton1.ToolTipText = "Zoom";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.toolStripButton1.Click += new System.EventHandler(this.toolStripZoom_Click);
             // 
             // toolStripButton2
             // 
@@ -333,9 +310,9 @@
             this.toolStripButton2.Size = new System.Drawing.Size(53, 22);
             this.toolStripButton2.Text = "Original";
             this.toolStripButton2.ToolTipText = "Original";
-            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripOriginal_Click);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -344,7 +321,8 @@
             this.Controls.Add(this.toolStripContainer4);
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(400, 250);
-            this.Name = "Form1";
+            this.Name = "MainForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "IP-FCIS";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
@@ -376,7 +354,7 @@
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem OpenToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
@@ -395,12 +373,9 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;
-        private System.Windows.Forms.ToolStripMenuItem scaleToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem rotateToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem shearToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem fullTransformationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem githubRepoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem geometricTransformationToolStripMenuItem;
     }
 }
 
