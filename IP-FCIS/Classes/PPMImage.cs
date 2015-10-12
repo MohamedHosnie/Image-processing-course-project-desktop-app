@@ -42,9 +42,9 @@ namespace IP_FCIS.Classes
                     for (int x = 0; x < width; x++)
                     {
                         int R = Int32.Parse(Image_array[z]),
-                            B = Int32.Parse(Image_array[z + 1]),
-                            G = Int32.Parse(Image_array[z + 2]);
-                        Color color = Color.FromArgb(R, B, G);
+                            G = Int32.Parse(Image_array[z + 1]),
+                            B = Int32.Parse(Image_array[z + 2]);
+                        Color color = Color.FromArgb(R, G, B);
                         buffer2d[x, y] = color;
                         bitmap.SetPixel(x, y, color);
                         z += 3;

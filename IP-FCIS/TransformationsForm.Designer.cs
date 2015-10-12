@@ -112,7 +112,7 @@
             this.groupBox2.Controls.Add(this.RotateAngle);
             this.groupBox2.Controls.Add(this.RotateOK);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Location = new System.Drawing.Point(12, 91);
+            this.groupBox2.Location = new System.Drawing.Point(12, 170);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(321, 73);
             this.groupBox2.TabIndex = 7;
@@ -152,7 +152,7 @@
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.ShearY);
             this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Location = new System.Drawing.Point(12, 170);
+            this.groupBox3.Location = new System.Drawing.Point(12, 91);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(321, 73);
             this.groupBox3.TabIndex = 7;

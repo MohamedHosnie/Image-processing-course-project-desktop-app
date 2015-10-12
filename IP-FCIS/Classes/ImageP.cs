@@ -119,9 +119,9 @@ namespace IP_FCIS.Classes
         public void full_transform(float ScX, float ScY, float ShX, float ShY, float RoAngle)
         {
             Matrix transform_matrix = new Matrix();
-            transform_matrix.Scale(ScX, ScY);
-            transform_matrix.Shear(ShX, ShY);
-            transform_matrix.Rotate(RoAngle);
+            transform_matrix.Scale(ScX, ScY, MatrixOrder.Append);
+            transform_matrix.Shear(ShX, ShY, MatrixOrder.Append);
+            transform_matrix.Rotate(RoAngle, MatrixOrder.Append);
 
             Transform(transform_matrix);
         }
@@ -148,7 +148,7 @@ namespace IP_FCIS.Classes
             int new_width = MaxX - MinX;
             int new_height = MaxY - MinY;
 
-            transform_matrix.Translate(-MinX, -MinY);
+            transform_matrix.Translate(-MinX, -MinY, MatrixOrder.Append);
 
             if(transform_matrix.IsInvertible)
             {
@@ -159,17 +159,25 @@ namespace IP_FCIS.Classes
 
             Color[,] new_buffer2d = new Color[new_width, new_height];
 
-            Point[] pt = new Point[1];
+            PointF[] pt = new PointF[1];
             for (int y = 0; y < new_height; y++)
             {
                 for (int x = 0; x < new_width; x++)
                 {
                     pt[0].X = x; pt[0].Y = y;
                     transform_matrix.TransformPoints(pt);
-                    if (pt[0].X < width && pt[0].Y < height && pt[0].X >= 0 && pt[0].Y >= 0)
-                        new_buffer2d[x, y] = buffer2d[pt[0].X, pt[0].Y];
+                    if (pt[0].X < width - 1 && pt[0].Y < height - 1 && pt[0].X > 0 && pt[0].Y > 0)
+                    {
+                        Color color = Bilinear_Interpolate(pt[0]);
+                        //new_buffer2d[x, y] = buffer2d[(Int32)pt[0].X, (Int32)pt[0].Y];
+                        new_buffer2d[x, y] = color;
+                    }
                     else
-                        new_buffer2d[x, y] = Color.FromArgb(0, 0, 0);
+                    {
+                        new_buffer2d[x, y] = Color.FromArgb(255, 255, 255);
+                    }
+                    bitmap.SetPixel(x, y, new_buffer2d[x, y]);
+
                 }
             }
 
@@ -177,15 +185,39 @@ namespace IP_FCIS.Classes
             height = new_height;
             buffer2d = new_buffer2d;
 
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    bitmap.SetPixel(x, y, buffer2d[x, y]);
-                }
-            }
+        }
+        public Color Bilinear_Interpolate(PointF _point)
+        {
+            int X1 = (Int32)Math.Floor(_point.X);
+            int X2 = X1 + 1;
+            int Y1 = (Int32)Math.Floor(_point.Y);
+            int Y2 = Y1 + 1;
 
+            Color P1 = buffer2d[X1, Y1];
+            Color P2 = buffer2d[X2, Y1];
+            Color P3 = buffer2d[X1, Y2];
+            Color P4 = buffer2d[X2, Y2];
 
+            double Xfraction = _point.X - X1;
+            double Yfraction = _point.Y - Y1;
+
+            double R1, G1, B1,
+                   R2, G2, B2,
+                   R3, G3, B3;
+
+            R1 = P1.R * (1 - Xfraction) + P2.R * Xfraction;
+            G1 = P1.G * (1 - Xfraction) + P2.G * Xfraction;
+            B1 = P1.B * (1 - Xfraction) + P2.B * Xfraction;
+
+            R2 = P3.R * (1 - Xfraction) + P4.R * Xfraction;
+            G2 = P3.G * (1 - Xfraction) + P4.G * Xfraction;
+            B2 = P3.B * (1 - Xfraction) + P4.B * Xfraction;
+
+            R3 = R1 * (1 - Yfraction) + R2 * Yfraction;
+            G3 = G1 * (1 - Yfraction) + G2 * Yfraction;
+            B3 = B1 * (1 - Yfraction) + B2 * Yfraction;
+
+            return Color.FromArgb((int)R3, (int)G3, (int)B3);
 
         }
     }
