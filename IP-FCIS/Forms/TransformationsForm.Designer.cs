@@ -1,4 +1,4 @@
-﻿namespace IP_FCIS
+﻿namespace IP_FCIS.Forms
 {
     partial class TransformationsForm
     {

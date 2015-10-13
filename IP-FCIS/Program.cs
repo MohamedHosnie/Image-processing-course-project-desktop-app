@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IP_FCIS.Forms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,12 +13,14 @@ namespace IP_FCIS
         /// The main entry point for the application.
         /// </summary>
         /// 
+        public static MainForm main_form;
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            main_form = new MainForm();
+            Application.Run(main_form);
         }
     }
 }

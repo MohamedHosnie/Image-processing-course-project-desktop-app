@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace IP_FCIS
+namespace IP_FCIS.Forms
 {
     public partial class SaveForm : Form
     {
@@ -17,7 +17,6 @@ namespace IP_FCIS
         {
             InitializeComponent();
         }
-
         private void button1_Click(object sender, EventArgs e)
         {
             try
@@ -51,5 +50,6 @@ namespace IP_FCIS
 
 
         }
+
     }
 }

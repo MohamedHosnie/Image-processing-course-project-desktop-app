@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IP_FCIS.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -8,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace IP_FCIS
+namespace IP_FCIS.Forms
 {
     public partial class TransformationsForm : Form
     {
@@ -62,6 +63,7 @@ namespace IP_FCIS
                 {
                     float PX = (float)Convert.ToDouble(ShearX.Text),
                           PY = (float)Convert.ToDouble(ShearY.Text);
+                    
                     MainForm.opened_image.shear(PX, PY);
                     this.Close();
                 }

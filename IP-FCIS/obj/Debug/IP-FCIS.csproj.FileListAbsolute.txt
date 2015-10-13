@@ -6,6 +6,7 @@ C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\I
 C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\bin\Debug\ImageProcessingTask1.exe
 C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\bin\Debug\ImageProcessingTask1.pdb
 C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Properties.Resources.resources
-C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.SaveForm.resources
-C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.TransformationsForm.resources
-C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.MainForm.resources
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.MainForm.resources
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.SaveForm.resources
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.TransformationsForm.resources
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.PictureForm.resources

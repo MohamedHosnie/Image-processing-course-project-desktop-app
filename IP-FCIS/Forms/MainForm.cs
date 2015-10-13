@@ -10,14 +10,19 @@ using System.Windows.Forms;
 using IP_FCIS.Classes;
 using System.IO;
 using System.Runtime.InteropServices;
+using IP_FCIS.Forms;
 
 //using System.Runtime.InteropServices;
 
-namespace IP_FCIS
+namespace IP_FCIS.Forms
 {
     public partial class MainForm : Form
     {
         public static ImageP opened_image;
+        public interface ICommon
+        {
+            void set_new_image();
+        }
         public MainForm()
         {
             InitializeComponent();
@@ -30,19 +35,23 @@ namespace IP_FCIS
                 open.Filter = "Image files (*.ppm, *.jpg, *.jpeg, *.jpe, *.jfif, *.png, *.bmp) | *.ppm; *.jpg; *.jpeg; *.jpe; *.jfif; *.png; *.bmp";
                 if (open.ShowDialog() == DialogResult.OK)
                 {
+                    PictureForm new_picture = new PictureForm();
                     string ext = Path.GetExtension(open.FileName);
                     if (ext.ToLower() == ".ppm")
                     {
-                        opened_image = new PPMImage(open.FileName);
+                        new_picture.opened_image = new PPMImage(open.FileName);
 
                     } else
                     {
-                        opened_image = new CommonImage(open.FileName);
+                        new_picture.opened_image = new CommonImage(open.FileName);
                     }
 
-                    pictureBox1.Image = opened_image.get_bitmap();
-                    toolStripStatusLabel1.Text = "Width: " + opened_image.get_width();
-                    toolStripStatusLabel2.Text = "Height: " + opened_image.get_height();
+                    new_picture.Width = new_picture.opened_image.get_width() + 50;
+                    new_picture.Height = new_picture.opened_image.get_height() + 50;
+                    new_picture.Text = new_picture.opened_image.get_file_name();
+                    new_picture.MdiParent = this;
+                    new_picture.Show();
+
                 }
 
             }
@@ -53,38 +62,15 @@ namespace IP_FCIS
         }
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(opened_image != null)
+            if (opened_image != null)
             {
                 SaveForm saveform = new SaveForm();
                 saveform.ShowDialog(this);
 
-            } else
+            }
+            else
             {
                 MessageBox.Show("No image to save.");
-            }
-            
-        }
-        private void toolStripZoom_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-
-            } catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            
-        }
-        private void toolStripOriginal_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                pictureBox1.SizeMode = PictureBoxSizeMode.CenterImage;
-
-            } catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
             }
             
         }
@@ -94,7 +80,7 @@ namespace IP_FCIS
         }
         private void Form1_Load(object sender, EventArgs e)
         {
-            //AllocConsole();
+        //AllocConsole();
         }
         //[DllImport("kernel32.dll", SetLastError = true)]
         //[return: MarshalAs(UnmanagedType.Bool)]
@@ -105,23 +91,34 @@ namespace IP_FCIS
         }
         private void geometricTransformationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(opened_image != null)
+            Form active_child = this.ActiveMdiChild;
+            if (active_child != null)
             {
                 TransformationsForm trans_form = new TransformationsForm();
                 trans_form.ShowDialog(this);
 
-                pictureBox1.Image = opened_image.get_bitmap();
-                toolStripStatusLabel1.Text = "Width: " + opened_image.get_width();
-                toolStripStatusLabel2.Text = "Height: " + opened_image.get_height();
+                ((ICommon)this.ActiveMdiChild).set_new_image();
 
-            } else
-            {
-                MessageBox.Show("No Image is opened to Transform.");
             }
             
-            
         }
-       
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Form active_child = this.ActiveMdiChild;
+                active_child.Close();
+
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void set_form_width_height_values(int _width, int _height)
+        {
+            toolStripStatusLabel1.Text = "Width: " + _width;
+            toolStripStatusLabel2.Text = "Height: " + _height;
+        }
 
     }
 }

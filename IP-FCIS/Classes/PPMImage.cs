@@ -12,6 +12,8 @@ namespace IP_FCIS.Classes
     {
         public PPMImage(string _directory)
         {
+            string[] folders = _directory.Split('\\');
+            file_name = folders[folders.Length - 1];
             int flag = 0;
             StreamReader sr = new StreamReader(_directory);
             original_format = sr.ReadLine(); //Console.WriteLine(original_format);
@@ -78,11 +80,6 @@ namespace IP_FCIS.Classes
 
 
         }
-        public Color[,] get_buffer2d()
-        {
-            return buffer2d;
-        }
-
 
     }
 }

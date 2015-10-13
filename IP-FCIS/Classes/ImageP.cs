@@ -16,9 +16,14 @@ namespace IP_FCIS.Classes
         protected Color [,]buffer2d;
         protected string original_format;
         protected byte max_color;
+        protected string file_name;
         public Image get_bitmap()
         {
             return bitmap;
+        }
+        public Color[,] get_buffer2d()
+        {
+            return buffer2d;
         }
         public int get_width()
         {
@@ -35,6 +40,10 @@ namespace IP_FCIS.Classes
         public byte get_max_color()
         {
             return max_color;
+        }
+        public string get_file_name()
+        {
+            return file_name;
         }
         public void save_ppm(string ppm_type, string file_name)
         {

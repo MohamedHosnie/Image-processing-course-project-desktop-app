@@ -11,6 +11,8 @@ namespace IP_FCIS.Classes
     {
         public CommonImage(string _directory)
         {
+            string[] folders = _directory.Split('\\');
+            file_name = folders[folders.Length - 1];
             bitmap = new Bitmap(_directory);
             height = bitmap.Height;
             width = bitmap.Width;
@@ -27,11 +29,6 @@ namespace IP_FCIS.Classes
                 }
             }
         }
-        public Color[,] get_buffer2d()
-        {
-            return buffer2d;
-        }
-
-
+        
     }
 }
