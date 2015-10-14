@@ -104,7 +104,23 @@ namespace IP_FCIS.Forms
                 MessageBox.Show(ex.Message);
             }
         }
+        public void gray_scale()
+        {
+            opened_image.gray_scale();
+            set_new_image();
+        }
+        private void grayScaleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.gray_scale();
 
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
 
     }
 }

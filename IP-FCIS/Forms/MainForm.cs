@@ -23,6 +23,7 @@ namespace IP_FCIS.Forms
         {
             void save();
             void transformation();
+            void gray_scale();
         }
         public MainForm()
         {
@@ -139,6 +140,18 @@ namespace IP_FCIS.Forms
             statusLabel_Width.Text = "Width: " + _width;
             statusLabel_Height.Text = "Height: " + _height;
         }
+        private void grayScaleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ((ICommon)this.ActiveMdiChild).gray_scale();
+
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
 
 
     }

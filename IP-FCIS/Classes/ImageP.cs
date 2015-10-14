@@ -241,6 +241,20 @@ namespace IP_FCIS.Classes
             return Color.FromArgb((int)R3, (int)G3, (int)B3);
 
         }
+        public void gray_scale()
+        {
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Color color = buffer2d[x, y];
+                    int gray = (color.R + color.G + color.B) / 3;
+                    color = Color.FromArgb(gray, gray, gray);
+                    buffer2d[x, y] = color;
+                    bitmap.SetPixel(x, y, color);
+                }
+            }
+        }
     }
 
 }
