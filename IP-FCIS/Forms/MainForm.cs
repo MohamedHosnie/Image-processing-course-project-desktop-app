@@ -18,10 +18,10 @@ namespace IP_FCIS.Forms
 {
     public partial class MainForm : Form
     {
-        public static ImageP opened_image;
         public interface ICommon
         {
-            void set_new_image();
+            void save();
+            void transformation();
         }
         public MainForm()
         {
@@ -62,43 +62,62 @@ namespace IP_FCIS.Forms
         }
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (opened_image != null)
+            try
             {
-                SaveForm saveform = new SaveForm();
-                saveform.ShowDialog(this);
+                ((ICommon)this.ActiveMdiChild).save();
 
-            }
-            else
+            } catch(Exception ex)
             {
-                MessageBox.Show("No image to save.");
+                MessageBox.Show(ex.Message);
             }
-            
         }
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            try
+            {
+                Application.Exit();
+
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         private void Form1_Load(object sender, EventArgs e)
         {
         //AllocConsole();
+                try
+                {
+                    this.toolStripInterpolation.Text = "Bilinear";
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            
         }
         //[DllImport("kernel32.dll", SetLastError = true)]
         //[return: MarshalAs(UnmanagedType.Bool)]
         //static extern bool AllocConsole();
         private void githubRepoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/AlexanderHosnie/IP-FCIS");
+            try
+            {
+                System.Diagnostics.Process.Start("https://github.com/AlexanderHosnie/IP-FCIS");
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         private void geometricTransformationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form active_child = this.ActiveMdiChild;
-            if (active_child != null)
+            try
             {
-                TransformationsForm trans_form = new TransformationsForm();
-                trans_form.ShowDialog(this);
+                ((ICommon)this.ActiveMdiChild).transformation();
 
-                ((ICommon)this.ActiveMdiChild).set_new_image();
-
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
             
         }
@@ -119,6 +138,7 @@ namespace IP_FCIS.Forms
             toolStripStatusLabel1.Text = "Width: " + _width;
             toolStripStatusLabel2.Text = "Height: " + _height;
         }
+
 
     }
 }

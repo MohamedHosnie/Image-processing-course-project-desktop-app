@@ -178,8 +178,20 @@ namespace IP_FCIS.Classes
                     if (pt[0].X < width - 1 && pt[0].Y < height - 1 && pt[0].X > 0 && pt[0].Y > 0)
                     {
                         Color color = Bilinear_Interpolate(pt[0]);
-                        //new_buffer2d[x, y] = buffer2d[(Int32)pt[0].X, (Int32)pt[0].Y];
-                        new_buffer2d[x, y] = color;
+                        switch (Program.main_form.toolStripInterpolation.Text)
+                        {
+                            case "None":
+                                new_buffer2d[x, y] = buffer2d[(Int32)pt[0].X, (Int32)pt[0].Y];
+                                break;
+                            case "Bilinear":
+                                new_buffer2d[x, y] = color;
+                                break;
+                            default:
+                                new_buffer2d[x, y] = buffer2d[(Int32)pt[0].X, (Int32)pt[0].Y];
+                                break;
+                        }
+                        
+                        
                     }
                     else
                     {

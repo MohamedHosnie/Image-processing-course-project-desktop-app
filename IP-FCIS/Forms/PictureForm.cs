@@ -35,7 +35,6 @@ namespace IP_FCIS.Forms
         {
             try
             {
-                MainForm.opened_image = this.opened_image;
                 Program.main_form.set_form_width_height_values(opened_image.get_width(), opened_image.get_height());
 
             } catch(Exception ex)
@@ -43,12 +42,10 @@ namespace IP_FCIS.Forms
                 MessageBox.Show(ex.Message);
             }
         }
-
-        public void set_new_image()
+        private void set_new_image()
         {
             try
             {
-                this.opened_image = MainForm.opened_image;
                 this.pictureBox1.Image = this.opened_image.get_bitmap();
                 Program.main_form.set_form_width_height_values(opened_image.get_width(), opened_image.get_height());
                 this.Width = opened_image.get_width() + 50;
@@ -59,7 +56,54 @@ namespace IP_FCIS.Forms
                 MessageBox.Show(ex.Message);
             }
         }
+        private void transformationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.transformation();
 
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void transformation()
+        {
+            TransformationsForm trans_form = new TransformationsForm();
+            trans_form.working_on = this.opened_image;
+            trans_form.ShowDialog(this);
+            this.opened_image = trans_form.working_on;
+            set_new_image();
+        }
+        public void save()
+        {
+            SaveForm saveform = new SaveForm();
+            saveform.saving_image = this.opened_image;
+            saveform.ShowDialog(this);
+
+        }
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.Close();
+
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.save();
+
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
 
     }
 }

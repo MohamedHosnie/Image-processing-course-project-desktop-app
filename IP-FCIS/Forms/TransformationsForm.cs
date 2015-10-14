@@ -1,4 +1,5 @@
-﻿using IP_FCIS.Forms;
+﻿using IP_FCIS.Classes;
+using IP_FCIS.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,6 +14,7 @@ namespace IP_FCIS.Forms
 {
     public partial class TransformationsForm : Form
     {
+        public ImageP working_on;
         public TransformationsForm()
         {
             InitializeComponent();
@@ -25,7 +27,7 @@ namespace IP_FCIS.Forms
                 {
                     float PX = (float)Convert.ToDouble(ScaleX.Text),
                           PY = (float)Convert.ToDouble(ScaleY.Text);
-                    MainForm.opened_image.scale(PX, PY);
+                    this.working_on.scale(PX, PY);
                     this.Close();
                 }
 
@@ -44,7 +46,7 @@ namespace IP_FCIS.Forms
                 if (RotateAngle.Text != "")
                 {
                     float PAngle = (float)Convert.ToDouble(RotateAngle.Text);
-                    MainForm.opened_image.rotate(PAngle);
+                    this.working_on.rotate(PAngle);
                     this.Close();
                 }
 
@@ -63,8 +65,8 @@ namespace IP_FCIS.Forms
                 {
                     float PX = (float)Convert.ToDouble(ShearX.Text),
                           PY = (float)Convert.ToDouble(ShearY.Text);
-                    
-                    MainForm.opened_image.shear(PX, PY);
+
+                    this.working_on.shear(PX, PY);
                     this.Close();
                 }
 
@@ -85,7 +87,7 @@ namespace IP_FCIS.Forms
                           SX = (float)Convert.ToDouble(ShearX.Text),
                           SY = (float)Convert.ToDouble(ShearY.Text),
                           PAngle = (float)Convert.ToDouble(RotateAngle.Text);
-                    MainForm.opened_image.full_transform(PX, PY, SX, SY, PAngle);
+                    this.working_on.full_transform(PX, PY, SX, SY, PAngle);
                     this.Close();
                 }
 

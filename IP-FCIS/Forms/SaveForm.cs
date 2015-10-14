@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IP_FCIS.Classes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +14,7 @@ namespace IP_FCIS.Forms
 {
     public partial class SaveForm : Form
     {
+        public ImageP saving_image;
         public SaveForm()
         {
             InitializeComponent();
@@ -31,7 +33,7 @@ namespace IP_FCIS.Forms
 
                     if (savefile.ShowDialog() == DialogResult.OK)
                     {
-                        MainForm.opened_image.save_ppm(ppm_type, savefile.FileName);
+                        this.saving_image.save_ppm(ppm_type, savefile.FileName);
                     }
 
                     this.Close();
