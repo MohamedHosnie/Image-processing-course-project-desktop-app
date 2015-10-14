@@ -18,6 +18,7 @@ namespace IP_FCIS.Forms
 {
     public partial class MainForm : Form
     {
+
         public interface ICommon
         {
             void save();
@@ -27,7 +28,7 @@ namespace IP_FCIS.Forms
         {
             InitializeComponent();
         }
-        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenFile(object sender, EventArgs e)
         {
             try
             {
@@ -60,7 +61,7 @@ namespace IP_FCIS.Forms
                 MessageBox.Show(ex.Message);
             }
         }
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveFileAs(object sender, EventArgs e)
         {
             try
             {
@@ -71,7 +72,7 @@ namespace IP_FCIS.Forms
                 MessageBox.Show(ex.Message);
             }
         }
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void ExitApplication(object sender, EventArgs e)
         {
             try
             {
@@ -82,7 +83,7 @@ namespace IP_FCIS.Forms
                 MessageBox.Show(ex.Message);
             }
         }
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
         //AllocConsole();
                 try
@@ -109,7 +110,7 @@ namespace IP_FCIS.Forms
                 MessageBox.Show(ex.Message);
             }
         }
-        private void geometricTransformationToolStripMenuItem_Click(object sender, EventArgs e)
+        private void Transformation(object sender, EventArgs e)
         {
             try
             {
@@ -121,7 +122,7 @@ namespace IP_FCIS.Forms
             }
             
         }
-        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void FileClose(object sender, EventArgs e)
         {
             try
             {
@@ -135,8 +136,8 @@ namespace IP_FCIS.Forms
         }
         public void set_form_width_height_values(int _width, int _height)
         {
-            toolStripStatusLabel1.Text = "Width: " + _width;
-            toolStripStatusLabel2.Text = "Height: " + _height;
+            statusLabel_Width.Text = "Width: " + _width;
+            statusLabel_Height.Text = "Height: " + _height;
         }
 
 
