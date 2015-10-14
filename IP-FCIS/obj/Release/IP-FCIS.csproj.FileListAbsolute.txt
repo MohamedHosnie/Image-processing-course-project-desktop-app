@@ -1,0 +1,11 @@
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\bin\Release\ImageProcessing.exe.config
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\bin\Release\ImageProcessing.exe
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\bin\Release\ImageProcessing.pdb
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Release\IP_FCIS.Forms.MainForm.resources
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Release\IP_FCIS.Forms.PictureForm.resources
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Release\IP_FCIS.Properties.Resources.resources
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Release\IP_FCIS.Forms.SaveForm.resources
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Release\IP_FCIS.Forms.TransformationsForm.resources
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Release\IP-FCIS.csproj.GenerateResource.Cache
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Release\ImageProcessing.exe
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Release\ImageProcessing.pdb
