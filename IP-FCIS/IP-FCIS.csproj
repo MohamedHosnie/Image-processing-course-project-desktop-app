@@ -63,6 +63,12 @@
     <Compile Include="Classes\CommonImage.cs" />
     <Compile Include="Classes\ImageP.cs" />
     <Compile Include="Classes\PPMImage.cs" />
+    <Compile Include="Forms\BrightnessContrastForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BrightnessContrastForm.Designer.cs">
+      <DependentUpon>BrightnessContrastForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\HistogramForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +101,9 @@
     <Compile Include="Forms\TransformationsForm.Designer.cs">
       <DependentUpon>TransformationsForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\BrightnessContrastForm.resx">
+      <DependentUpon>BrightnessContrastForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\HistogramForm.resx">
       <DependentUpon>HistogramForm.cs</DependentUpon>
     </EmbeddedResource>

@@ -11,3 +11,4 @@ C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\bin\Debug\I
 C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\ImageProcessing.exe
 C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\ImageProcessing.pdb
 C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.HistogramForm.resources
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.BrightnessContrastForm.resources

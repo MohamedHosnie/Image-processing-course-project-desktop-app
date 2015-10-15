@@ -17,6 +17,23 @@ namespace IP_FCIS.Classes
         protected string original_format;
         protected byte max_color;
         protected string file_name;
+        public void FromImageP(ImageP img)
+        {
+            this.width = img.width;
+            this.height = img.height;
+            this.bitmap = new Bitmap(img.bitmap);
+            this.buffer2d = new Color[width, height];
+            for (int y = 0; y < this.height; y++)
+            {
+                for (int x = 0; x < this.width; x++)
+                {
+                    this.buffer2d[x, y] = img.buffer2d[x, y];
+                }
+            }
+            this.original_format = img.original_format;
+            this.max_color = img.max_color;
+            this.file_name = img.file_name;
+        }
         public Image get_bitmap()
         {
             return bitmap;
@@ -107,6 +124,16 @@ namespace IP_FCIS.Classes
         public void scale(float ScaleX, float ScaleY)
         {
             Matrix transform_matrix = new Matrix();
+            transform_matrix.Scale(ScaleX, ScaleY);
+
+            Transform(transform_matrix);
+        }
+        public void resize(float Width, float Height)
+        {
+            Matrix transform_matrix = new Matrix();
+            float ScaleX = Width / width,
+                  ScaleY = Height / height;
+            
             transform_matrix.Scale(ScaleX, ScaleY);
 
             Transform(transform_matrix);
@@ -278,8 +305,39 @@ namespace IP_FCIS.Classes
 
 
         }
+        public ImageP change_brightness(int add_value)
+        {
+            ImageP img = new ImageP();
+            img.width = this.width;
+            img.height = this.height;
+            img.bitmap = new Bitmap(width, height);
+            img.buffer2d = new Color[width, height];
+            for(int y = 0; y < height; y++)
+            {
+                for(int x = 0; x < width; x++)
+                {
+                    Color colr = this.buffer2d[x, y];
+                    int R, G, B;
+                    if (colr.R + add_value > 255) R = 255;
+                    else if (colr.R + add_value < 0) R = 0;
+                    else R = colr.R + add_value;
+                    if (colr.G + add_value > 255) G = 255;
+                    else if (colr.G + add_value < 0) G = 0;
+                    else G = colr.G + add_value;
+                    if (colr.B + add_value > 255) B = 255;
+                    else if (colr.B + add_value < 0) B = 0;
+                    else B = colr.B + add_value;
+
+                    Color new_colr = Color.FromArgb(R, G, B);
+                    img.bitmap.SetPixel(x, y, new_colr);
+                    img.buffer2d[x, y] = new_colr;
+                }
+            }
+
+            return img;
+        }
+
 
     }
-
 
 }

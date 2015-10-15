@@ -39,6 +39,26 @@ namespace IP_FCIS.Forms
             
 
         }
+        private void ResizeOK_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (RWidth.Text != "" && RHeight.Text != "")
+                {
+                    float PW = (float)Convert.ToDouble(RWidth.Text),
+                          PH = (float)Convert.ToDouble(RHeight.Text);
+                    this.working_on.resize(PW, PH);
+                    this.Close();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+
+        }
         private void RotateOK_Click(object sender, EventArgs e)
         {
             try
@@ -97,6 +117,7 @@ namespace IP_FCIS.Forms
                 MessageBox.Show(ex.Message);
             }
         }
+
 
 
     }

@@ -18,14 +18,14 @@ namespace IP_FCIS.Forms
 {
     public partial class MainForm : Form
     {
-        public interface ICommon
+        public interface ImageBox
         {
             void save();
             void transformation();
             void gray_scale();
             void histogram();
         }
-        public HistogramForm histogram_form; 
+        public HistogramForm histogram_form;
         public MainForm()
         {
             InitializeComponent();
@@ -67,7 +67,7 @@ namespace IP_FCIS.Forms
         {
             try
             {
-                ((ICommon)this.ActiveMdiChild).save();
+                ((ImageBox)this.ActiveMdiChild).save();
 
             } catch(Exception ex)
             {
@@ -116,7 +116,7 @@ namespace IP_FCIS.Forms
         {
             try
             {
-                ((ICommon)this.ActiveMdiChild).transformation();
+                ((ImageBox)this.ActiveMdiChild).transformation();
 
             } catch(Exception ex)
             {
@@ -145,7 +145,7 @@ namespace IP_FCIS.Forms
         {
             try
             {
-                ((ICommon)this.ActiveMdiChild).gray_scale();
+                ((ImageBox)this.ActiveMdiChild).gray_scale();
 
             } catch(Exception ex)
             {
@@ -156,9 +156,9 @@ namespace IP_FCIS.Forms
         {
             try
             {
-                if (this.ActiveMdiChild != null && this.ActiveMdiChild is ICommon)
+                if (this.ActiveMdiChild != null && this.ActiveMdiChild is ImageBox)
                 {
-                    ((ICommon)this.ActiveMdiChild).histogram();
+                    ((ImageBox)this.ActiveMdiChild).histogram();
 
                 } else
                 {
@@ -169,11 +169,13 @@ namespace IP_FCIS.Forms
                         this.histogram_form.Text = "Histogram";
                         this.histogram_form.Show();
 
-                    } else
-                    {
-                        this.histogram_form.Activate();
                     }
 
+                }
+
+                if (this.histogram_form != null)
+                {
+                    this.histogram_form.Activate();
                 }
 
             } catch (Exception ex)

@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace IP_FCIS.Forms
 {
-    public partial class PictureForm : Form, IP_FCIS.Forms.MainForm.ICommon
+    public partial class PictureForm : Form, IP_FCIS.Forms.MainForm.ImageBox
     {
 
         public ImageP opened_image;
@@ -113,18 +113,6 @@ namespace IP_FCIS.Forms
             opened_image.gray_scale();
             set_new_image();
         }
-        private void grayScaleToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                this.gray_scale();
-
-            } catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            
-        }
         public void histogram()
         {
             int[][] histogram_data = new int[4][];
@@ -169,6 +157,28 @@ namespace IP_FCIS.Forms
                 MessageBox.Show(ex.Message);
             }
         }
+        private void brightnessContrastToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.brightness_contrast();
+
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void brightness_contrast()
+        {
+            BrightnessContrastForm brightness_contrast_form = new BrightnessContrastForm();
+            brightness_contrast_form.current_image = this.opened_image;
+            brightness_contrast_form.ShowDialog(this);
+            this.opened_image = brightness_contrast_form.current_image;
+            set_new_image();
+            brightness_contrast_form = null;
+        }
+
+
 
     }
 }
