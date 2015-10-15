@@ -85,6 +85,8 @@
             this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grayScaleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.histogramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -123,6 +125,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem1,
             this.editToolStripMenuItem1,
+            this.viewToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.filterToolStripMenuItem,
             this.windowToolStripMenuItem,
@@ -545,6 +548,21 @@
             this.grayScaleToolStripMenuItem.Text = "&Gray Scale";
             this.grayScaleToolStripMenuItem.Click += new System.EventHandler(this.grayScaleToolStripMenuItem_Click);
             // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.histogramToolStripMenuItem});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Text = "&View";
+            // 
+            // histogramToolStripMenuItem
+            // 
+            this.histogramToolStripMenuItem.Name = "histogramToolStripMenuItem";
+            this.histogramToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.histogramToolStripMenuItem.Text = "&Histogram";
+            this.histogramToolStripMenuItem.Click += new System.EventHandler(this.histogramToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -633,6 +651,8 @@
         private System.Windows.Forms.ToolStripButton helpToolStripButton;
         private System.Windows.Forms.ToolStripMenuItem filterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem grayScaleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem histogramToolStripMenuItem;
 
     }
 }

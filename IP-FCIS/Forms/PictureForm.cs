@@ -36,6 +36,10 @@ namespace IP_FCIS.Forms
             try
             {
                 Program.main_form.set_form_width_height_values(opened_image.get_width(), opened_image.get_height());
+                if(Program.main_form.histogram_form != null)
+                {
+                    this.histogram();
+                }
 
             } catch(Exception ex)
             {
@@ -120,6 +124,45 @@ namespace IP_FCIS.Forms
                 MessageBox.Show(ex.Message);
             }
             
+        }
+        public void histogram()
+        {
+            int[][] histogram_data = new int[4][];
+            histogram_data[0] = new int[256];
+            histogram_data[1] = new int[256];
+            histogram_data[2] = new int[256];
+            histogram_data[3] = new int[256];
+
+            opened_image.histogram(ref histogram_data);
+
+            if(Program.main_form.histogram_form == null)
+            {
+                Program.main_form.histogram_form = new HistogramForm();
+                Program.main_form.histogram_form.MdiParent = this.ParentForm;
+                
+            }
+
+            Program.main_form.histogram_form.Text = "Histogram " + this.Text;
+            Program.main_form.histogram_form.current_histogram_data = histogram_data;
+            Program.main_form.histogram_form.draw_histogram();
+
+            if(!Program.main_form.histogram_form.Visible)
+            {
+                Program.main_form.histogram_form.Show();
+            }
+            
+        }
+        private void histogramToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.histogram();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
     }

@@ -78,6 +78,7 @@
             this.histogramToolStripMenuItem.Name = "histogramToolStripMenuItem";
             this.histogramToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.histogramToolStripMenuItem.Text = "Histogram";
+            this.histogramToolStripMenuItem.Click += new System.EventHandler(this.histogramToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 

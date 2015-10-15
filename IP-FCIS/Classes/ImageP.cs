@@ -255,6 +255,31 @@ namespace IP_FCIS.Classes
                 }
             }
         }
+        public void histogram(ref int[][] histogram_data)
+        {
+            
+            Array.Clear(histogram_data[0], 0, histogram_data[0].Length);
+            Array.Clear(histogram_data[1], 0, histogram_data[1].Length);
+            Array.Clear(histogram_data[2], 0, histogram_data[2].Length);
+            Array.Clear(histogram_data[3], 0, histogram_data[3].Length);
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Color color = buffer2d[x, y];
+                    histogram_data[0][color.R]++;
+                    histogram_data[1][color.G]++;
+                    histogram_data[2][color.B]++;
+
+                    int gray = (color.R + color.G + color.B) / 3;
+                    histogram_data[3][gray]++;
+                }
+            }
+
+
+        }
+
     }
+
 
 }

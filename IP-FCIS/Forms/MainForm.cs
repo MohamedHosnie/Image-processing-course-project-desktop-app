@@ -18,17 +18,18 @@ namespace IP_FCIS.Forms
 {
     public partial class MainForm : Form
     {
-
         public interface ICommon
         {
             void save();
             void transformation();
             void gray_scale();
+            void histogram();
         }
+        public HistogramForm histogram_form; 
         public MainForm()
         {
             InitializeComponent();
-        }
+        } 
         private void OpenFile(object sender, EventArgs e)
         {
             try
@@ -87,15 +88,15 @@ namespace IP_FCIS.Forms
         private void MainForm_Load(object sender, EventArgs e)
         {
         //AllocConsole();
-                try
-                {
-                    this.toolStripInterpolation.Text = "Bilinear";
+            try
+            {
+                this.toolStripInterpolation.Text = "Bilinear";
 
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
             
         }
         //[DllImport("kernel32.dll", SetLastError = true)]
@@ -150,6 +151,33 @@ namespace IP_FCIS.Forms
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        private void histogramToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (this.ActiveMdiChild != null)
+                {
+                    ((ICommon)this.ActiveMdiChild).histogram();
+
+                } else
+                {
+                    if (this.histogram_form == null)
+                    {
+                        this.histogram_form = new HistogramForm();
+                        this.histogram_form.MdiParent = this;
+                        this.histogram_form.Text = "Histogram";
+                        this.histogram_form.Show();
+                    }
+
+                }   
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
 
 
