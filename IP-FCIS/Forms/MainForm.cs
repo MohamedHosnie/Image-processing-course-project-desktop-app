@@ -156,7 +156,7 @@ namespace IP_FCIS.Forms
         {
             try
             {
-                if (this.ActiveMdiChild != null)
+                if (this.ActiveMdiChild != null && this.ActiveMdiChild is ICommon)
                 {
                     ((ICommon)this.ActiveMdiChild).histogram();
 
@@ -168,12 +168,15 @@ namespace IP_FCIS.Forms
                         this.histogram_form.MdiParent = this;
                         this.histogram_form.Text = "Histogram";
                         this.histogram_form.Show();
+
+                    } else
+                    {
+                        this.histogram_form.Activate();
                     }
 
-                }   
+                }
 
-            }
-            catch (Exception ex)
+            } catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }

@@ -149,13 +149,18 @@ namespace IP_FCIS.Forms
             if(!Program.main_form.histogram_form.Visible)
             {
                 Program.main_form.histogram_form.Show();
-            }
+
+            } 
             
         }
         private void histogramToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
+                if(Program.main_form.histogram_form != null)
+                {
+                    Program.main_form.histogram_form.Activate();
+                }
                 this.histogram();
 
             }
