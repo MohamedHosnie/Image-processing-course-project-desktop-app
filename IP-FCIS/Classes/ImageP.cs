@@ -375,11 +375,6 @@ namespace IP_FCIS.Classes
                 newmin = oldmin - (float)_value,
                 newmax = oldmax + (float)_value;
 
-            if (newmin < 0) newmin = 0;
-            else if (newmin > 255) newmin = 255;
-            if (newmax > 255) newmax = 255;
-            else if (newmax < 0) newmax = 0;
-
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
