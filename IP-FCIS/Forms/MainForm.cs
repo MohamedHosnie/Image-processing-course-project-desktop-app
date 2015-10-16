@@ -24,6 +24,7 @@ namespace IP_FCIS.Forms
             void transformation();
             void gray_scale();
             void histogram();
+            void brightness_contrast();
         }
         public HistogramForm histogram_form;
         public MainForm()
@@ -87,7 +88,7 @@ namespace IP_FCIS.Forms
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
-        //AllocConsole();
+            //AllocConsole();
             try
             {
                 this.toolStripInterpolation.Text = "Bilinear";
@@ -183,6 +184,17 @@ namespace IP_FCIS.Forms
                 MessageBox.Show(ex.Message);
             }
             
+        }
+        private void brightnessContrastToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ((ImageBox)this.ActiveMdiChild).brightness_contrast();
+
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
 

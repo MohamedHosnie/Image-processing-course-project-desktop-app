@@ -23,6 +23,7 @@ namespace IP_FCIS.Forms
         {
             this.numericBrightness.Value = this.trackBrightness.Value;
             edited_current = small_current.change_brightness(Convert.ToInt32(this.numericBrightness.Value));
+            edited_current = edited_current.change_contrast(Convert.ToInt32(this.numericContrast.Value));
             this.Adjusted.Image = edited_current.get_bitmap();
 
         }
@@ -34,6 +35,9 @@ namespace IP_FCIS.Forms
         private void trackContrast_ValueChanged(object sender, EventArgs e)
         {
             this.numericContrast.Value = this.trackContrast.Value;
+            edited_current = small_current.change_brightness(Convert.ToInt32(this.numericBrightness.Value));
+            edited_current = edited_current.change_contrast(Convert.ToInt32(this.numericContrast.Value));
+            this.Adjusted.Image = edited_current.get_bitmap();
         }
         private void numericContrast_ValueChanged(object sender, EventArgs e)
         {
@@ -44,8 +48,7 @@ namespace IP_FCIS.Forms
             try
             {
                 int width, height;
-                small_current = new ImageP();
-                small_current.FromImageP(current_image);
+                small_current = new ImageP(current_image);
                 if (small_current.get_width() > 200 || small_current.get_height() > 200)
                 {
                     if(small_current.get_width() > small_current.get_height())
@@ -76,6 +79,7 @@ namespace IP_FCIS.Forms
             try
             {
                 current_image = current_image.change_brightness(Convert.ToInt32(this.numericBrightness.Value));
+                current_image = current_image.change_contrast(Convert.ToInt32(this.numericContrast.Value));
                 this.Close();
 
             }

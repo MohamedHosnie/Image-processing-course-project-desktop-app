@@ -16,20 +16,20 @@ namespace IP_FCIS.Classes
             file_name = folders[folders.Length - 1];
             int flag = 0;
             StreamReader sr = new StreamReader(_directory);
-            original_format = sr.ReadLine(); //Console.WriteLine(original_format);
+            original_format = sr.ReadLine();
             flag = original_format.Length+1;
             while (sr.Peek() == '#')
             {
-                string ln = sr.ReadLine(); //Console.WriteLine(ln);
+                string ln = sr.ReadLine();
                 flag += ln.Length+1;
             }
-            string size_str = sr.ReadLine(); //Console.WriteLine(size_str);
+            string size_str = sr.ReadLine();
             flag += size_str.Length+1;
             string[] size = size_str.Split(' ');
             width = Int32.Parse(size[0]);
             height = Int32.Parse(size[1]);
             bitmap = new Bitmap(width, height);
-            string smax_color = sr.ReadLine(); //Console.WriteLine(smax_color); //max color 
+            string smax_color = sr.ReadLine();
             max_color = Convert.ToByte(smax_color);
             flag += smax_color.Length+1;
             
@@ -68,7 +68,6 @@ namespace IP_FCIS.Classes
                         byte R = fl[z],
                              G = fl[z + 1], 
                              B = fl[z + 2];
-                        //Console.WriteLine(R + " " + G + " " + B);
                         Color color = Color.FromArgb(R, G, B);
                         buffer2d[x, y] = color;
                         bitmap.SetPixel(x, y, color);

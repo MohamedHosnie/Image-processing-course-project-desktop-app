@@ -126,13 +126,13 @@
             // trackContrast
             // 
             this.trackContrast.Cursor = System.Windows.Forms.Cursors.Default;
-            this.trackContrast.LargeChange = 10;
+            this.trackContrast.LargeChange = 15;
             this.trackContrast.Location = new System.Drawing.Point(115, 369);
             this.trackContrast.Maximum = 50;
             this.trackContrast.Minimum = -50;
             this.trackContrast.Name = "trackContrast";
             this.trackContrast.Size = new System.Drawing.Size(278, 45);
-            this.trackContrast.SmallChange = 2;
+            this.trackContrast.SmallChange = 5;
             this.trackContrast.TabIndex = 7;
             this.trackContrast.TickFrequency = 5;
             this.trackContrast.TickStyle = System.Windows.Forms.TickStyle.None;

@@ -17,7 +17,9 @@ namespace IP_FCIS.Classes
         protected string original_format;
         protected byte max_color;
         protected string file_name;
-        public void FromImageP(ImageP img)
+        protected int min_intensity, max_intensity;
+        public ImageP() { }
+        public ImageP(ImageP img)
         {
             this.width = img.width;
             this.height = img.height;
@@ -305,13 +307,40 @@ namespace IP_FCIS.Classes
 
 
         }
+        public void calculate_intensity_min_max()
+        {
+            int[][] his = new int[4][];
+            his[0] = new int[256];
+            his[1] = new int[256];
+            his[2] = new int[256];
+            his[3] = new int[256];
+            histogram(ref his);
+
+            bool min_found = false;
+            for(int i = 0; i < 256; i++)
+            {
+                if(his[3][i] > 0)
+                {
+                    if (!min_found)
+                    {
+                        min_found = true;
+                        min_intensity = i;
+
+                    } else
+                    {
+                        max_intensity = i;
+                    }
+                    
+
+                }
+
+            }
+
+        }
         public ImageP change_brightness(int add_value)
         {
-            ImageP img = new ImageP();
-            img.width = this.width;
-            img.height = this.height;
-            img.bitmap = new Bitmap(width, height);
-            img.buffer2d = new Color[width, height];
+            ImageP img = new ImageP(this);
+
             for(int y = 0; y < height; y++)
             {
                 for(int x = 0; x < width; x++)
@@ -329,6 +358,44 @@ namespace IP_FCIS.Classes
                     else B = colr.B + add_value;
 
                     Color new_colr = Color.FromArgb(R, G, B);
+                    img.bitmap.SetPixel(x, y, new_colr);
+                    img.buffer2d[x, y] = new_colr;
+                }
+            }
+
+            return img;
+        }
+        public ImageP change_contrast(int _value)
+        {
+            ImageP img = new ImageP(this);            
+            calculate_intensity_min_max();
+
+            float oldmin = (float)min_intensity,
+                oldmax = (float)max_intensity,
+                newmin = oldmin - (float)_value,
+                newmax = oldmax + (float)_value;
+
+            if (newmin < 0) newmin = 0;
+            else if (newmin > 255) newmin = 255;
+            if (newmax > 255) newmax = 255;
+            else if (newmax < 0) newmax = 0;
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Color colr = this.buffer2d[x, y];
+                    float R = (colr.R - oldmin) / (oldmax - oldmin) * (newmax - newmin) + newmin,
+                        G = (colr.G - oldmin) / (oldmax - oldmin) * (newmax - newmin) + newmin,
+                        B = (colr.B - oldmin) / (oldmax - oldmin) * (newmax - newmin) + newmin;
+
+                    if (R > 255) R = 255;
+                    else if (R < 0) R = 0;
+                    if (G > 255) G = 255;
+                    else if (G < 0) G = 0;
+                    if (B > 255) B = 255;
+                    else if (B < 0) B = 0;
+                    Color new_colr = Color.FromArgb((int)R, (int)G, (int)B);
                     img.bitmap.SetPixel(x, y, new_colr);
                     img.buffer2d[x, y] = new_colr;
                 }

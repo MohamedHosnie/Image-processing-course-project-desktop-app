@@ -168,7 +168,7 @@ namespace IP_FCIS.Forms
                 MessageBox.Show(ex.Message);
             }
         }
-        private void brightness_contrast()
+        public void brightness_contrast()
         {
             BrightnessContrastForm brightness_contrast_form = new BrightnessContrastForm();
             brightness_contrast_form.current_image = this.opened_image;

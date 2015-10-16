@@ -56,12 +56,12 @@ namespace IP_FCIS.Forms
         }
         public void draw_histogram()
         {
-            Color drawing_color = Color.Gray;
+            Color drawing_color = Color.Black;
             int color_index = 0;
             Bitmap hist_bitmap = new Bitmap(256, 100);
             if(this.radioGray.Checked)
             {
-                drawing_color = Color.Gray;
+                drawing_color = Color.Black;
                 color_index = 3;
 
             } else if(this.radioRed.Checked)
