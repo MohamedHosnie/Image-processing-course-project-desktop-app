@@ -128,8 +128,8 @@
             this.trackContrast.Cursor = System.Windows.Forms.Cursors.Default;
             this.trackContrast.LargeChange = 15;
             this.trackContrast.Location = new System.Drawing.Point(115, 369);
-            this.trackContrast.Maximum = 50;
-            this.trackContrast.Minimum = -50;
+            this.trackContrast.Maximum = 100;
+            this.trackContrast.Minimum = -100;
             this.trackContrast.Name = "trackContrast";
             this.trackContrast.Size = new System.Drawing.Size(278, 45);
             this.trackContrast.SmallChange = 5;
@@ -159,13 +159,8 @@
             // numericContrast
             // 
             this.numericContrast.Location = new System.Drawing.Point(399, 369);
-            this.numericContrast.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
             this.numericContrast.Minimum = new decimal(new int[] {
-            50,
+            100,
             0,
             0,
             -2147483648});
