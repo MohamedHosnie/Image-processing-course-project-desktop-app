@@ -12,8 +12,6 @@ using System.IO;
 using System.Runtime.InteropServices;
 using IP_FCIS.Forms;
 
-//using System.Runtime.InteropServices;
-
 namespace IP_FCIS.Forms
 {
     public partial class MainForm : Form
@@ -25,6 +23,8 @@ namespace IP_FCIS.Forms
             void gray_scale();
             void histogram();
             void brightness_contrast();
+            void gamma_correction();
+            void not();
         }
         public HistogramForm histogram_form;
         public MainForm()
@@ -192,6 +192,30 @@ namespace IP_FCIS.Forms
                 ((ImageBox)this.ActiveMdiChild).brightness_contrast();
 
             } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void gammaCorrectionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ((ImageBox)this.ActiveMdiChild).gamma_correction();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void negativeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ((ImageBox)this.ActiveMdiChild).not();
+
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }

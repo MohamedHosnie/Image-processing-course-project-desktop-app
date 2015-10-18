@@ -58,9 +58,9 @@
             this.geometricTransformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inhancementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.brightnessContrastToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gammaCorrectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grayScaleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.histogramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,6 +86,7 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.negativeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -125,7 +126,6 @@
             this.fileToolStripMenuItem1,
             this.editToolStripMenuItem1,
             this.toolsToolStripMenuItem,
-            this.filterToolStripMenuItem,
             this.windowToolStripMenuItem,
             this.helpToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -320,7 +320,9 @@
             // 
             this.inhancementToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.brightnessContrastToolStripMenuItem,
-            this.grayScaleToolStripMenuItem});
+            this.gammaCorrectionToolStripMenuItem,
+            this.grayScaleToolStripMenuItem,
+            this.negativeToolStripMenuItem});
             this.inhancementToolStripMenuItem.Name = "inhancementToolStripMenuItem";
             this.inhancementToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.inhancementToolStripMenuItem.Text = "&Adjustment";
@@ -331,6 +333,13 @@
             this.brightnessContrastToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.brightnessContrastToolStripMenuItem.Text = "&Brightness/Contrast";
             this.brightnessContrastToolStripMenuItem.Click += new System.EventHandler(this.brightnessContrastToolStripMenuItem_Click);
+            // 
+            // gammaCorrectionToolStripMenuItem
+            // 
+            this.gammaCorrectionToolStripMenuItem.Name = "gammaCorrectionToolStripMenuItem";
+            this.gammaCorrectionToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.gammaCorrectionToolStripMenuItem.Text = "Ga&mma Correction";
+            this.gammaCorrectionToolStripMenuItem.Click += new System.EventHandler(this.gammaCorrectionToolStripMenuItem_Click);
             // 
             // grayScaleToolStripMenuItem
             // 
@@ -345,12 +354,6 @@
             this.histogramToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.histogramToolStripMenuItem.Text = "&Histogram";
             this.histogramToolStripMenuItem.Click += new System.EventHandler(this.histogramToolStripMenuItem_Click);
-            // 
-            // filterToolStripMenuItem
-            // 
-            this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
-            this.filterToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
-            this.filterToolStripMenuItem.Text = "&Filter";
             // 
             // windowToolStripMenuItem
             // 
@@ -555,6 +558,13 @@
             this.openToolStripMenuItem1.Text = "&Open";
             this.openToolStripMenuItem1.Click += new System.EventHandler(this.OpenFile);
             // 
+            // negativeToolStripMenuItem
+            // 
+            this.negativeToolStripMenuItem.Name = "negativeToolStripMenuItem";
+            this.negativeToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.negativeToolStripMenuItem.Text = "&Negative";
+            this.negativeToolStripMenuItem.Click += new System.EventHandler(this.negativeToolStripMenuItem_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -639,11 +649,12 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripButton printToolStripButton;
         private System.Windows.Forms.ToolStripButton helpToolStripButton;
-        private System.Windows.Forms.ToolStripMenuItem filterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inhancementToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem brightnessContrastToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem histogramToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem grayScaleToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gammaCorrectionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem negativeToolStripMenuItem;
 
     }
 }

@@ -284,6 +284,19 @@ namespace IP_FCIS.Classes
                 }
             }
         }
+        public void not()
+        {
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Color color = buffer2d[x, y];
+                    Color newclr = Color.FromArgb(255 - color.R, 255 - color.G, 255 - color.B);
+                    buffer2d[x, y] = newclr;
+                    bitmap.SetPixel(x, y, newclr);
+                }
+            }
+        }
         public void histogram(ref int[][] histogram_data)
         {
             
@@ -398,8 +411,73 @@ namespace IP_FCIS.Classes
 
             return img;
         }
+        public ImageP change_gamma(double gamma_value)
+        {
+            ImageP img = new ImageP(this);
+            double[] buffer = new double[width * height * 3];
+            
+            double min = buffer2d[0, 0].R,
+                   max = 0;
+
+            int z = 0;
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++, z += 3)
+                {
+                    Color colr = this.buffer2d[x, y];
+                    double R, G, B;
+
+                    if(gamma_value <= 0)
+                    {
+                        R = colr.R;
+                        G = colr.G;
+                        B = colr.B;
+
+                    } else
+                    {
+                        R = Math.Pow(colr.R, gamma_value);
+                        G = Math.Pow(colr.G, gamma_value);
+                        B = Math.Pow(colr.B, gamma_value);
+                    }
+
+                    buffer[z] = R;
+                    buffer[z + 1] = G;
+                    buffer[z + 2] = B;
+
+                    if (R > max) max = R;
+                    if (R < min) min = R;
+                    if (G > max) max = G;
+                    if (G < min) min = G;
+                    if (B > max) max = B;
+                    if (B < min) min = B;
+
+                }
+            }
+
+            double newmin = 0,
+            newmax = 255;
+
+            z = 0;
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++, z += 3)
+                {
+                    double R = (buffer[z] - min) / (max - min) * (newmax - newmin) + newmin,
+                           G = (buffer[z + 1] - min) / (max - min) * (newmax - newmin) + newmin,
+                           B = (buffer[z + 2] - min) / (max - min) * (newmax - newmin) + newmin;
+
+                    
+
+                    Color new_colr = Color.FromArgb((int)R, (int)G, (int)B);
+                    img.bitmap.SetPixel(x, y, new_colr);
+                    img.buffer2d[x, y] = new_colr;
+                }
+            }
+
+            return img;
+        }
+
 
 
     }
-
 }

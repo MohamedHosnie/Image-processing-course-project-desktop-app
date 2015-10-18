@@ -38,6 +38,7 @@
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.brightnessContrastToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gammaCorrectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -104,12 +105,13 @@
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.transformationToolStripMenuItem,
             this.brightnessContrastToolStripMenuItem,
+            this.gammaCorrectionToolStripMenuItem,
             this.histogramToolStripMenuItem,
             this.toolStripSeparator2,
             this.saveAsToolStripMenuItem,
             this.closeToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(180, 142);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(180, 164);
             // 
             // brightnessContrastToolStripMenuItem
             // 
@@ -117,6 +119,13 @@
             this.brightnessContrastToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.brightnessContrastToolStripMenuItem.Text = "Brightness/Contrast";
             this.brightnessContrastToolStripMenuItem.Click += new System.EventHandler(this.brightnessContrastToolStripMenuItem_Click);
+            // 
+            // gammaCorrectionToolStripMenuItem
+            // 
+            this.gammaCorrectionToolStripMenuItem.Name = "gammaCorrectionToolStripMenuItem";
+            this.gammaCorrectionToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.gammaCorrectionToolStripMenuItem.Text = "Gamma Correction";
+            this.gammaCorrectionToolStripMenuItem.Click += new System.EventHandler(this.gammaCorrectionToolStripMenuItem_Click);
             // 
             // PictureForm
             // 
@@ -155,5 +164,6 @@
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem brightnessContrastToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem gammaCorrectionToolStripMenuItem;
     }
 }
