@@ -58,7 +58,7 @@ namespace IP_FCIS.Forms
         {
             Color drawing_color = Color.Black;
             int color_index = 0;
-            Bitmap hist_bitmap = new Bitmap(256, 100);
+            Bitmap hist_bitmap = new Bitmap(256, 150);
             if(this.radioGray.Checked)
             {
                 drawing_color = Color.Black;
@@ -88,9 +88,9 @@ namespace IP_FCIS.Forms
             for(int x = 0; x < 256; x ++)
             {
                 double curr_value = current_histogram_data[color_index][x];
-                curr_value = (curr_value / max_value) * 100;
-                curr_value = 100 - curr_value;
-                for(int y = 0; y < 100; y++)
+                curr_value = (curr_value / max_value) * 150;
+                curr_value = 150 - curr_value;
+                for(int y = 0; y < 150; y++)
                 {
                     if (y < curr_value) hist_bitmap.SetPixel(x, y, Color.White);
                     else hist_bitmap.SetPixel(x, y, drawing_color);

@@ -42,7 +42,7 @@
             this.picHistogram.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.picHistogram.Location = new System.Drawing.Point(28, 39);
             this.picHistogram.Name = "picHistogram";
-            this.picHistogram.Size = new System.Drawing.Size(256, 100);
+            this.picHistogram.Size = new System.Drawing.Size(256, 150);
             this.picHistogram.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.picHistogram.TabIndex = 0;
             this.picHistogram.TabStop = false;
@@ -62,7 +62,7 @@
             this.radioRed.AutoSize = true;
             this.radioRed.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioRed.ForeColor = System.Drawing.Color.Red;
-            this.radioRed.Location = new System.Drawing.Point(31, 153);
+            this.radioRed.Location = new System.Drawing.Point(30, 195);
             this.radioRed.Name = "radioRed";
             this.radioRed.Size = new System.Drawing.Size(47, 17);
             this.radioRed.TabIndex = 2;
@@ -76,7 +76,7 @@
             this.radioGreen.AutoSize = true;
             this.radioGreen.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioGreen.ForeColor = System.Drawing.Color.Green;
-            this.radioGreen.Location = new System.Drawing.Point(84, 153);
+            this.radioGreen.Location = new System.Drawing.Point(83, 195);
             this.radioGreen.Name = "radioGreen";
             this.radioGreen.Size = new System.Drawing.Size(59, 17);
             this.radioGreen.TabIndex = 3;
@@ -90,7 +90,7 @@
             this.radioBlue.AutoSize = true;
             this.radioBlue.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioBlue.ForeColor = System.Drawing.Color.Blue;
-            this.radioBlue.Location = new System.Drawing.Point(149, 153);
+            this.radioBlue.Location = new System.Drawing.Point(148, 195);
             this.radioBlue.Name = "radioBlue";
             this.radioBlue.Size = new System.Drawing.Size(49, 17);
             this.radioBlue.TabIndex = 4;
@@ -103,7 +103,7 @@
             // 
             this.radioGray.AutoSize = true;
             this.radioGray.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioGray.Location = new System.Drawing.Point(205, 153);
+            this.radioGray.Location = new System.Drawing.Point(204, 195);
             this.radioGray.Name = "radioGray";
             this.radioGray.Size = new System.Drawing.Size(52, 17);
             this.radioGray.TabIndex = 5;
@@ -116,7 +116,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(314, 190);
+            this.ClientSize = new System.Drawing.Size(314, 224);
             this.Controls.Add(this.radioGray);
             this.Controls.Add(this.radioBlue);
             this.Controls.Add(this.radioGreen);

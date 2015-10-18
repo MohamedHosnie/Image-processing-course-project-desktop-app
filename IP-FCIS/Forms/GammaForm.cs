@@ -66,7 +66,7 @@ namespace IP_FCIS.Forms
         {
             try
             {
-                current_image = current_image.change_gamma(Convert.ToDouble(this.numericGamma.Value / 100));
+                current_image = current_image.change_gamma(Convert.ToDouble(this.numericGamma.Value));
                 this.Close();
 
             }
