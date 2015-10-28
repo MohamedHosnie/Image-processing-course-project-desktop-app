@@ -109,9 +109,9 @@ namespace IP_FCIS.Forms
 
                 result = image.bitplane_slicing(Color.FromArgb(R, G, B));
                 Result.Image = result.get_bitmap();
-                Red.Text = "Red: " + Convert.ToString(R);
-                Green.Text = "Green: " + Convert.ToString(G);
-                Blue.Text = "Blue: " + Convert.ToString(B);
+                Red.Text = "Red: " + Convert.ToString(R, 2);
+                Green.Text = "Green: " + Convert.ToString(G, 2);
+                Blue.Text = "Blue: " + Convert.ToString(B, 2);
 
             } catch(Exception ex)
             {

@@ -493,9 +493,9 @@
             this.Blue.ForeColor = System.Drawing.Color.Blue;
             this.Blue.Location = new System.Drawing.Point(681, 441);
             this.Blue.Name = "Blue";
-            this.Blue.Size = new System.Drawing.Size(58, 13);
+            this.Blue.Size = new System.Drawing.Size(93, 13);
             this.Blue.TabIndex = 78;
-            this.Blue.Text = "Blue: 255";
+            this.Blue.Text = "Blue: 11111111";
             // 
             // Green
             // 
@@ -504,9 +504,9 @@
             this.Green.ForeColor = System.Drawing.Color.Green;
             this.Green.Location = new System.Drawing.Point(681, 418);
             this.Green.Name = "Green";
-            this.Green.Size = new System.Drawing.Size(68, 13);
+            this.Green.Size = new System.Drawing.Size(103, 13);
             this.Green.TabIndex = 77;
-            this.Green.Text = "Green: 255";
+            this.Green.Text = "Green: 11111111";
             // 
             // Red
             // 
@@ -515,9 +515,9 @@
             this.Red.ForeColor = System.Drawing.Color.Red;
             this.Red.Location = new System.Drawing.Point(681, 394);
             this.Red.Name = "Red";
-            this.Red.Size = new System.Drawing.Size(56, 13);
+            this.Red.Size = new System.Drawing.Size(91, 13);
             this.Red.TabIndex = 76;
-            this.Red.Text = "Red: 255";
+            this.Red.Text = "Red: 11111111";
             // 
             // buttonOK
             // 
