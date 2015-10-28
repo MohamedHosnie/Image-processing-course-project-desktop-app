@@ -241,5 +241,6 @@
         private System.Windows.Forms.NumericUpDown numericContrast;
         private System.Windows.Forms.Button buttonOK;
         private System.Windows.Forms.Button buttonCancel;
+
     }
 }

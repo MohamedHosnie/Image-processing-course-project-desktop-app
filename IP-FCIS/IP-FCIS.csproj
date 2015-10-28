@@ -63,6 +63,18 @@
     <Compile Include="Classes\CommonImage.cs" />
     <Compile Include="Classes\ImageP.cs" />
     <Compile Include="Classes\PPMImage.cs" />
+    <Compile Include="Forms\AlgebraForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AlgebraForm.Designer.cs">
+      <DependentUpon>AlgebraForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BitPlaneForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BitPlaneForm.Designer.cs">
+      <DependentUpon>BitPlaneForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\BrightnessContrastForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +93,12 @@
     <Compile Include="Forms\HistogramForm.Designer.cs">
       <DependentUpon>HistogramForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\HistoryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\HistoryForm.Designer.cs">
+      <DependentUpon>HistoryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,6 +110,18 @@
     </Compile>
     <Compile Include="Forms\PictureForm.Designer.cs">
       <DependentUpon>PictureForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\QuantizationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\QuantizationForm.Designer.cs">
+      <DependentUpon>QuantizationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SmoothForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SmoothForm.Designer.cs">
+      <DependentUpon>SmoothForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -107,6 +137,12 @@
     <Compile Include="Forms\TransformationsForm.Designer.cs">
       <DependentUpon>TransformationsForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Forms\AlgebraForm.resx">
+      <DependentUpon>AlgebraForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BitPlaneForm.resx">
+      <DependentUpon>BitPlaneForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\BrightnessContrastForm.resx">
       <DependentUpon>BrightnessContrastForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -116,11 +152,20 @@
     <EmbeddedResource Include="Forms\HistogramForm.resx">
       <DependentUpon>HistogramForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\HistoryForm.resx">
+      <DependentUpon>HistoryForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PictureForm.resx">
       <DependentUpon>PictureForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\QuantizationForm.resx">
+      <DependentUpon>QuantizationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SmoothForm.resx">
+      <DependentUpon>SmoothForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

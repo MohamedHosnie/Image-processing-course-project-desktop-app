@@ -13,3 +13,28 @@ C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\I
 C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.HistogramForm.resources
 C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.BrightnessContrastForm.resources
 C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.GammaForm.resources
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.AlgebraForm.resources
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.BitPlaneForm.resources
+E:\4th Year\Image\IP-FCIS\IP-FCIS\obj\Debug\ImageProcessing.exe
+E:\4th Year\Image\IP-FCIS\IP-FCIS\obj\Debug\IP-FCIS.csprojResolveAssemblyReference.cache
+E:\4th Year\Image\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.AlgebraForm.resources
+E:\4th Year\Image\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.BitPlaneForm.resources
+E:\4th Year\Image\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.BrightnessContrastForm.resources
+E:\4th Year\Image\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.GammaForm.resources
+E:\4th Year\Image\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.HistogramForm.resources
+E:\4th Year\Image\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.MainForm.resources
+E:\4th Year\Image\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.PictureForm.resources
+E:\4th Year\Image\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.QuantizationForm.resources
+E:\4th Year\Image\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Properties.Resources.resources
+E:\4th Year\Image\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.SaveForm.resources
+E:\4th Year\Image\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.TransformationsForm.resources
+E:\4th Year\Image\IP-FCIS\IP-FCIS\obj\Debug\IP-FCIS.csproj.GenerateResource.Cache
+E:\4th Year\Image\IP-FCIS\IP-FCIS\obj\Debug\ImageProcessing.pdb
+E:\4th Year\Image\IP-FCIS\IP-FCIS\bin\Debug\ImageProcessing.exe.config
+E:\4th Year\Image\IP-FCIS\IP-FCIS\bin\Debug\ImageProcessing.exe
+E:\4th Year\Image\IP-FCIS\IP-FCIS\bin\Debug\ImageProcessing.pdb
+E:\4th Year\Image\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.SmoothForm.resources
+E:\4th Year\Image\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.HistoryForm.resources
+C:\Users\moham\Documents\Visual Studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.HistoryForm.resources
+C:\Users\moham\Documents\Visual Studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.QuantizationForm.resources
+C:\Users\moham\Documents\Visual Studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.SmoothForm.resources

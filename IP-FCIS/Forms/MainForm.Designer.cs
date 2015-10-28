@@ -55,12 +55,17 @@
             this.toolStripSeparator9 = new System.Windows.Forms.ToolStripSeparator();
             this.selectAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.geometricTransformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inhancementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.brightnessContrastToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gammaCorrectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.grayScaleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.negativeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.histogramToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.geometricTransformationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.imageAlgebraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.bitPlaneToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quantizationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.smoothToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.contentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -86,7 +91,6 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.openToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.negativeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -302,19 +306,16 @@
             // toolsToolStripMenuItem
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.geometricTransformationToolStripMenuItem,
             this.inhancementToolStripMenuItem,
-            this.histogramToolStripMenuItem});
+            this.histogramToolStripMenuItem,
+            this.geometricTransformationToolStripMenuItem,
+            this.imageAlgebraToolStripMenuItem,
+            this.bitPlaneToolStripMenuItem,
+            this.quantizationToolStripMenuItem,
+            this.smoothToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(52, 20);
             this.toolsToolStripMenuItem.Text = "&Image";
-            // 
-            // geometricTransformationToolStripMenuItem
-            // 
-            this.geometricTransformationToolStripMenuItem.Name = "geometricTransformationToolStripMenuItem";
-            this.geometricTransformationToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.geometricTransformationToolStripMenuItem.Text = "&Transformation";
-            this.geometricTransformationToolStripMenuItem.Click += new System.EventHandler(this.Transformation);
             // 
             // inhancementToolStripMenuItem
             // 
@@ -348,12 +349,54 @@
             this.grayScaleToolStripMenuItem.Text = "&Gray Scale";
             this.grayScaleToolStripMenuItem.Click += new System.EventHandler(this.grayScaleToolStripMenuItem_Click);
             // 
+            // negativeToolStripMenuItem
+            // 
+            this.negativeToolStripMenuItem.Name = "negativeToolStripMenuItem";
+            this.negativeToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.negativeToolStripMenuItem.Text = "&Negative";
+            this.negativeToolStripMenuItem.Click += new System.EventHandler(this.negativeToolStripMenuItem_Click);
+            // 
             // histogramToolStripMenuItem
             // 
             this.histogramToolStripMenuItem.Name = "histogramToolStripMenuItem";
             this.histogramToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.histogramToolStripMenuItem.Text = "&Histogram";
             this.histogramToolStripMenuItem.Click += new System.EventHandler(this.histogramToolStripMenuItem_Click);
+            // 
+            // geometricTransformationToolStripMenuItem
+            // 
+            this.geometricTransformationToolStripMenuItem.Name = "geometricTransformationToolStripMenuItem";
+            this.geometricTransformationToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.geometricTransformationToolStripMenuItem.Text = "&Transformation";
+            this.geometricTransformationToolStripMenuItem.Click += new System.EventHandler(this.Transformation);
+            // 
+            // imageAlgebraToolStripMenuItem
+            // 
+            this.imageAlgebraToolStripMenuItem.Name = "imageAlgebraToolStripMenuItem";
+            this.imageAlgebraToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.imageAlgebraToolStripMenuItem.Text = "Image Algebra";
+            this.imageAlgebraToolStripMenuItem.Click += new System.EventHandler(this.imageAlgebraToolStripMenuItem_Click);
+            // 
+            // bitPlaneToolStripMenuItem
+            // 
+            this.bitPlaneToolStripMenuItem.Name = "bitPlaneToolStripMenuItem";
+            this.bitPlaneToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.bitPlaneToolStripMenuItem.Text = "BitPlane";
+            this.bitPlaneToolStripMenuItem.Click += new System.EventHandler(this.bitPlaneToolStripMenuItem_Click);
+            // 
+            // quantizationToolStripMenuItem
+            // 
+            this.quantizationToolStripMenuItem.Name = "quantizationToolStripMenuItem";
+            this.quantizationToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.quantizationToolStripMenuItem.Text = "Quantization";
+            this.quantizationToolStripMenuItem.Click += new System.EventHandler(this.quantizationToolStripMenuItem_Click);
+            // 
+            // smoothToolStripMenuItem
+            // 
+            this.smoothToolStripMenuItem.Name = "smoothToolStripMenuItem";
+            this.smoothToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.smoothToolStripMenuItem.Text = "Smoothing";
+            this.smoothToolStripMenuItem.Click += new System.EventHandler(this.smoothToolStripMenuItem_Click);
             // 
             // windowToolStripMenuItem
             // 
@@ -558,13 +601,6 @@
             this.openToolStripMenuItem1.Text = "&Open";
             this.openToolStripMenuItem1.Click += new System.EventHandler(this.OpenFile);
             // 
-            // negativeToolStripMenuItem
-            // 
-            this.negativeToolStripMenuItem.Name = "negativeToolStripMenuItem";
-            this.negativeToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.negativeToolStripMenuItem.Text = "&Negative";
-            this.negativeToolStripMenuItem.Click += new System.EventHandler(this.negativeToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -655,6 +691,10 @@
         private System.Windows.Forms.ToolStripMenuItem grayScaleToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gammaCorrectionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem negativeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem imageAlgebraToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem bitPlaneToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem quantizationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem smoothToolStripMenuItem;
 
     }
 }

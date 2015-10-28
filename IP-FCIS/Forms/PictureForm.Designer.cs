@@ -66,6 +66,8 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseDown);
+            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             // 
             // transformationToolStripMenuItem
             // 
@@ -111,7 +113,7 @@
             this.saveAsToolStripMenuItem,
             this.closeToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(180, 164);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(180, 142);
             // 
             // brightnessContrastToolStripMenuItem
             // 
@@ -144,6 +146,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "PictureForm";
             this.Activated += new System.EventHandler(this.ChildForm_Activeted);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.PictureForm_FormClosed);
             this.Load += new System.EventHandler(this.PictureForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

@@ -15,6 +15,7 @@ namespace IP_FCIS.Forms
     {
 
         public ImageP opened_image;
+        Point start, finish;
         public PictureForm()
         {
             InitializeComponent();
@@ -200,6 +201,50 @@ namespace IP_FCIS.Forms
             gamma_correction_form.ShowDialog(this);
             this.opened_image = gamma_correction_form.current_image;
             set_new_image();
+        }
+
+        public void bitplane()
+        {
+            BitPlaneForm bitPlaneForm = new BitPlaneForm();
+            bitPlaneForm.image = this.opened_image;
+            bitPlaneForm.ShowDialog(this);
+
+        }
+
+        public void quantization()
+        { 
+        QuantizationForm quantiaztionForm = new QuantizationForm();
+        quantiaztionForm.img = this.opened_image;
+        quantiaztionForm.ShowDialog(this);
+        }
+
+        public void smooth()
+        {
+            SmoothForm smoothForm = new SmoothForm();
+            smoothForm.img = this.opened_image;
+            smoothForm.ShowDialog(this);
+        }
+
+        private void PictureForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Program.main_form.images_array.Remove(opened_image);
+        }
+
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
+        {
+            //start.X = e.Location.X;
+            //start.Y = e.Location.Y;
+        }
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            //finish.X = e.Location.X;
+            //finish.Y = e.Location.Y;
+            //double angel = (Math.Atan2(finish.Y, finish.X) - Math.Atan2(start.Y, start.X)*180 /Math.PI);
+            //MessageBox.Show(""+angel);
+            //angel = Math.Abs(angel);
+            // opened_image.rotate((float)angel);
+            // pictureBox1.Image = opened_image.get_bitmap();
         }
 
 

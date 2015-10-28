@@ -18,7 +18,17 @@ namespace IP_FCIS.Classes
         protected byte max_color;
         protected string file_name;
         protected int min_intensity, max_intensity;
-        public ImageP() { }
+        private int FWidth, FHeight;
+        public enum Postprocessing
+        {
+            No,
+            Normalization,
+            Absolute,
+            Cut_off
+        }
+
+        public ImageP() { 
+        }
         public ImageP(ImageP img)
         {
             this.width = img.width;
@@ -63,6 +73,10 @@ namespace IP_FCIS.Classes
         public string get_file_name()
         {
             return file_name;
+        }
+        public void set_file_name(string name)
+        {
+            this.file_name = name;
         }
         public void save_ppm(string ppm_type, string file_name)
         {
@@ -133,8 +147,8 @@ namespace IP_FCIS.Classes
         public void resize(float Width, float Height)
         {
             Matrix transform_matrix = new Matrix();
-            float ScaleX = Width / width,
-                  ScaleY = Height / height;
+            float ScaleX = Width / (float)width,
+                  ScaleY = Height / (float)height;
             
             transform_matrix.Scale(ScaleX, ScaleY);
 
@@ -165,15 +179,15 @@ namespace IP_FCIS.Classes
         }
         public void Transform(Matrix transform_matrix)
         {
-            Point[] ps = new Point[4];
+            PointF[] ps = new PointF[4];
             ps[0].X = 0; ps[0].Y = 0;
-            ps[1].X = width - 1; ps[1].Y = 0;
-            ps[2].X = 0; ps[2].Y = height - 1;
-            ps[3].X = width - 1; ps[3].Y = height - 1;
+            ps[1].X = width; ps[1].Y = 0;
+            ps[2].X = 0; ps[2].Y = height;
+            ps[3].X = width; ps[3].Y = height;
 
             transform_matrix.TransformPoints(ps);
 
-            int MinX = ps[0].X, MinY = ps[0].Y,
+            float MinX = ps[0].X, MinY = ps[0].Y,
                 MaxX = ps[0].X, MaxY = ps[0].Y;
             for (int i = 0; i < 4; i++)
             {
@@ -183,8 +197,8 @@ namespace IP_FCIS.Classes
                 if (ps[i].Y > MaxY) MaxY = ps[i].Y;
             }
 
-            int new_width = MaxX - MinX;
-            int new_height = MaxY - MinY;
+            int new_width = (int)(MaxX - MinX);
+            int new_height = (int)(MaxY - MinY);
 
             transform_matrix.Translate(-MinX, -MinY, MatrixOrder.Append);
 
@@ -476,7 +490,366 @@ namespace IP_FCIS.Classes
 
             return img;
         }
+        public ImageP Add(ImageP second, float fraction)
+        {
+            ImageP img = new ImageP(this);
 
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Color color1 = img.buffer2d[x, y];
+                    Color color2 = second.buffer2d[x, y];
+
+
+                    float R, G, B;
+                    R = color1.R * fraction + color2.R * (1 - fraction);
+                    G = color1.G * fraction + color2.G * (1 - fraction);
+                    B = color1.B * fraction + color2.B * (1 - fraction);
+
+                    Color new_colr = Color.FromArgb((int)R, (int)G, (int)B);
+                    img.bitmap.SetPixel(x, y, new_colr);
+                    img.buffer2d[x, y] = new_colr;
+
+                }
+            }
+
+            return img;
+        }
+        public ImageP Subtract(ImageP second)
+        {
+            ImageP img = new ImageP(this);
+
+            double[] buffer = new double[width * height * 3];
+            double min = buffer2d[0, 0].R;
+            double max = buffer2d[0, 0].R;
+            int z = 0;
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++, z += 3)
+                {
+                    Color color1 = img.buffer2d[x, y];
+                    Color color2 = second.buffer2d[x, y];
+
+
+                    double R, G, B;
+                    R = color1.R - color2.R;
+                    G = color1.G - color2.G;
+                    B = color1.B - color2.B;
+                    buffer[z] = R;
+                    buffer[z + 1] = G;
+                    buffer[z + 2] = B;
+
+                    if (R > max) max = R;
+                    if (R < min) min = R;
+                    if (G > max) max = G;
+                    if (G < min) min = G;
+                    if (B > max) max = B;
+                    if (B < min) min = B;
+                }
+            }
+
+            double newmin = 0, newmax = 255;
+            z = 0;
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++, z += 3)
+                {
+                    double R = (buffer[z] - min) / (max - min) * (newmax - newmin) + newmin,
+                        G = (buffer[z + 1] - min) / (max - min) * (newmax - newmin) + newmin,
+                       B = (buffer[z + 2] - min) / (max - min) * (newmax - newmin) + newmin;
+
+                    Color new_colr = Color.FromArgb((int)R, (int)G, (int)B);
+                    img.bitmap.SetPixel(x, y, new_colr);
+                    img.buffer2d[x, y] = new_colr;
+                }
+
+            }
+
+            return img;
+        }
+        public ImageP bitplane(char color, int mask)
+        {
+
+            ImageP img = new ImageP(this);
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Color color1 = this.buffer2d[x, y];
+                    float R = 0, G = 0, B = 0;
+
+                    if (color == 'R')
+                    {
+                        R = color1.R & mask;
+                        if (R == mask)
+                            R = 255;
+                        else
+                            R = 0;
+                        G = 0;
+                        B = 0;
+                    }
+                    else if (color == 'G')
+                    {
+                        G = color1.G & mask;
+                        if (G == mask)
+                            G = 255;
+                        else
+                            G = 0;
+                        R = 0;
+                        B = 0;
+                    }
+                    else if (color == 'B')
+                    {
+                        B = color1.B & mask;
+                        if (B == mask)
+                            B = 255;
+                        else
+                            B = 0;
+                        G = 0;
+                        R = 0;
+                    }
+
+
+                    Color new_colr = Color.FromArgb((int)R, (int)G, (int)B);
+                    img.bitmap.SetPixel(x, y, new_colr);
+                    img.buffer2d[x, y] = new_colr;
+
+                }
+
+            }
+
+            return img;
+        }
+        public ImageP bitPlane_remove(char color, int mask)
+        {
+
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Color color1 = this.buffer2d[x, y];
+                    float R = 0, G = 0, B = 0;
+
+                    if (color == 'R')
+                    {
+                        R = color1.R & mask;
+                        G = color1.G;
+                        B = color1.B;
+                    }
+                    else if (color == 'G')
+                    {
+                        R = color1.R;
+                        G = color1.G & mask;
+                        B = color1.B;
+                    }
+                    else if (color == 'B')
+                    {
+                        R = color1.R;
+                        G = color1.G;
+                        B = color1.B & mask;
+                    }
+                    Color new_colr = Color.FromArgb((int)R, (int)G, (int)B);
+                    this.bitmap.SetPixel(x, y, new_colr);
+                    this.buffer2d[x, y] = new_colr;
+                }
+            }
+            return this;
+        }
+        public ImageP bitplane_add(char color, int mask)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Color color1 = this.buffer2d[x, y];
+                    float R = 0, G = 0, B = 0;
+
+                    if (color == 'R')
+                    {
+                        R = color1.R | mask;
+                        G = color1.G;
+                        B = color1.B;
+                    }
+                    else if (color == 'G')
+                    {
+                        R = color1.R;
+                        G = color1.G | mask;
+                        B = color1.B;
+                    }
+                    else if (color == 'B')
+                    {
+                        R = color1.R;
+                        G = color1.G;
+                        B = color1.B | mask;
+                    }
+                    Color new_colr = Color.FromArgb((int)R, (int)G, (int)B);
+                    this.bitmap.SetPixel(x, y, new_colr);
+                    this.buffer2d[x, y] = new_colr;
+                }
+            }
+            return this;
+        }
+        public ImageP quantization(Int32 mask)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    Color color1 = this.buffer2d[x, y];
+                    float R = 0, G = 0, B = 0;
+
+                        R = color1.R & mask;
+                        G = color1.G & mask;
+                        B = color1.B & mask;
+
+                    Color new_colr = Color.FromArgb((int)R, (int)G, (int)B);
+                    this.bitmap.SetPixel(x, y, new_colr);
+                    this.buffer2d[x, y] = new_colr;
+                }
+            }
+            return this;
+        }
+        public ImageP padding(int padWidth, int padHeight)
+        {
+
+            int newwidth = width + padWidth * 2;
+            int newheight = height + padHeight * 2;
+            Color[,] newbuffer = new Color[newwidth, newheight];
+            Bitmap tempbitmap = new Bitmap(newwidth, newheight);
+
+            for (int y = 0; y < newheight; y++)
+            {
+                for (int x = 0; x < newwidth; x++)
+                {
+                    Color tempcolor;
+                    if (y - padHeight < 0 || y - padHeight >= height || x - padWidth < 0 || x - padWidth >= width)
+                        tempcolor = Color.FromArgb(0, 0, 0);
+                    else
+                        tempcolor = this.buffer2d[x - padWidth, y - padHeight];
+
+                    newbuffer[x, y] =tempcolor ;
+                    tempbitmap.SetPixel(x, y, tempcolor);
+                }
+            
+            }
+
+            this.width = newwidth;
+            this.height = newheight;
+            this.buffer2d = newbuffer;
+            this.bitmap = tempbitmap;
+
+            return this;
+
+        }
+        public ImageP LinearFilter(float[,] filter,int Origx, int Origy, Postprocessing post)
+        {
+            ImageP img = new ImageP(this);
+            int padWidth, padHeight;
+            padWidth = Math.Max(FWidth - Origx, Origx);
+            padHeight = Math.Max(FHeight - Origy, Origy);
+            img.padding(padWidth, padHeight);
+
+            for (int y = padHeight; y < height + padHeight; y++)
+            {
+                for (int x = padWidth; x < width + padHeight; x++)
+                {
+
+                    float R = 0, G = 0, B = 0;
+
+                    for (int i = 0; i < FWidth; i++)
+                    {
+                        for (int j = 0; j < FHeight; j++)
+                        {
+                            R += img.buffer2d[x - Origx + i, y - Origy + j].R * filter[i, j];
+                            G += img.buffer2d[x - Origx + i, y - Origy + j].G * filter[i, j];
+                            B += img.buffer2d[x - Origx + i, y - Origy + j].B * filter[i, j];
+                        }
+                    }
+
+                    Color newcolor = Color.FromArgb((byte)R, (byte)G, (byte)B);
+                    this.buffer2d[x - padWidth, y - padHeight] = newcolor;
+                    this.bitmap.SetPixel(x - padWidth, y - padHeight, newcolor);
+
+                }
+            }
+
+            return this;
+        }
+      
+        public ImageP meanFilter(int filterwidth, int filterheight, int origx, int origy)
+        {
+            FWidth = filterwidth;
+            FHeight = filterheight;
+            float[,] filter = new float[filterwidth, filterheight];
+            float filterValue = 1 / ((float)filterwidth * (float)filterheight);
+            for (int i = 0; i < filterwidth; i++)
+            {
+                for (int j = 0; j < filterheight; j++) {
+                    filter[i, j] = filterValue;
+                }
+            }
+           return LinearFilter(filter, origx, origy, Postprocessing.No);
+
+        }
+
+        public ImageP gaussianFilter1(float sigma,int size)
+        {
+            float[,] filter = new float[size, size];
+            FWidth = size ;
+            FHeight = size;
+            int origx = FWidth / 2;
+            int origy = FHeight / 2;
+            double sum = 0,x = -(size/2),y=-(size/2);
+            for (int i = 0; i < size ; i++,x++)
+            {
+                for (int j = 0; j < size; j++,y++)
+                {
+                    double filtervalue =(x*x + y*y) / (2*sigma*sigma);
+                    filter[i , j] = (float)Math.Exp(-(filtervalue));
+                    sum += (float)Math.Exp(-(filtervalue));
+                }
+                y = -(size / 2);
+            }
+
+            for (int i = 0; i < size ; i++)
+            {
+                for (int j = 0; j < size ; j++)
+                {
+                    filter[i , j ] /=(float) sum ; 
+                }
+            }
+
+            return LinearFilter(filter, origx, origy, Postprocessing.No);
+        }
+        public ImageP gaussianFilter2(float sigma)
+        {
+            int N = (int)((3.7*sigma)-.5);
+            int size = 2 * N + 1;
+            float[,] filter = new float[size, size];
+            FWidth = size;
+            FHeight = size;
+
+            int origx = FWidth / 2;
+            int origy = FHeight / 2;
+
+            double x = -(size / 2), y = -(size / 2);
+
+            for (int i = 0; i < size; i++, x++)
+            {
+                for (int j = 0; j < size; j++, y++)
+                {
+                    double filtervalue = (1/(2*Math.PI*sigma*sigma));
+                    double filtervalue1 = (x * x + y * y) / (2 * sigma * sigma);
+                    filtervalue = filtervalue * filtervalue1;
+                    filter[i , j ] = (float)Math.Exp(-(filtervalue));
+                }
+                y = -(size / 2);
+            }
+
+            return LinearFilter(filter, origx, origy, Postprocessing.No);
+
+        }
 
 
     }

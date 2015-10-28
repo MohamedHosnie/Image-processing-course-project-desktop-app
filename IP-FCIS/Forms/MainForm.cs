@@ -25,8 +25,12 @@ namespace IP_FCIS.Forms
             void brightness_contrast();
             void gamma_correction();
             void not();
+            void bitplane();
+            void quantization();
+            void smooth();
         }
         public HistogramForm histogram_form;
+        public List<ImageP> images_array;
         public MainForm()
         {
             InitializeComponent();
@@ -50,12 +54,8 @@ namespace IP_FCIS.Forms
                         new_picture.opened_image = new CommonImage(open.FileName);
                     }
 
-                    new_picture.Width = new_picture.opened_image.get_width() + 50;
-                    new_picture.Height = new_picture.opened_image.get_height() + 50;
-                    new_picture.Text = new_picture.opened_image.get_file_name();
-                    new_picture.MdiParent = this;
-                    new_picture.Show();
 
+                    this.open_this_mdi_picture(new_picture);
                 }
 
             }
@@ -64,13 +64,23 @@ namespace IP_FCIS.Forms
                 MessageBox.Show(ex.Message);
             }
         }
+        public void open_this_mdi_picture(PictureForm pic_form)
+        {
+            pic_form.Width = pic_form.opened_image.get_width() + 50;
+            pic_form.Height = pic_form.opened_image.get_height() + 50;
+            pic_form.Text = pic_form.opened_image.get_file_name();
+            images_array.Add(pic_form.opened_image);
+            pic_form.MdiParent = this;
+            pic_form.Show();
+        }
         private void SaveFileAs(object sender, EventArgs e)
         {
             try
             {
                 ((ImageBox)this.ActiveMdiChild).save();
 
-            } catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -92,6 +102,7 @@ namespace IP_FCIS.Forms
             try
             {
                 this.toolStripInterpolation.Text = "Bilinear";
+                this.images_array = new List<ImageP>();
 
             }
             catch (Exception ex)
@@ -159,7 +170,7 @@ namespace IP_FCIS.Forms
             {
                 if (this.ActiveMdiChild != null && this.ActiveMdiChild is ImageBox)
                 {
-                    ((ImageBox)this.ActiveMdiChild).histogram();
+                    ((PictureForm)this.ActiveMdiChild).histogram();
 
                 } else
                 {
@@ -219,6 +230,42 @@ namespace IP_FCIS.Forms
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        private void imageAlgebraToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //try
+            //{
+                if(this.MdiChildren.Length > 1)
+                {
+                    AlgebraForm algebra_form = new AlgebraForm();
+                    algebra_form.images_array = this.images_array;
+                    algebra_form.ShowDialog(this);
+                }
+                else
+                {
+                    MessageBox.Show("At least 2 photos must be opened to make this action.");
+                }
+                
+
+            //} catch(Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
+        }
+
+        private void bitPlaneToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ((ImageBox)this.ActiveMdiChild).bitplane();
+        }
+
+        private void quantizationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ((ImageBox)this.ActiveMdiChild).quantization();
+        }
+
+        private void smoothToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ((PictureForm)this.ActiveMdiChild).smooth();
         }
 
 
