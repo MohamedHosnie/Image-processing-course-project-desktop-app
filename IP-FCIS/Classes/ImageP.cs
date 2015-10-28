@@ -656,6 +656,28 @@ namespace IP_FCIS.Classes
             }
             return this;
         }
+        public ImageP bitplane_slicing(Color _color)
+        {
+            ImageP img = new ImageP(this);
+
+            for (int y = 0; y < height; y++)
+            {
+                for(int x = 0; x < width; x++)
+                {
+                    int R, G, B;
+
+                    R = this.buffer2d[x, y].R & _color.R;
+                    G = this.buffer2d[x, y].G & _color.G;
+                    B = this.buffer2d[x, y].B & _color.B;
+
+                    Color new_color = Color.FromArgb(R, G, B);
+                    img.buffer2d[x, y] = new_color;
+                    img.bitmap.SetPixel(x, y, new_color);
+                }
+            }
+
+            return img;
+        }
         public ImageP bitplane_add(char color, int mask)
         {
             for (int y = 0; y < height; y++)
@@ -776,7 +798,6 @@ namespace IP_FCIS.Classes
 
             return this;
         }
-      
         public ImageP meanFilter(int filterwidth, int filterheight, int origx, int origy)
         {
             FWidth = filterwidth;
@@ -792,7 +813,6 @@ namespace IP_FCIS.Classes
            return LinearFilter(filter, origx, origy, Postprocessing.No);
 
         }
-
         public ImageP gaussianFilter1(float sigma,int size)
         {
             float[,] filter = new float[size, size];

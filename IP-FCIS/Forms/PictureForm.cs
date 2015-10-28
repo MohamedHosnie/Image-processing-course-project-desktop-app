@@ -55,6 +55,10 @@ namespace IP_FCIS.Forms
                 Program.main_form.set_form_width_height_values(opened_image.get_width(), opened_image.get_height());
                 this.Width = opened_image.get_width() + 50;
                 this.Height = opened_image.get_height() + 50;
+                if(Program.main_form.histogram_form != null)
+                {
+                    histogram();
+                }
 
             } catch(Exception ex)
             {
@@ -202,40 +206,37 @@ namespace IP_FCIS.Forms
             this.opened_image = gamma_correction_form.current_image;
             set_new_image();
         }
-
         public void bitplane()
         {
             BitPlaneForm bitPlaneForm = new BitPlaneForm();
-            bitPlaneForm.image = this.opened_image;
+            bitPlaneForm.source = this.opened_image;
             bitPlaneForm.ShowDialog(this);
+            this.opened_image = bitPlaneForm.source;
+            set_new_image();
 
         }
-
         public void quantization()
-        { 
-        QuantizationForm quantiaztionForm = new QuantizationForm();
-        quantiaztionForm.img = this.opened_image;
-        quantiaztionForm.ShowDialog(this);
+        {
+            QuantizationForm quantiaztionForm = new QuantizationForm();
+            quantiaztionForm.img = this.opened_image;
+            quantiaztionForm.ShowDialog(this);
+            set_new_image();
         }
-
         public void smooth()
         {
             SmoothForm smoothForm = new SmoothForm();
             smoothForm.img = this.opened_image;
             smoothForm.ShowDialog(this);
         }
-
         private void PictureForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Program.main_form.images_array.Remove(opened_image);
         }
-
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
             //start.X = e.Location.X;
             //start.Y = e.Location.Y;
         }
-
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             //finish.X = e.Location.X;

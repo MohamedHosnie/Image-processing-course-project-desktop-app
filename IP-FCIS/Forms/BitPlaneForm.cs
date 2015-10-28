@@ -14,10 +14,10 @@ namespace IP_FCIS.Forms
     public partial class BitPlaneForm : Form
     {
         List<PictureBox> pictureBox_array;
-        public ImageP image;
+        public ImageP source, image, result;
         List<int> mask;
         List<char> colors;
-        private Boolean clicked;
+        int R, G, B;
         public BitPlaneForm()
         {
             InitializeComponent();
@@ -25,9 +25,29 @@ namespace IP_FCIS.Forms
             mask = new List<int>();
             colors = new List<char>();
         }
-
         private void BitPlaneForm_Load(object sender, EventArgs e)
         {
+            int width, height;
+            image = new ImageP(source);
+            if (image.get_width() > 250 || image.get_height() > 250)
+            {
+                if (image.get_width() > image.get_height())
+                {
+                    width = 250;
+                    height = (width * image.get_height()) / image.get_width();
+
+                }
+                else
+                {
+                    height = 250;
+                    width = (height * image.get_width()) / image.get_height();
+                }
+
+                image.resize(width, height);
+            }
+            this.Original.Image = this.image.get_bitmap();
+            this.Result.Image = this.image.get_bitmap();
+
             loadData();
             int counter = 0;
             for (int i = 0; i < colors.Count; i++)
@@ -36,7 +56,6 @@ namespace IP_FCIS.Forms
                 {
                     pictureBox_array[counter].Image = image.bitplane(colors[i], mask[j]).get_bitmap();
                     counter++;
-
                 }
 
             }
@@ -53,86 +72,53 @@ namespace IP_FCIS.Forms
             }
 
         }
-
         private void picbox_click(object sender, EventArgs e)
         {
-            for (int i = 1; i < pictureBox_array.Count + 1; i++)
+            try
             {
-              
-
-                if (i <= 8)
+                R = 0; G = 0; B = 0;
+                for (int i = 0; i < pictureBox_array.Count; i++)
                 {
-                    if (sender.Equals(pictureBox_array[i - 1]))
+
+                    if (sender.Equals(pictureBox_array[i]))
                     {
-                        if (pictureBox_array[i - 1].BorderStyle == BorderStyle.None)
-                        {
-                            pictureBox_array[i - 1].BorderStyle = BorderStyle.Fixed3D;
-                        }
+                        if (pictureBox_array[i].BorderStyle == BorderStyle.FixedSingle)
+                            pictureBox_array[i].BorderStyle = BorderStyle.None;
                         else
-                        {
-                            pictureBox_array[i - 1].BorderStyle = BorderStyle.None;
-                        }
-
-                        int maskID = int.Parse(pictureBox_array[i - 1].Name[pictureBox_array[i - 1].Name.Length - 1].ToString());
-                        maskID--;
-                        modifiedBox.Image = image.bitPlane_remove('R', mask[maskID]).get_bitmap();
+                            pictureBox_array[i].BorderStyle = BorderStyle.FixedSingle;
                     }
 
-                }
 
-
-                else if (i > 8 && i <= 16)
-                {
-                    if (sender.Equals(pictureBox_array[i - 1]))
+                    if (pictureBox_array[i].BorderStyle == BorderStyle.FixedSingle)
                     {
-                        if (pictureBox_array[i - 1].BorderStyle == BorderStyle.None)
+                        if (i < 8)
                         {
-                            pictureBox_array[i - 1].BorderStyle = BorderStyle.Fixed3D;
+                            R += mask[i];
                         }
-                        else
+                        else if (i >= 8 && i < 16)
                         {
-                            pictureBox_array[i - 1].BorderStyle = BorderStyle.None;
+                            G += mask[i - 8];
                         }
-                        int maskID = int.Parse(pictureBox_array[i - 1].Name[pictureBox_array[i - 1].Name.Length - 1].ToString());
-                        if (i >= 10)
+                        else if (i >= 16 && i < 24)
                         {
-                            maskID += 10;
+                            B += mask[i - 16];
                         }
-                        maskID = maskID - 9;
-                        modifiedBox.Image = image.bitPlane_remove('G', mask[maskID]).get_bitmap();
                     }
-                }
-                else if (i > 16 && i <= 24)
-                {
-                    if (sender.Equals(pictureBox_array[i - 1]))
-                    {
-                        if (pictureBox_array[i - 1].BorderStyle == BorderStyle.None)
-                        {
-                            pictureBox_array[i - 1].BorderStyle = BorderStyle.Fixed3D;
-                        }
-                        else 
-                        {
-                            pictureBox_array[i - 1].BorderStyle = BorderStyle.None;
-                        }
-                        int maskID = int.Parse(pictureBox_array[i - 1].Name[pictureBox_array[i - 1].Name.Length - 1].ToString());
-                        if (i > 10 && i < 20)
-                        {
-                            maskID = maskID - 7;
-                        }
 
-                        else if (i >= 20)
-                        {
-                            maskID = maskID + 3;
-                        }
-                        modifiedBox.Image = image.bitPlane_remove('B', mask[maskID]).get_bitmap();
-                    }
                 }
 
+                result = image.bitplane_slicing(Color.FromArgb(R, G, B));
+                Result.Image = result.get_bitmap();
+                Red.Text = "Red: " + Convert.ToString(R);
+                Green.Text = "Green: " + Convert.ToString(G);
+                Blue.Text = "Blue: " + Convert.ToString(B);
+
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
+
         }
-
-
-
         private void loadData()
         {
             pictureBox_array.Add(pictureBox1);
@@ -173,5 +159,21 @@ namespace IP_FCIS.Forms
             colors.Add('G');
             colors.Add('B');
         }
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                source = source.bitplane_slicing(Color.FromArgb(R, G, B));
+                this.Hide();
+
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
+
+
+
     }
 }

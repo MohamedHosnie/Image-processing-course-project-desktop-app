@@ -33,7 +33,7 @@ namespace IP_FCIS.Forms
         {
             int number = int.Parse(reduceText.Text);
             number = (int)Math.Log(number, 2);
-            if (number > 8)
+            if (number > 8 || number < 1)
                 MessageBox.Show("Can't Reduce to that Value");
             else
             {
