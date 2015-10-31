@@ -82,14 +82,14 @@ namespace IP_FCIS.Forms
 
                     if (sender.Equals(pictureBox_array[i]))
                     {
-                        if (pictureBox_array[i].BorderStyle == BorderStyle.FixedSingle)
+                        if (pictureBox_array[i].BorderStyle == BorderStyle.Fixed3D)
                             pictureBox_array[i].BorderStyle = BorderStyle.None;
                         else
-                            pictureBox_array[i].BorderStyle = BorderStyle.FixedSingle;
+                            pictureBox_array[i].BorderStyle = BorderStyle.Fixed3D;
                     }
 
 
-                    if (pictureBox_array[i].BorderStyle == BorderStyle.FixedSingle)
+                    if (pictureBox_array[i].BorderStyle == BorderStyle.Fixed3D)
                     {
                         if (i < 8)
                         {

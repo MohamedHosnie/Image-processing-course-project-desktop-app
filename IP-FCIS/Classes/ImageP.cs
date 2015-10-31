@@ -774,7 +774,7 @@ namespace IP_FCIS.Classes
 
             for (int y = padHeight; y < height + padHeight; y++)
             {
-                for (int x = padWidth; x < width + padHeight; x++)
+                for (int x = padWidth; x < width + padWidth; x++)
                 {
 
                     float R = 0, G = 0, B = 0;
