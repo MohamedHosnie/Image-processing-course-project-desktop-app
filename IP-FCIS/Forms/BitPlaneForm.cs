@@ -14,7 +14,7 @@ namespace IP_FCIS.Forms
     public partial class BitPlaneForm : Form
     {
         List<PictureBox> pictureBox_array;
-        public ImageP source, image, result;
+        public TypicalImage source, image, result;
         List<int> mask;
         List<char> colors;
         int R, G, B;
@@ -24,43 +24,52 @@ namespace IP_FCIS.Forms
             pictureBox_array = new List<PictureBox>();
             mask = new List<int>();
             colors = new List<char>();
+            R = 255; G = 255; B = 255;
         }
         private void BitPlaneForm_Load(object sender, EventArgs e)
         {
-            int width, height;
-            image = new ImageP(source);
-            if (image.get_width() > 250 || image.get_height() > 250)
+            try
             {
-                if (image.get_width() > image.get_height())
+
+                int width, height;
+                image = new TypicalImage(source);
+                if (image.get_width() > 250 || image.get_height() > 250)
                 {
-                    width = 250;
-                    height = (width * image.get_height()) / image.get_width();
+                    if (image.get_width() > image.get_height())
+                    {
+                        width = 250;
+                        height = (width * image.get_height()) / image.get_width();
+
+                    }
+                    else
+                    {
+                        height = 250;
+                        width = (height * image.get_width()) / image.get_height();
+                    }
+
+                    image.resize(width, height);
+                }
+                this.Original.Image = this.image.get_bitmap();
+                this.Result.Image = this.image.get_bitmap();
+
+                loadData();
+                int counter = 0;
+                for (int i = 0; i < colors.Count; i++)
+                {
+                    for (int j = 0; j < mask.Count; j++)
+                    {
+                        pictureBox_array[counter].Image = image.bitplane(colors[i], mask[j]).get_bitmap();
+                        counter++;
+                    }
 
                 }
-                else
-                {
-                    height = 250;
-                    width = (height * image.get_width()) / image.get_height();
-                }
 
-                image.resize(width, height);
-            }
-            this.Original.Image = this.image.get_bitmap();
-            this.Result.Image = this.image.get_bitmap();
+                actions();
 
-            loadData();
-            int counter = 0;
-            for (int i = 0; i < colors.Count; i++)
+            } catch(Exception ex)
             {
-                for (int j = 0; j < mask.Count; j++)
-                {
-                    pictureBox_array[counter].Image = image.bitplane(colors[i], mask[j]).get_bitmap();
-                    counter++;
-                }
-
+                MessageBox.Show(ex.Message);
             }
-
-            actions();
         }
         private void actions()
         {

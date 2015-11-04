@@ -13,8 +13,8 @@ namespace IP_FCIS.Forms
 {
     public partial class AlgebraForm : Form
     {
-        public List<ImageP> images_array;
-        public ImageP first, second, result;
+        public List<TypicalImage> images_array;
+        public TypicalImage first, second, result;
         public AlgebraForm()
         {
             InitializeComponent();

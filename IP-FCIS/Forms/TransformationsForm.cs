@@ -14,7 +14,7 @@ namespace IP_FCIS.Forms
 {
     public partial class TransformationsForm : Form
     {
-        public ImageP working_on;
+        public TypicalImage working_on;
         public TransformationsForm()
         {
             InitializeComponent();

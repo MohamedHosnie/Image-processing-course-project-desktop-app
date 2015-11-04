@@ -34,7 +34,7 @@
             // 
             // reduceButton
             // 
-            this.reduceButton.Location = new System.Drawing.Point(181, 56);
+            this.reduceButton.Location = new System.Drawing.Point(179, 39);
             this.reduceButton.Name = "reduceButton";
             this.reduceButton.Size = new System.Drawing.Size(75, 23);
             this.reduceButton.TabIndex = 0;
@@ -44,7 +44,7 @@
             // 
             // reduceText
             // 
-            this.reduceText.Location = new System.Drawing.Point(35, 58);
+            this.reduceText.Location = new System.Drawing.Point(33, 41);
             this.reduceText.Name = "reduceText";
             this.reduceText.Size = new System.Drawing.Size(100, 20);
             this.reduceText.TabIndex = 1;
@@ -53,7 +53,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(287, 152);
+            this.ClientSize = new System.Drawing.Size(287, 95);
             this.Controls.Add(this.reduceText);
             this.Controls.Add(this.reduceButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

@@ -13,8 +13,8 @@ namespace IP_FCIS.Forms
 {
     public partial class BrightnessContrastForm : Form
     {
-        public ImageP current_image;
-        public ImageP small_current, edited_current;
+        public TypicalImage current_image;
+        public TypicalImage small_current, edited_current;
         public BrightnessContrastForm()
         {
             InitializeComponent();
@@ -48,7 +48,7 @@ namespace IP_FCIS.Forms
             try
             {
                 int width, height;
-                small_current = new ImageP(current_image);
+                small_current = new TypicalImage(current_image);
                 if (small_current.get_width() > 200 || small_current.get_height() > 200)
                 {
                     if(small_current.get_width() > small_current.get_height())

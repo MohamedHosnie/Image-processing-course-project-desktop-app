@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.IO;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 
 namespace IP_FCIS.Classes
 {
-    public class ImageP
+    public class TypicalImage
     {
         protected int width, height;
-        protected Bitmap bitmap;
+        public Bitmap bitmap;
         protected Color [,]buffer2d;
         protected string original_format;
         protected byte max_color;
@@ -26,10 +27,27 @@ namespace IP_FCIS.Classes
             Absolute,
             Cut_off
         }
-
-        public ImageP() { 
+        public enum Type
+        {
+            Common, PPM
         }
-        public ImageP(ImageP img)
+        public TypicalImage() {    }
+        public TypicalImage(Type type, string directory) 
+        {
+            if(type == Type.Common)
+            {
+                open_commom(directory);
+            }
+            else if(type == Type.PPM)
+            {
+                open_ppm(directory);
+            }
+            else
+            {
+                throw new Exception("Wrong type");
+            }
+        }
+        public TypicalImage(TypicalImage img)
         {
             this.width = img.width;
             this.height = img.height;
@@ -63,8 +81,13 @@ namespace IP_FCIS.Classes
             return height;
         }
         public string get_original_format()
-        {
+        { 
             return original_format;
+        }
+        public string get_extension()
+        {
+            string []splited = file_name.Split('.');
+            return splited[1];
         }
         public byte get_max_color()
         {
@@ -78,9 +101,102 @@ namespace IP_FCIS.Classes
         {
             this.file_name = name;
         }
-        public void save_ppm(string ppm_type, string file_name)
+        public void open_commom(string _directory)
         {
-            using (StreamWriter sw = new StreamWriter(file_name))
+            string[] folders = _directory.Split('\\');
+            file_name = folders[folders.Length - 1];
+            bitmap = new Bitmap(_directory);
+            height = bitmap.Height;
+            width = bitmap.Width;
+            max_color = 0;
+            buffer2d = new Color[width, height];
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    buffer2d[x, y] = bitmap.GetPixel(x, y);
+                    if (buffer2d[x, y].R > max_color) max_color = buffer2d[x, y].R;
+                    if (buffer2d[x, y].G > max_color) max_color = buffer2d[x, y].G;
+                    if (buffer2d[x, y].B > max_color) max_color = buffer2d[x, y].B;
+                }
+            }
+        }
+        public void open_ppm(string _directory)
+        {
+            string[] folders = _directory.Split('\\');
+            file_name = folders[folders.Length - 1];
+            int flag = 0;
+            StreamReader sr = new StreamReader(_directory);
+            original_format = sr.ReadLine();
+            flag = original_format.Length + 1;
+            while (sr.Peek() == '#')
+            {
+                string ln = sr.ReadLine();
+                flag += ln.Length + 1;
+            }
+            string size_str = sr.ReadLine();
+            flag += size_str.Length + 1;
+            string[] size = size_str.Split(' ');
+            width = Int32.Parse(size[0]);
+            height = Int32.Parse(size[1]);
+            bitmap = new Bitmap(width, height);
+            string smax_color = sr.ReadLine();
+            max_color = Convert.ToByte(smax_color);
+            flag += smax_color.Length + 1;
+
+            if (original_format == "P3")
+            {
+                string Image_str = sr.ReadToEnd();
+                string[] Image_array = Image_str.Split(' ');
+                buffer2d = new Color[width, height];
+                int z = 0;
+                for (int y = 0; y < height; y++)
+                {
+                    for (int x = 0; x < width; x++)
+                    {
+                        int R = Int32.Parse(Image_array[z]),
+                            G = Int32.Parse(Image_array[z + 1]),
+                            B = Int32.Parse(Image_array[z + 2]);
+                        Color color = Color.FromArgb(R, G, B);
+                        buffer2d[x, y] = color;
+                        bitmap.SetPixel(x, y, color);
+                        z += 3;
+                    }
+                }
+
+                sr.Close();
+
+            }
+            else if (original_format == "P6")
+            {
+                byte[] fl = File.ReadAllBytes(_directory);
+                buffer2d = new Color[width, height];
+                int z = flag;
+                for (int y = 0; y < height; y++)
+                {
+                    for (int x = 0; x < width; x++)
+                    {
+                        byte R = fl[z],
+                             G = fl[z + 1],
+                             B = fl[z + 2];
+                        Color color = Color.FromArgb(R, G, B);
+                        buffer2d[x, y] = color;
+                        bitmap.SetPixel(x, y, color);
+                        z += 3;
+                    }
+                }
+
+            }
+
+
+        }
+        public void save_common(string fileName, ImageFormat imageFormat)
+        {
+            this.bitmap.Save(fileName, imageFormat);
+        }
+        public void save_ppm(string ppm_type, string fileName)
+        {
+            using (StreamWriter sw = new StreamWriter(fileName))
             {
                 if (ppm_type == "P3")
                 {
@@ -119,7 +235,7 @@ namespace IP_FCIS.Classes
 
                     sw.Close();
 
-                    BinaryWriter bw = new BinaryWriter(new FileStream(file_name, FileMode.Append));
+                    BinaryWriter bw = new BinaryWriter(new FileStream(fileName, FileMode.Append));
                     for (int y = 0; y < height; y++)
                     {
                         for (int x = 0; x < width; x++)
@@ -171,9 +287,9 @@ namespace IP_FCIS.Classes
         public void full_transform(float ScX, float ScY, float ShX, float ShY, float RoAngle)
         {
             Matrix transform_matrix = new Matrix();
-            transform_matrix.Scale(ScX, ScY, MatrixOrder.Append);
             transform_matrix.Shear(ShX, ShY, MatrixOrder.Append);
             transform_matrix.Rotate(RoAngle, MatrixOrder.Append);
+            transform_matrix.Scale(ScX, ScY, MatrixOrder.Append);
 
             Transform(transform_matrix);
         }
@@ -364,9 +480,9 @@ namespace IP_FCIS.Classes
             }
 
         }
-        public ImageP change_brightness(int add_value)
+        public TypicalImage change_brightness(int add_value)
         {
-            ImageP img = new ImageP(this);
+            TypicalImage img = new TypicalImage(this);
 
             for(int y = 0; y < height; y++)
             {
@@ -392,9 +508,9 @@ namespace IP_FCIS.Classes
 
             return img;
         }
-        public ImageP change_contrast(int _value)
+        public TypicalImage change_contrast(int _value)
         {
-            ImageP img = new ImageP(this);            
+            TypicalImage img = new TypicalImage(this);            
             calculate_intensity_min_max();
 
             float oldmin = (float)min_intensity,
@@ -425,9 +541,9 @@ namespace IP_FCIS.Classes
 
             return img;
         }
-        public ImageP change_gamma(double gamma_value)
+        public TypicalImage change_gamma(double gamma_value)
         {
-            ImageP img = new ImageP(this);
+            TypicalImage img = new TypicalImage(this);
             double[] buffer = new double[width * height * 3];
             
             double min = buffer2d[0, 0].R,
@@ -467,32 +583,33 @@ namespace IP_FCIS.Classes
 
                 }
             }
+            normalization(buffer, img);
 
-            double newmin = 0,
-            newmax = 255;
+            //double newmin = 0,
+            //newmax = 255;
 
-            z = 0;
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++, z += 3)
-                {
-                    double R = (buffer[z] - min) / (max - min) * (newmax - newmin) + newmin,
-                           G = (buffer[z + 1] - min) / (max - min) * (newmax - newmin) + newmin,
-                           B = (buffer[z + 2] - min) / (max - min) * (newmax - newmin) + newmin;
+            //z = 0;
+            //for (int y = 0; y < height; y++)
+            //{
+            //    for (int x = 0; x < width; x++, z += 3)
+            //    {
+            //        double R = (buffer[z] - min) / (max - min) * (newmax - newmin) + newmin,
+            //               G = (buffer[z + 1] - min) / (max - min) * (newmax - newmin) + newmin,
+            //               B = (buffer[z + 2] - min) / (max - min) * (newmax - newmin) + newmin;
 
                     
 
-                    Color new_colr = Color.FromArgb((int)R, (int)G, (int)B);
-                    img.bitmap.SetPixel(x, y, new_colr);
-                    img.buffer2d[x, y] = new_colr;
-                }
-            }
+            //        Color new_colr = Color.FromArgb((int)R, (int)G, (int)B);
+            //        img.bitmap.SetPixel(x, y, new_colr);
+            //        img.buffer2d[x, y] = new_colr;
+            //    }
+            //}
 
             return img;
         }
-        public ImageP Add(ImageP second, float fraction)
+        public TypicalImage Add(TypicalImage second, float fraction)
         {
-            ImageP img = new ImageP(this);
+            TypicalImage img = new TypicalImage(this);
 
             for (int y = 0; y < height; y++)
             {
@@ -516,9 +633,9 @@ namespace IP_FCIS.Classes
 
             return img;
         }
-        public ImageP Subtract(ImageP second)
+        public TypicalImage Subtract(TypicalImage second)
         {
-            ImageP img = new ImageP(this);
+            TypicalImage img = new TypicalImage(this);
 
             double[] buffer = new double[width * height * 3];
             double min = buffer2d[0, 0].R;
@@ -568,46 +685,65 @@ namespace IP_FCIS.Classes
 
             return img;
         }
-        public ImageP bitplane(char color, int mask)
+        public TypicalImage bitplane(char color, int mask)
         {
 
-            ImageP img = new ImageP(this);
+            TypicalImage img = new TypicalImage(this);
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
                     Color color1 = this.buffer2d[x, y];
-                    float R = 0, G = 0, B = 0;
+                    float R = 255, G = 255, B = 255;
 
                     if (color == 'R')
                     {
                         R = color1.R & mask;
                         if (R == mask)
+                        {
                             R = 255;
+                            G = 0;
+                            B = 0;
+                        }
                         else
-                            R = 0;
-                        G = 0;
-                        B = 0;
+                        {
+                            R = 245;
+                            G = 245;
+                            B = 245;
+                        }
+                            
                     }
                     else if (color == 'G')
                     {
                         G = color1.G & mask;
                         if (G == mask)
+                        {
+                            R = 0;
                             G = 255;
+                            B = 0;
+                        }
                         else
-                            G = 0;
-                        R = 0;
-                        B = 0;
+                        {
+                            R = 245;
+                            G = 245;
+                            B = 245;
+                        }
                     }
                     else if (color == 'B')
                     {
                         B = color1.B & mask;
                         if (B == mask)
+                        {
+                            R = 0;
+                            G = 0;
                             B = 255;
+                        }
                         else
-                            B = 0;
-                        G = 0;
-                        R = 0;
+                        {
+                            R = 245;
+                            G = 245;
+                            B = 245;
+                        }
                     }
 
 
@@ -621,44 +757,9 @@ namespace IP_FCIS.Classes
 
             return img;
         }
-        public ImageP bitPlane_remove(char color, int mask)
+        public TypicalImage bitplane_slicing(Color _color)
         {
-
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    Color color1 = this.buffer2d[x, y];
-                    float R = 0, G = 0, B = 0;
-
-                    if (color == 'R')
-                    {
-                        R = color1.R & mask;
-                        G = color1.G;
-                        B = color1.B;
-                    }
-                    else if (color == 'G')
-                    {
-                        R = color1.R;
-                        G = color1.G & mask;
-                        B = color1.B;
-                    }
-                    else if (color == 'B')
-                    {
-                        R = color1.R;
-                        G = color1.G;
-                        B = color1.B & mask;
-                    }
-                    Color new_colr = Color.FromArgb((int)R, (int)G, (int)B);
-                    this.bitmap.SetPixel(x, y, new_colr);
-                    this.buffer2d[x, y] = new_colr;
-                }
-            }
-            return this;
-        }
-        public ImageP bitplane_slicing(Color _color)
-        {
-            ImageP img = new ImageP(this);
+            TypicalImage img = new TypicalImage(this);
 
             for (int y = 0; y < height; y++)
             {
@@ -678,41 +779,7 @@ namespace IP_FCIS.Classes
 
             return img;
         }
-        public ImageP bitplane_add(char color, int mask)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                for (int x = 0; x < width; x++)
-                {
-                    Color color1 = this.buffer2d[x, y];
-                    float R = 0, G = 0, B = 0;
-
-                    if (color == 'R')
-                    {
-                        R = color1.R | mask;
-                        G = color1.G;
-                        B = color1.B;
-                    }
-                    else if (color == 'G')
-                    {
-                        R = color1.R;
-                        G = color1.G | mask;
-                        B = color1.B;
-                    }
-                    else if (color == 'B')
-                    {
-                        R = color1.R;
-                        G = color1.G;
-                        B = color1.B | mask;
-                    }
-                    Color new_colr = Color.FromArgb((int)R, (int)G, (int)B);
-                    this.bitmap.SetPixel(x, y, new_colr);
-                    this.buffer2d[x, y] = new_colr;
-                }
-            }
-            return this;
-        }
-        public ImageP quantization(Int32 mask)
+        public TypicalImage quantization(Int32 mask)
         {
             for (int y = 0; y < height; y++)
             {
@@ -732,7 +799,7 @@ namespace IP_FCIS.Classes
             }
             return this;
         }
-        public ImageP padding(int padWidth, int padHeight)
+        public TypicalImage padding(int padWidth, int padHeight)
         {
 
             int newwidth = width + padWidth * 2;
@@ -764,17 +831,20 @@ namespace IP_FCIS.Classes
             return this;
 
         }
-        public ImageP LinearFilter(float[,] filter,int Origx, int Origy, Postprocessing post)
+        public TypicalImage LinearFilter(float[,] filter,int Origx, int Origy, Postprocessing post)
         {
-            ImageP img = new ImageP(this);
+            TypicalImage img = new TypicalImage(this);
             int padWidth, padHeight;
+
+            double[] buffer = new double[width * height * 3];
+            int z = 0 ;
             padWidth = Math.Max(FWidth - Origx, Origx);
             padHeight = Math.Max(FHeight - Origy, Origy);
             img.padding(padWidth, padHeight);
 
             for (int y = padHeight; y < height + padHeight; y++)
             {
-                for (int x = padWidth; x < width + padWidth; x++)
+                for (int x = padWidth; x < width + padWidth; x++,z += 3)
                 {
 
                     float R = 0, G = 0, B = 0;
@@ -788,17 +858,31 @@ namespace IP_FCIS.Classes
                             B += img.buffer2d[x - Origx + i, y - Origy + j].B * filter[i, j];
                         }
                     }
-
-                    Color newcolor = Color.FromArgb((byte)R, (byte)G, (byte)B);
-                    this.buffer2d[x - padWidth, y - padHeight] = newcolor;
-                    this.bitmap.SetPixel(x - padWidth, y - padHeight, newcolor);
-
+                    buffer[z] = R;
+                    buffer[z + 1] = G;
+                    buffer[z + 2] = B;
                 }
             }
 
+            if (post == Postprocessing.Cut_off)
+            {
+               cut_off(buffer);
+            }
+            else if (post == Postprocessing.No)
+            {
+                no_postprocess(buffer);
+            }
+            else if (post == Postprocessing.Absolute)
+            {
+                absolute(buffer);
+            }
+            else if (post == Postprocessing.Normalization)
+            {
+                normalization(buffer, this);
+            }
             return this;
         }
-        public ImageP meanFilter(int filterwidth, int filterheight, int origx, int origy)
+        public TypicalImage meanFilter(int filterwidth, int filterheight, int origx, int origy)
         {
             FWidth = filterwidth;
             FHeight = filterheight;
@@ -813,7 +897,7 @@ namespace IP_FCIS.Classes
            return LinearFilter(filter, origx, origy, Postprocessing.No);
 
         }
-        public ImageP gaussianFilter1(float sigma,int size)
+        public TypicalImage gaussianFilter1(float sigma,int size)
         {
             float[,] filter = new float[size, size];
             FWidth = size ;
@@ -842,7 +926,7 @@ namespace IP_FCIS.Classes
 
             return LinearFilter(filter, origx, origy, Postprocessing.No);
         }
-        public ImageP gaussianFilter2(float sigma)
+        public TypicalImage gaussianFilter2(float sigma)
         {
             int N = (int)((3.7*sigma)-.5);
             int size = 2 * N + 1;
@@ -870,7 +954,107 @@ namespace IP_FCIS.Classes
             return LinearFilter(filter, origx, origy, Postprocessing.No);
 
         }
+        public TypicalImage laplacianFilter()
+        {
+            FWidth = 3;
+            FHeight = 3;
+            float[,] filter = new float[3, 3];
+            filter[0, 0] = 0;
+            filter[0, 1] = -1;
+            filter[0, 2] = 0;
+            filter[1, 0] = -1;
+            filter[1, 1] = 5;
+            filter[1, 2] = -1;
+            filter[2, 0] = 0;
+            filter[2, 0] = -1;
+            filter[2, 0] = 0;
+
+            return LinearFilter(filter, 1, 1, Postprocessing.Cut_off);
+        }
+        public void cut_off(double [] buffer)
+        {
+            for (int z = 0; z < buffer.Length; z ++)
+            {
+                if (buffer[z] > 255)
+                    buffer[z] = 255;
+                else if (buffer[z] < 255)
+                    buffer[z] = 0;
+            }
+            int i = 0;
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++,i+=3)
+                {
+                   Color newcolor = Color.FromArgb((byte)buffer[i], (byte)buffer[i+1], (byte)buffer[i+2]);
+                   this.buffer2d[x,y] = newcolor;
+                   this.bitmap.SetPixel(x,y, newcolor);
+                }
+            }
+        
+        }
+        public void no_postprocess(double [] buffer)
+        {
+            int i = 0;
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++, i += 3)
+                {
+                    Color newcolor = Color.FromArgb((byte)buffer[i], (byte)buffer[i + 1], (byte)buffer[i + 2]);
+                    this.buffer2d[x, y] = newcolor;
+                    this.bitmap.SetPixel(x, y, newcolor);
+                }
+            }
+
+        }
+        public void absolute(double[] buffer)
+        {
+            for (int z = 0; z < buffer.Length; z++)
+            {
+              
+                if (buffer[z] < 0)
+                    buffer[z]=Math.Abs(buffer[z]);
+            }
+            int i = 0;
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++, i += 3)
+                {
+                    Color newcolor = Color.FromArgb((byte)buffer[i], (byte)buffer[i + 1], (byte)buffer[i + 2]);
+                    this.buffer2d[x, y] = newcolor;
+                    this.bitmap.SetPixel(x, y, newcolor);
+                }
+            }
+        }
+        public void normalization(double[] buffer, TypicalImage image)
+        {
+            double min = buffer[0],
+                          max = 0;
+            for (int i = 0; i < buffer.Length; i++)
+            {
+               
+                if (buffer[i] > max) max = buffer[i];
+                if (buffer[i] < min) min = buffer[i];
+            }
+
+            double newmin = 0,
+                   newmax = 255;
+
+            int z = 0;
+            for (int y = 0; y < height; y++)
+            {
+                for (int x = 0; x < width; x++, z += 3)
+                {
+                    double R = (buffer[z] - min) / (max - min) * (newmax - newmin) + newmin,
+                           G = (buffer[z + 1] - min) / (max - min) * (newmax - newmin) + newmin,
+                           B = (buffer[z + 2] - min) / (max - min) * (newmax - newmin) + newmin;
 
 
+
+                    Color new_colr = Color.FromArgb((int)R, (int)G, (int)B);
+                    image.bitmap.SetPixel(x, y, new_colr);
+                    image.buffer2d[x, y] = new_colr;
+                }
+            }
+        }
     }
 }

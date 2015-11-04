@@ -28,34 +28,40 @@ namespace IP_FCIS.Forms
             void bitplane();
             void quantization();
             void smooth();
+            void sharp();
         }
         public HistogramForm histogram_form;
-        public List<ImageP> images_array;
+        public List<TypicalImage> images_array;
         public MainForm()
         {
             InitializeComponent();
         } 
+        private void openPicFile(string _fileName)
+        {
+            PictureForm new_picture = new PictureForm();
+            string ext = Path.GetExtension(_fileName);
+            if (ext.ToLower() == ".ppm")
+            {
+                new_picture.opened_image = new TypicalImage(TypicalImage.Type.PPM, _fileName);
+
+            }
+            else
+            {
+                new_picture.opened_image = new TypicalImage(TypicalImage.Type.Common, _fileName);
+            }
+
+
+            this.open_this_mdi_picture(new_picture);
+        }
         private void OpenFile(object sender, EventArgs e)
         {
             try
             {
                 OpenFileDialog open = new OpenFileDialog();
-                open.Filter = "Image files (*.ppm, *.jpg, *.jpeg, *.jpe, *.jfif, *.png, *.bmp) | *.ppm; *.jpg; *.jpeg; *.jpe; *.jfif; *.png; *.bmp";
+                open.Filter = "Image files (*.ppm, *.bmp, *.jpg, *.jpeg, *.png, *.gif, *.tif, *.tiff) | *.ppm; *.bmp; *.jpg; *.jpeg; *.png; *.gif; *.tif; *.tiff";
                 if (open.ShowDialog() == DialogResult.OK)
                 {
-                    PictureForm new_picture = new PictureForm();
-                    string ext = Path.GetExtension(open.FileName);
-                    if (ext.ToLower() == ".ppm")
-                    {
-                        new_picture.opened_image = new PPMImage(open.FileName);
-
-                    } else
-                    {
-                        new_picture.opened_image = new CommonImage(open.FileName);
-                    }
-
-
-                    this.open_this_mdi_picture(new_picture);
+                    openPicFile(open.FileName);
                 }
 
             }
@@ -78,7 +84,6 @@ namespace IP_FCIS.Forms
             try
             {
                 ((ImageBox)this.ActiveMdiChild).save();
-
             }
             catch (Exception ex)
             {
@@ -102,7 +107,7 @@ namespace IP_FCIS.Forms
             try
             {
                 this.toolStripInterpolation.Text = "Bilinear";
-                this.images_array = new List<ImageP>();
+                this.images_array = new List<TypicalImage>();
 
             }
             catch (Exception ex)
@@ -252,22 +257,45 @@ namespace IP_FCIS.Forms
             //    MessageBox.Show(ex.Message);
             //}
         }
-
         private void bitPlaneToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ((ImageBox)this.ActiveMdiChild).bitplane();
         }
-
         private void quantizationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ((ImageBox)this.ActiveMdiChild).quantization();
         }
-
         private void smoothToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ((PictureForm)this.ActiveMdiChild).smooth();
+            ((ImageBox)this.ActiveMdiChild).smooth();
         }
+        private void sharpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ((ImageBox)this.ActiveMdiChild).sharp();
+        }
+        private void MainForm_MdiChildActivate(object sender, EventArgs e)
+        {
+            if(this.ActiveMdiChild is ImageBox)
+            {
+                toolsToolStripMenuItem.Enabled = true;
 
+            } else
+            {
+                toolsToolStripMenuItem.Enabled = false;
+            }
+        }
+        private void MainForm_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+            foreach(string file in files)
+            {
+                openPicFile(file);
+            }
+        }
+        private void MainForm_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+        }
 
 
     }

@@ -13,7 +13,7 @@ namespace IP_FCIS.Forms
 {
     public partial class QuantizationForm : Form
     {
-        public ImageP img;
+        public TypicalImage img;
         private List<int> Masks;
         public QuantizationForm()
         {

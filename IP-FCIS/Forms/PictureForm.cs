@@ -1,9 +1,12 @@
 ﻿using IP_FCIS.Classes;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +17,7 @@ namespace IP_FCIS.Forms
     public partial class PictureForm : Form, IP_FCIS.Forms.MainForm.ImageBox
     {
 
-        public ImageP opened_image;
+        public TypicalImage opened_image;
         Point start, finish;
         public PictureForm()
         {
@@ -86,9 +89,54 @@ namespace IP_FCIS.Forms
         }
         public void save()
         {
-            SaveForm saveform = new SaveForm();
-            saveform.saving_image = this.opened_image;
-            saveform.ShowDialog(this);
+            SaveFileDialog save = new SaveFileDialog();
+            save.FileName = opened_image.get_file_name();
+            save.Filter = "PPM Image (.ppm)|*.ppm|Bitmap Image (.bmp)|*.bmp|Gif Image (.gif)|*.gif|JPEG Image (.jpeg)|*.jpeg; *.jpg|Png Image (.png)|*.png|Tiff Image (.tiff)|*.tiff; *.tif";
+            Hashtable formats = new Hashtable();
+            formats.Add("ppm", 1);
+            formats.Add("bmp", 2);
+            formats.Add("gif", 3);
+            formats.Add("jpeg", 4);
+            formats.Add("jpg", 4);
+            formats.Add("png", 5);
+            formats.Add("tiff", 6);
+            formats.Add("tif", 6);
+            save.FilterIndex = (int)formats[opened_image.get_extension()];
+            save.ValidateNames = true;
+            save.AddExtension = true;
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                string ext = Path.GetExtension(save.FileName);
+                if (ext == ".ppm")
+                {
+                    SaveForm saveform = new SaveForm();
+                    saveform.saving_image = this.opened_image;
+                    saveform.fileName = save.FileName;
+                    saveform.ShowDialog(this);
+                }
+                else if(ext == ".bmp")
+                {
+                    opened_image.save_common(save.FileName, ImageFormat.Bmp);
+                }
+                else if(ext == ".gif")
+                {
+                    opened_image.save_common(save.FileName, ImageFormat.Gif);
+                }
+                else if (ext == ".jpeg")
+                {
+                    opened_image.save_common(save.FileName, ImageFormat.Jpeg);
+                }
+                else if (ext == ".png")
+                {
+                    opened_image.save_common(save.FileName, ImageFormat.Png);
+                }
+                else if (ext == ".tiff")
+                {
+                    opened_image.save_common(save.FileName, ImageFormat.Tiff);
+                }
+
+            }
+
 
         }
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -228,6 +276,12 @@ namespace IP_FCIS.Forms
             smoothForm.img = this.opened_image;
             smoothForm.ShowDialog(this);
         }
+        public void sharp()
+        {
+            SharpForm sharpForm = new SharpForm();
+            sharpForm.img = this.opened_image;
+            sharpForm.Show(this);
+        }
         private void PictureForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Program.main_form.images_array.Remove(opened_image);
@@ -246,6 +300,29 @@ namespace IP_FCIS.Forms
             //angel = Math.Abs(angel);
             // opened_image.rotate((float)angel);
             // pictureBox1.Image = opened_image.get_bitmap();
+        }
+        private void toolStripMenuIBitPlane_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.bitplane();
+
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void quantizationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.quantization();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
 

@@ -39,6 +39,9 @@
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.brightnessContrastToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gammaCorrectionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuIBitPlane = new System.Windows.Forms.ToolStripMenuItem();
+            this.quantizationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.contextMenuStrip1.SuspendLayout();
@@ -105,15 +108,18 @@
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.transformationToolStripMenuItem,
             this.brightnessContrastToolStripMenuItem,
             this.gammaCorrectionToolStripMenuItem,
             this.histogramToolStripMenuItem,
+            this.toolStripSeparator1,
+            this.toolStripMenuIBitPlane,
+            this.quantizationToolStripMenuItem,
+            this.transformationToolStripMenuItem,
             this.toolStripSeparator2,
             this.saveAsToolStripMenuItem,
             this.closeToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(180, 142);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(180, 214);
             // 
             // brightnessContrastToolStripMenuItem
             // 
@@ -128,6 +134,25 @@
             this.gammaCorrectionToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.gammaCorrectionToolStripMenuItem.Text = "Gamma Correction";
             this.gammaCorrectionToolStripMenuItem.Click += new System.EventHandler(this.gammaCorrectionToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(176, 6);
+            // 
+            // toolStripMenuIBitPlane
+            // 
+            this.toolStripMenuIBitPlane.Name = "toolStripMenuIBitPlane";
+            this.toolStripMenuIBitPlane.Size = new System.Drawing.Size(179, 22);
+            this.toolStripMenuIBitPlane.Text = "BitPlane";
+            this.toolStripMenuIBitPlane.Click += new System.EventHandler(this.toolStripMenuIBitPlane_Click);
+            // 
+            // quantizationToolStripMenuItem
+            // 
+            this.quantizationToolStripMenuItem.Name = "quantizationToolStripMenuItem";
+            this.quantizationToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.quantizationToolStripMenuItem.Text = "Quantization";
+            this.quantizationToolStripMenuItem.Click += new System.EventHandler(this.quantizationToolStripMenuItem_Click);
             // 
             // PictureForm
             // 
@@ -168,5 +193,8 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
         private System.Windows.Forms.ToolStripMenuItem brightnessContrastToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem gammaCorrectionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuIBitPlane;
+        private System.Windows.Forms.ToolStripMenuItem quantizationToolStripMenuItem;
     }
 }

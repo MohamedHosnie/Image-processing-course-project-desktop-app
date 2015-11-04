@@ -14,7 +14,8 @@ namespace IP_FCIS.Forms
 {
     public partial class SaveForm : Form
     {
-        public ImageP saving_image;
+        public TypicalImage saving_image;
+        public string fileName;
         public SaveForm()
         {
             InitializeComponent();
@@ -26,16 +27,7 @@ namespace IP_FCIS.Forms
                 string ppm_type = comboBox1.Text;
                 if(ppm_type != "")
                 {
-                    this.Hide();
-                    SaveFileDialog savefile = new SaveFileDialog();
-                    savefile.FileName = "untitled.ppm";
-                    savefile.Filter = "Image files (*.ppm)  | *.ppm";
-
-                    if (savefile.ShowDialog() == DialogResult.OK)
-                    {
-                        this.saving_image.save_ppm(ppm_type, savefile.FileName);
-                    }
-
+                    this.saving_image.save_ppm(ppm_type, fileName);
                     this.Close();
                 }
                 else

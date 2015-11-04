@@ -13,7 +13,7 @@ namespace IP_FCIS.Forms
 {
     public partial class SmoothForm : Form
     {
-        public ImageP img;
+        public TypicalImage img;
         public SmoothForm()
         {
             InitializeComponent();
