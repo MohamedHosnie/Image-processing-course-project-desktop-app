@@ -14,8 +14,8 @@ C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\I
 C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.SaveForm.resources
 C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.TransformationsForm.resources
 C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\IP-FCIS.csproj.GenerateResource.Cache
-C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\bin\Debug\Pixelate '15.exe.config
-C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\bin\Debug\Pixelate '15.exe
-C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\bin\Debug\Pixelate '15.pdb
-C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\Pixelate '15.exe
-C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\Pixelate '15.pdb
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\bin\Debug\Pixelate.exe.config
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\bin\Debug\Pixelate.exe
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\bin\Debug\Pixelate.pdb
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\Pixelate.exe
+C:\Users\moham\Documents\visual studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\Pixelate.pdb
