@@ -26,7 +26,7 @@ namespace IP_FCIS.Forms
         {
             try
             {
-                Program.main_form.histogram_form = null;
+                Program.mainForm.histogram_form = null;
 
             } catch(Exception ex)
             {

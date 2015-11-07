@@ -33,6 +33,7 @@ namespace IP_FCIS.Forms
             void vertical_edge();
             void magnitude_edge();
             void custom_filter();
+            void Copy();
 
         }
         public HistogramForm histogram_form;
@@ -77,8 +78,17 @@ namespace IP_FCIS.Forms
         }
         public void open_this_mdi_picture(PictureForm pic_form)
         {
-            pic_form.Width = pic_form.opened_image.get_width() + 50;
-            pic_form.Height = pic_form.opened_image.get_height() + 50;
+            //if(pic_form.opened_image.get_width() > (int)(Program.mainForm.Width / 1.5))
+            //    pic_form.Width = (int)(Program.mainForm.Width / 1.5);
+            //else
+            //    pic_form.Width = pic_form.opened_image.get_width() + 30;
+
+            //if (pic_form.opened_image.get_height() > (int)(Program.mainForm.Height - 200))
+            //    pic_form.Height = (int)(Program.mainForm.Height - 200);
+            //else
+            //    pic_form.Height = pic_form.opened_image.get_height() + 50;
+
+            pic_form.set_new_image();
             pic_form.Text = pic_form.opened_image.get_file_name();
             images_array.Add(pic_form.opened_image);
             pic_form.MdiParent = this;
@@ -312,11 +322,15 @@ namespace IP_FCIS.Forms
                 if (this.ActiveMdiChild is ImageBox)
                 {
                     toolsToolStripMenuItem.Enabled = true;
+                    copyToolStripMenuItem.Enabled = true;
+                    copyToolStripButton.Enabled = true;
 
                 }
                 else
                 {
                     toolsToolStripMenuItem.Enabled = false;
+                    copyToolStripMenuItem.Enabled = false;
+                    copyToolStripButton.Enabled = false;
                 }
 
             } catch(Exception ex)
@@ -391,10 +405,15 @@ namespace IP_FCIS.Forms
             try
             {
                 PictureForm new_picture = new PictureForm();
-                Image paste = Clipboard.GetImage();
-                Bitmap img = new Bitmap(paste);
-                new_picture.opened_image = new TypicalImage();
-                new_picture.opened_image.bitmap = img;
+                if(!Clipboard.ContainsData(DataFormats.Text))
+                {
+                    new_picture.opened_image = new TypicalImage((Bitmap)Clipboard.GetImage());
+                }
+                else
+                {
+                    IDataObject clips = Clipboard.GetDataObject();
+                    new_picture.opened_image = new TypicalImage((Bitmap)clips.GetData(DataFormats.Bitmap), (string)clips.GetData(DataFormats.Text), true);
+                }   
                 this.open_this_mdi_picture(new_picture);
             }
             catch (Exception ex)
@@ -413,8 +432,19 @@ namespace IP_FCIS.Forms
                 MessageBox.Show(ex.Message);
             }
         }
+        private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ((ImageBox)this.ActiveMdiChild).Copy();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
 
-      
+        }
+
 
 
     }

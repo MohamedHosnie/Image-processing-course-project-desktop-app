@@ -14,14 +14,14 @@ namespace IP_FCIS
         /// The main entry point for the application.
         /// </summary>
         /// 
-        public static MainForm main_form;
+        public static MainForm mainForm;
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            main_form = new MainForm();
-            Application.Run(main_form);
+            mainForm = new MainForm();
+            Application.Run(mainForm);
         }
 
 

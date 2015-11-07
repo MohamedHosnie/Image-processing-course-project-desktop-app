@@ -40,3 +40,24 @@ C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\bin\Debug\Pixelate.exe
 C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\bin\Debug\Pixelate.pdb
 C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.CustomFilterForm.resources
 C:\Users\moham\Documents\Visual Studio 2013\Projects\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.CustomFilterForm.resources
+C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\IP-FCIS\bin\Debug\Pixelate.exe.config
+C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\IP-FCIS\obj\Debug\Pixelate.exe
+C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\IP-FCIS\obj\Debug\Pixelate.pdb
+C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\IP-FCIS\obj\Debug\IP-FCIS.csprojResolveAssemblyReference.cache
+C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.AlgebraForm.resources
+C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.BitPlaneForm.resources
+C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.BrightnessContrastForm.resources
+C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.GammaForm.resources
+C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.HistogramForm.resources
+C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.HistoryForm.resources
+C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.MainForm.resources
+C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.PictureForm.resources
+C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.QuantizationForm.resources
+C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.CustomFilterForm.resources
+C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.SmoothForm.resources
+C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Properties.Resources.resources
+C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.SaveForm.resources
+C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\IP-FCIS\obj\Debug\IP_FCIS.Forms.TransformationsForm.resources
+C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\IP-FCIS\obj\Debug\IP-FCIS.csproj.GenerateResource.Cache
+C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\IP-FCIS\bin\Debug\Pixelate.exe
+C:\Users\OSlayer\Desktop\IP-FCIS\IP-FCIS\IP-FCIS\bin\Debug\Pixelate.pdb

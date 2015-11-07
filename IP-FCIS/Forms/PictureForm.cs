@@ -25,22 +25,22 @@ namespace IP_FCIS.Forms
         }
         private void PictureForm_Load(object sender, EventArgs e)
         {
-            try
-            {
-                pictureBox1.Image = opened_image.get_bitmap();
+            //try
+            //{
+            //    pictureBox1.Image = opened_image.get_bitmap();
 
-            } catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            //} catch(Exception ex)
+            //{
+            //    MessageBox.Show(ex.Message);
+            //}
             
         }
         private void ChildForm_Activeted(object sender, EventArgs e)
         {
             try
             {
-                Program.main_form.set_form_width_height_values(opened_image.get_width(), opened_image.get_height());
-                if(Program.main_form.histogram_form != null)
+                Program.mainForm.set_form_width_height_values(opened_image.get_width(), opened_image.get_height());
+                if(Program.mainForm.histogram_form != null)
                 {
                     this.histogram();
                 }
@@ -50,15 +50,24 @@ namespace IP_FCIS.Forms
                 MessageBox.Show(ex.Message);
             }
         }
-        private void set_new_image()
+        public void set_new_image()
         {
             try
             {
                 this.pictureBox1.Image = this.opened_image.get_bitmap();
-                Program.main_form.set_form_width_height_values(opened_image.get_width(), opened_image.get_height());
-                this.Width = opened_image.get_width() + 50;
-                this.Height = opened_image.get_height() + 50;
-                if(Program.main_form.histogram_form != null)
+                Program.mainForm.set_form_width_height_values(opened_image.get_width(), opened_image.get_height());
+
+                if (this.opened_image.get_width() > (int)(Program.mainForm.Width / 1.5))
+                    this.Width = (int)(Program.mainForm.Width / 1.5);
+                else
+                    this.Width = this.opened_image.get_width() + 30;
+
+                if (this.opened_image.get_height() > (int)(Program.mainForm.Height - 200))
+                    this.Height = (int)(Program.mainForm.Height - 200);
+                else
+                    this.Height = this.opened_image.get_height() + 50;
+
+                if(Program.mainForm.histogram_form != null)
                 {
                     histogram();
                 }
@@ -181,20 +190,20 @@ namespace IP_FCIS.Forms
 
             opened_image.histogram(ref histogram_data);
 
-            if(Program.main_form.histogram_form == null)
+            if(Program.mainForm.histogram_form == null)
             {
-                Program.main_form.histogram_form = new HistogramForm();
-                Program.main_form.histogram_form.MdiParent = this.ParentForm;
+                Program.mainForm.histogram_form = new HistogramForm();
+                Program.mainForm.histogram_form.MdiParent = this.ParentForm;
                 
             }
 
-            Program.main_form.histogram_form.Text = "Histogram " + this.Text;
-            Program.main_form.histogram_form.current_histogram_data = histogram_data;
-            Program.main_form.histogram_form.draw_histogram();
+            Program.mainForm.histogram_form.Text = "Histogram " + this.Text;
+            Program.mainForm.histogram_form.current_histogram_data = histogram_data;
+            Program.mainForm.histogram_form.draw_histogram();
 
-            if(!Program.main_form.histogram_form.Visible)
+            if(!Program.mainForm.histogram_form.Visible)
             {
-                Program.main_form.histogram_form.Show();
+                Program.mainForm.histogram_form.Show();
 
             } 
             
@@ -203,9 +212,9 @@ namespace IP_FCIS.Forms
         {
             try
             {
-                if(Program.main_form.histogram_form != null)
+                if(Program.mainForm.histogram_form != null)
                 {
-                    Program.main_form.histogram_form.Activate();
+                    Program.mainForm.histogram_form.Activate();
                 }
                 this.histogram();
 
@@ -310,13 +319,26 @@ namespace IP_FCIS.Forms
         {
             try
             {
-                Program.main_form.images_array.Remove(opened_image);
+                int index = 0;
+                for (int i = 0; i < Program.mainForm.images_array.Count; i++)
+                {
+                    if (opened_image.id == Program.mainForm.images_array[i].id)
+                        index = i;
+                }
+                Program.mainForm.images_array.RemoveAt(index);
 
             } catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
             
+        }
+        public void Copy()
+        {
+            IDataObject clips = new DataObject();
+            clips.SetData(DataFormats.Bitmap, this.opened_image.get_bitmap());
+            clips.SetData(DataFormats.Text, this.opened_image.get_file_name());
+            Clipboard.SetDataObject(clips, true);
         }
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
@@ -352,6 +374,17 @@ namespace IP_FCIS.Forms
 
             }
             catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Copy();
+
+            } catch(Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }

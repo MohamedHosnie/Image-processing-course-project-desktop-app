@@ -13,13 +13,15 @@ namespace IP_FCIS.Classes
     public class TypicalImage
     {
         protected int width, height;
-        public Bitmap bitmap;
+        private Bitmap bitmap;
         protected Color [,]buffer2d;
         protected string original_format;
         protected byte max_color;
         protected string file_name;
         protected int min_intensity, max_intensity;
         private int FWidth, FHeight;
+        private static int photo_num = 1;
+        public int id;
         public enum Postprocessing
         {
             No,
@@ -35,8 +37,8 @@ namespace IP_FCIS.Classes
         {
             None, Bilinear
         }
-        public TypicalImage() {    }
-        public TypicalImage(Type type, string directory) 
+        public TypicalImage() { this.id = photo_num; photo_num++; }
+        public TypicalImage(Type type, string directory) : this() 
         {
             if(type == Type.Common)
             {
@@ -51,7 +53,7 @@ namespace IP_FCIS.Classes
                 throw new Exception("Wrong type");
             }
         }
-        public TypicalImage(TypicalImage img)
+        public TypicalImage(TypicalImage img) 
         {
             this.width = img.width;
             this.height = img.height;
@@ -67,6 +69,25 @@ namespace IP_FCIS.Classes
             this.original_format = img.original_format;
             this.max_color = img.max_color;
             this.file_name = img.file_name;
+            this.id = img.id;
+        }
+        public TypicalImage(Image img, string name = "", bool copy = false) : this() 
+        {
+            this.width = img.Width;
+            this.height = img.Height;
+            this.bitmap = new Bitmap(img);
+            this.buffer2d = new Color[width, height];
+            for (int y = 0; y < this.height; y++)
+            {
+                for (int x = 0; x < this.width; x++)
+                {
+                    this.buffer2d[x, y] = bitmap.GetPixel(x,y);
+                }
+            }
+            if(copy)
+                this.file_name = "Copy of " + name;
+            else
+                this.file_name = "Image" + Convert.ToString(this.id) + ".bmp";
         }
         public Image get_bitmap()
         {
@@ -1136,5 +1157,8 @@ namespace IP_FCIS.Classes
                 }
             }
         }
+
+
+
     }
 }

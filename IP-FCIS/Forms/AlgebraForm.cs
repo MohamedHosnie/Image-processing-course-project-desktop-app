@@ -87,7 +87,7 @@ namespace IP_FCIS.Forms
             result.set_file_name(first.get_file_name() + " + " + second.get_file_name());
             new_picture.opened_image = result;
 
-            Program.main_form.open_this_mdi_picture(new_picture);
+            Program.mainForm.open_this_mdi_picture(new_picture);
 
             this.Close();
         }
