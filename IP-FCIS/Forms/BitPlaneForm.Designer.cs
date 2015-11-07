@@ -103,9 +103,9 @@
             // Result
             // 
             this.Result.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Result.Location = new System.Drawing.Point(425, 394);
+            this.Result.Location = new System.Drawing.Point(415, 387);
             this.Result.Name = "Result";
-            this.Result.Size = new System.Drawing.Size(250, 250);
+            this.Result.Size = new System.Drawing.Size(280, 280);
             this.Result.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Result.TabIndex = 73;
             this.Result.TabStop = false;
@@ -114,7 +114,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(528, 377);
+            this.label12.Location = new System.Drawing.Point(532, 370);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(46, 14);
             this.label12.TabIndex = 72;
@@ -469,9 +469,9 @@
             // Original
             // 
             this.Original.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Original.Location = new System.Drawing.Point(169, 394);
+            this.Original.Location = new System.Drawing.Point(129, 387);
             this.Original.Name = "Original";
-            this.Original.Size = new System.Drawing.Size(250, 250);
+            this.Original.Size = new System.Drawing.Size(280, 280);
             this.Original.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Original.TabIndex = 75;
             this.Original.TabStop = false;
@@ -480,7 +480,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(264, 377);
+            this.label13.Location = new System.Drawing.Point(242, 370);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(53, 14);
             this.label13.TabIndex = 74;
@@ -491,7 +491,7 @@
             this.Blue.AutoSize = true;
             this.Blue.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Blue.ForeColor = System.Drawing.Color.Blue;
-            this.Blue.Location = new System.Drawing.Point(681, 441);
+            this.Blue.Location = new System.Drawing.Point(701, 434);
             this.Blue.Name = "Blue";
             this.Blue.Size = new System.Drawing.Size(93, 13);
             this.Blue.TabIndex = 78;
@@ -502,7 +502,7 @@
             this.Green.AutoSize = true;
             this.Green.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Green.ForeColor = System.Drawing.Color.Green;
-            this.Green.Location = new System.Drawing.Point(681, 418);
+            this.Green.Location = new System.Drawing.Point(701, 411);
             this.Green.Name = "Green";
             this.Green.Size = new System.Drawing.Size(103, 13);
             this.Green.TabIndex = 77;
@@ -513,7 +513,7 @@
             this.Red.AutoSize = true;
             this.Red.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Red.ForeColor = System.Drawing.Color.Red;
-            this.Red.Location = new System.Drawing.Point(681, 394);
+            this.Red.Location = new System.Drawing.Point(701, 387);
             this.Red.Name = "Red";
             this.Red.Size = new System.Drawing.Size(91, 13);
             this.Red.TabIndex = 76;
@@ -521,7 +521,7 @@
             // 
             // buttonOK
             // 
-            this.buttonOK.Location = new System.Drawing.Point(902, 592);
+            this.buttonOK.Location = new System.Drawing.Point(900, 615);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
             this.buttonOK.TabIndex = 79;
@@ -532,7 +532,7 @@
             // buttonCancel
             // 
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(902, 621);
+            this.buttonCancel.Location = new System.Drawing.Point(900, 644);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 80;
@@ -544,7 +544,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(989, 663);
+            this.ClientSize = new System.Drawing.Size(989, 685);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.Blue);

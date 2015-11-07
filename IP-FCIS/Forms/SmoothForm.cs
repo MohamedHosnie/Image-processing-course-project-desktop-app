@@ -14,53 +14,103 @@ namespace IP_FCIS.Forms
     public partial class SmoothForm : Form
     {
         public TypicalImage img;
+        public TypicalImage bluredimg;
         public SmoothForm()
         {
             InitializeComponent();
           
         }
-
         private void SmoothForm_Load(object sender, EventArgs e)
         {
-            Original.Image = img.get_bitmap();
-        }
+            try
+            {
+                Original.Image = img.get_bitmap();
+                dropListOperation.SelectedIndex = 0;
 
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
         private void dropListOperation_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (dropListOperation.Text == "Mean Filter")
+            try
             {
-                if (gaussianPanel.Visible == true)
-                    gaussianPanel.Hide();
+                if (dropListOperation.Text == "Mean Filter")
+                {
+                    if (gaussianPanel.Visible == true)
+                        gaussianPanel.Hide();
 
-                MeanPanel.Show();
+                    MeanPanel.Show();
                
+                }
+                else if (dropListOperation.Text == "Gaussian Filter ")
+                {
+                    if (MeanPanel.Visible == true)
+                        MeanPanel.Hide();
+
+                    gaussianPanel.Show();
+                }
+
             }
-            else if (dropListOperation.Text == "Gaussian Filter ")
+            catch (Exception ex)
             {
-                if (MeanPanel.Visible == true)
-                    MeanPanel.Hide();
-
-                gaussianPanel.Show();
+                MessageBox.Show(ex.Message);
             }
-        }
 
+        }
         private void meanSmooth_Click(object sender, EventArgs e)
         {
-            pictureBoxResult.Image = img.meanFilter(
-                int.Parse(meanWidth.Text),
-                int.Parse(meanHeight.Text),
-                int.Parse(meanOrigix.Text),
-                int.Parse(meanOriginy.Text)
-            ).get_bitmap();
+            try
+            {
+                bluredimg = img.meanFilter(
+                    int.Parse(meanWidth.Text),
+                    int.Parse(meanHeight.Text),
+                    int.Parse(meanOrigix.Text),
+                    int.Parse(meanOriginy.Text)
+                );
+
+                pictureBoxResult.Image = bluredimg.get_bitmap();
+
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
        
         }
-
         private void guassianButton_Click(object sender, EventArgs e)
         {
-            if (gaussianSize.Text == "")
-                pictureBoxResult.Image = img.gaussianFilter2(int.Parse(sigma.Text)).get_bitmap();
-            else
-                pictureBoxResult.Image = img.gaussianFilter1(int.Parse(sigma.Text),int.Parse(gaussianSize.Text)).get_bitmap();
+            try
+            {
+                if (gaussianSize.Text == "")
+                {
+                    bluredimg = img.gaussianFilter2(int.Parse(sigma.Text));
+                    pictureBoxResult.Image = bluredimg.get_bitmap();
+                }
+                else
+                {
+                    bluredimg =img.gaussianFilter1(int.Parse(sigma.Text), int.Parse(gaussianSize.Text));
+                    pictureBoxResult.Image = bluredimg.get_bitmap();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
+        private void buttonOK_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                img = bluredimg;
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
     }
 }

@@ -28,23 +28,25 @@ namespace IP_FCIS.Forms
             Masks.Add(254);
             Masks.Add(255);
         }
-
         private void reduceButton_Click(object sender, EventArgs e)
         {
-            int number = int.Parse(reduceText.Text);
-            number = (int)Math.Log(number, 2);
-            if (number > 8 || number < 1)
-                MessageBox.Show("Can't Reduce to that Value");
-            else
+            try
             {
-                img.quantization(Masks[number - 1]);
-                this.Close();
+                int number = int.Parse(reduceText.Text);
+                number = (int)Math.Log(number, 2);
+                if (number > 8 || number < 1)
+                    MessageBox.Show("Can't Reduce to that Value");
+                else
+                {
+                    img.quantization(Masks[number - 1]);
+                    this.Close();
+                }
+
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
-
-        }
-
-        private void QuantizationForm_Load(object sender, EventArgs e)
-        {
+            
 
         }
     }

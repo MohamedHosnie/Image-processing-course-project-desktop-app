@@ -31,6 +31,10 @@ namespace IP_FCIS.Classes
         {
             Common, PPM
         }
+        public enum Interpolation
+        {
+            None, Bilinear
+        }
         public TypicalImage() {    }
         public TypicalImage(Type type, string directory) 
         {
@@ -253,14 +257,14 @@ namespace IP_FCIS.Classes
             }
 
         }
-        public void scale(float ScaleX, float ScaleY)
+        public void scale(float ScaleX, float ScaleY, Interpolation interpol = Interpolation.Bilinear)
         {
             Matrix transform_matrix = new Matrix();
             transform_matrix.Scale(ScaleX, ScaleY);
 
-            Transform(transform_matrix);
+            Transform(transform_matrix, interpol);
         }
-        public void resize(float Width, float Height)
+        public void resize(float Width, float Height, Interpolation interpol = Interpolation.Bilinear)
         {
             Matrix transform_matrix = new Matrix();
             float ScaleX = Width / (float)width,
@@ -268,32 +272,32 @@ namespace IP_FCIS.Classes
             
             transform_matrix.Scale(ScaleX, ScaleY);
 
-            Transform(transform_matrix);
+            Transform(transform_matrix, interpol);
         }
-        public void rotate(float RotateAngle)
+        public void rotate(float RotateAngle, Interpolation interpol = Interpolation.Bilinear)
         {
             Matrix transform_matrix = new Matrix();
             transform_matrix.Rotate(RotateAngle);
 
-            Transform(transform_matrix);
+            Transform(transform_matrix, interpol);
         }
-        public void shear(float ShearX, float ShearY)
+        public void shear(float ShearX, float ShearY, Interpolation interpol = Interpolation.Bilinear)
         {
             Matrix transform_matrix = new Matrix();
             transform_matrix.Shear(ShearX, ShearY);
 
-            Transform(transform_matrix);
+            Transform(transform_matrix, interpol);
         }
-        public void full_transform(float ScX, float ScY, float ShX, float ShY, float RoAngle)
+        public void full_transform(float ScX, float ScY, float ShX, float ShY, float RoAngle, Interpolation interpol = Interpolation.Bilinear)
         {
             Matrix transform_matrix = new Matrix();
             transform_matrix.Shear(ShX, ShY, MatrixOrder.Append);
             transform_matrix.Rotate(RoAngle, MatrixOrder.Append);
             transform_matrix.Scale(ScX, ScY, MatrixOrder.Append);
 
-            Transform(transform_matrix);
+            Transform(transform_matrix, interpol);
         }
-        public void Transform(Matrix transform_matrix)
+        public void Transform(Matrix transform_matrix, Interpolation _interpolation = Interpolation.Bilinear)
         {
             PointF[] ps = new PointF[4];
             ps[0].X = 0; ps[0].Y = 0;
@@ -337,12 +341,12 @@ namespace IP_FCIS.Classes
                     if (pt[0].X < width - 1 && pt[0].Y < height - 1 && pt[0].X > 0 && pt[0].Y > 0)
                     {
                         Color color = Bilinear_Interpolate(pt[0]);
-                        switch (Program.main_form.toolStripInterpolation.Text)
+                        switch (_interpolation)
                         {
-                            case "None":
+                            case Interpolation.None:
                                 new_buffer2d[x, y] = buffer2d[(Int32)pt[0].X, (Int32)pt[0].Y];
                                 break;
-                            case "Bilinear":
+                            case Interpolation.Bilinear:
                                 new_buffer2d[x, y] = color;
                                 break;
                             default:
@@ -834,6 +838,7 @@ namespace IP_FCIS.Classes
         public TypicalImage LinearFilter(float[,] filter,int Origx, int Origy, Postprocessing post)
         {
             TypicalImage img = new TypicalImage(this);
+            TypicalImage edited_img = new TypicalImage(this);
             int padWidth, padHeight;
 
             double[] buffer = new double[width * height * 3];
@@ -866,21 +871,21 @@ namespace IP_FCIS.Classes
 
             if (post == Postprocessing.Cut_off)
             {
-               cut_off(buffer);
+               edited_img.cut_off(buffer);
             }
             else if (post == Postprocessing.No)
             {
-                no_postprocess(buffer);
+                edited_img.no_postprocess(buffer);
             }
             else if (post == Postprocessing.Absolute)
             {
-                absolute(buffer);
+                edited_img.absolute(buffer);
             }
             else if (post == Postprocessing.Normalization)
             {
-                normalization(buffer, this);
+               edited_img.normalization(buffer, edited_img);
             }
-            return this;
+            return edited_img;
         }
         public TypicalImage meanFilter(int filterwidth, int filterheight, int origx, int origy)
         {
@@ -928,7 +933,7 @@ namespace IP_FCIS.Classes
         }
         public TypicalImage gaussianFilter2(float sigma)
         {
-            int N = (int)((3.7*sigma)-.5);
+            int N = (int)((3.7*sigma) - 0.5);
             int size = 2 * N + 1;
             float[,] filter = new float[size, size];
             FWidth = size;
@@ -944,9 +949,9 @@ namespace IP_FCIS.Classes
                 for (int j = 0; j < size; j++, y++)
                 {
                     double filtervalue = (1/(2*Math.PI*sigma*sigma));
-                    double filtervalue1 = (x * x + y * y) / (2 * sigma * sigma);
+                    double filtervalue1 =(float)Math.Exp(- (x * x + y * y) / (2 * sigma * sigma));
                     filtervalue = filtervalue * filtervalue1;
-                    filter[i , j ] = (float)Math.Exp(-(filtervalue));
+                    filter[j , i ] = (float)filtervalue;
                 }
                 y = -(size / 2);
             }
@@ -959,25 +964,100 @@ namespace IP_FCIS.Classes
             FWidth = 3;
             FHeight = 3;
             float[,] filter = new float[3, 3];
-            filter[0, 0] = 0;
-            filter[0, 1] = -1;
-            filter[0, 2] = 0;
+            filter[0, 0] = -1;
             filter[1, 0] = -1;
-            filter[1, 1] = 5;
-            filter[1, 2] = -1;
-            filter[2, 0] = 0;
             filter[2, 0] = -1;
-            filter[2, 0] = 0;
+
+            filter[0, 1] = -1;
+            filter[1, 1] = 9;
+            filter[2, 1] = -1;
+
+            filter[0, 2] = -1;
+            filter[1, 2] = -1;
+            filter[2, 2] = -1;
 
             return LinearFilter(filter, 1, 1, Postprocessing.Cut_off);
         }
-        public void cut_off(double [] buffer)
+        public TypicalImage horizontal_sobel_filter()
         {
-            for (int z = 0; z < buffer.Length; z ++)
+            FWidth = 3;
+            FHeight = 3;
+            float[,] filter = new float[3, 3];
+            filter[0, 0] = -1;
+            filter[1, 0] = -2;
+            filter[2, 0] = -1;
+
+            filter[0, 1] = 0;
+            filter[1, 1] = 0;
+            filter[2, 1] = 0;
+
+            filter[0, 2] = 1;
+            filter[1, 2] = 2;
+            filter[2, 2] = 1;
+
+            return LinearFilter(filter, 1, 1, Postprocessing.Absolute);
+
+        }
+        public TypicalImage vertical_sobel_filter()
+        {
+            FWidth = 3;
+            FHeight = 3;
+            float[,] filter = new float[3, 3];
+            filter[0, 0] = -1;
+            filter[1, 0] = 0;
+            filter[2, 0] = 1;
+
+            filter[0, 1] = -2;
+            filter[1, 1] = 0;
+            filter[2, 1] = 2;
+
+            filter[0, 2] = -1;
+            filter[1, 2] = 0;
+            filter[2, 2] = 1;
+
+            return LinearFilter(filter, 1, 1, Postprocessing.Absolute);
+
+        }
+        public TypicalImage edge_magnitude()
+        {
+
+            TypicalImage hor = this.horizontal_sobel_filter();
+            TypicalImage ver = this.vertical_sobel_filter();
+            TypicalImage mag = new TypicalImage(this);
+            double [] buffer = new double[width*height *3];
+            int z=0;
+            for (int j = 0; j < this.height; j++)
+            {
+                for (int i = 0; i < this.width; i++, z += 3)
+                {
+                    int R = hor.buffer2d[i, j].R + ver.buffer2d[i, j].R;
+                    int G = hor.buffer2d[i, j].G + ver.buffer2d[i, j].G;
+                    int B = hor.buffer2d[i, j].B + ver.buffer2d[i, j].B;
+                   
+                    buffer[z] = R;
+                    buffer[z + 1] = G;
+                    buffer[z + 2] = B;
+                    
+                }
+            }
+            normalization(buffer,mag);
+                return mag;
+
+        }
+        public TypicalImage custom_filter(float[,] filter,int width,int height, Postprocessing post)
+        {
+            FWidth = width;
+            FHeight = height;
+
+            return LinearFilter(filter, FWidth / 2, FHeight / 2, post);
+        }
+        public void cut_off(double[] buffer)
+        {
+            for (int z = 0; z < buffer.Length; z++)
             {
                 if (buffer[z] > 255)
                     buffer[z] = 255;
-                else if (buffer[z] < 255)
+                else if (buffer[z] < 0)
                     buffer[z] = 0;
             }
             int i = 0;
@@ -986,8 +1066,8 @@ namespace IP_FCIS.Classes
                 for (int x = 0; x < width; x++,i+=3)
                 {
                    Color newcolor = Color.FromArgb((byte)buffer[i], (byte)buffer[i+1], (byte)buffer[i+2]);
-                   this.buffer2d[x,y] = newcolor;
-                   this.bitmap.SetPixel(x,y, newcolor);
+                   this.buffer2d[x, y] = newcolor;
+                   this.bitmap.SetPixel(x, y, newcolor);
                 }
             }
         

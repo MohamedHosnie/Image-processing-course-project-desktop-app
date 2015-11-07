@@ -275,16 +275,48 @@ namespace IP_FCIS.Forms
             SmoothForm smoothForm = new SmoothForm();
             smoothForm.img = this.opened_image;
             smoothForm.ShowDialog(this);
+            this.opened_image = smoothForm.img;
+            this.set_new_image();
         }
         public void sharp()
         {
-            SharpForm sharpForm = new SharpForm();
-            sharpForm.img = this.opened_image;
-            sharpForm.Show(this);
+            this.opened_image = this.opened_image.laplacianFilter();
+            this.set_new_image();
+        }
+        public void horizontal_edge()
+        {
+            this.opened_image = this.opened_image.horizontal_sobel_filter();
+            this.set_new_image();
+        }
+        public void vertical_edge() 
+        {
+            this.opened_image = this.opened_image.vertical_sobel_filter();
+            this.set_new_image();
+        }
+        public void magnitude_edge()
+        {
+            this.opened_image = this.opened_image.edge_magnitude();
+            this.set_new_image();
+        }
+        public void custom_filter()
+        {
+            CustomFilterForm customFilter = new CustomFilterForm();
+            customFilter.img = this.opened_image;
+            customFilter.ShowDialog(this);
+            this.opened_image = customFilter.img;
+            set_new_image();
         }
         private void PictureForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Program.main_form.images_array.Remove(opened_image);
+            try
+            {
+                Program.main_form.images_array.Remove(opened_image);
+
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {

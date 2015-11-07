@@ -115,11 +115,11 @@
     <Compile Include="Forms\QuantizationForm.Designer.cs">
       <DependentUpon>QuantizationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\SharpForm.cs">
+    <Compile Include="Forms\CustomFilterForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\SharpForm.Designer.cs">
-      <DependentUpon>SharpForm.cs</DependentUpon>
+    <Compile Include="Forms\CustomFilterForm.Designer.cs">
+      <DependentUpon>CustomFilterForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\SmoothForm.cs">
       <SubType>Form</SubType>
@@ -168,8 +168,8 @@
     <EmbeddedResource Include="Forms\QuantizationForm.resx">
       <DependentUpon>QuantizationForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\SharpForm.resx">
-      <DependentUpon>SharpForm.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\CustomFilterForm.resx">
+      <DependentUpon>CustomFilterForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\SmoothForm.resx">
       <DependentUpon>SmoothForm.cs</DependentUpon>

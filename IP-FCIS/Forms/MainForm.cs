@@ -29,6 +29,11 @@ namespace IP_FCIS.Forms
             void quantization();
             void smooth();
             void sharp();
+            void horizontal_edge();
+            void vertical_edge();
+            void magnitude_edge();
+            void custom_filter();
+
         }
         public HistogramForm histogram_form;
         public List<TypicalImage> images_array;
@@ -106,7 +111,6 @@ namespace IP_FCIS.Forms
             //AllocConsole();
             try
             {
-                this.toolStripInterpolation.Text = "Bilinear";
                 this.images_array = new List<TypicalImage>();
 
             }
@@ -238,8 +242,8 @@ namespace IP_FCIS.Forms
         }
         private void imageAlgebraToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //try
-            //{
+            try
+            {
                 if(this.MdiChildren.Length > 1)
                 {
                     AlgebraForm algebra_form = new AlgebraForm();
@@ -252,50 +256,165 @@ namespace IP_FCIS.Forms
                 }
                 
 
-            //} catch(Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         private void bitPlaneToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ((ImageBox)this.ActiveMdiChild).bitplane();
+            try
+            {
+                ((ImageBox)this.ActiveMdiChild).bitplane();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         private void quantizationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ((ImageBox)this.ActiveMdiChild).quantization();
+        {   
+            try
+            {
+                ((ImageBox)this.ActiveMdiChild).quantization();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         private void smoothToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ((ImageBox)this.ActiveMdiChild).smooth();
+            try
+            {
+                ((ImageBox)this.ActiveMdiChild).smooth();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         private void sharpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ((ImageBox)this.ActiveMdiChild).sharp();
+            try
+            {
+                ((ImageBox)this.ActiveMdiChild).sharp();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         private void MainForm_MdiChildActivate(object sender, EventArgs e)
         {
-            if(this.ActiveMdiChild is ImageBox)
+            try
             {
-                toolsToolStripMenuItem.Enabled = true;
+                if (this.ActiveMdiChild is ImageBox)
+                {
+                    toolsToolStripMenuItem.Enabled = true;
 
-            } else
+                }
+                else
+                {
+                    toolsToolStripMenuItem.Enabled = false;
+                }
+
+            } catch(Exception ex)
             {
-                toolsToolStripMenuItem.Enabled = false;
+                MessageBox.Show(ex.Message);
             }
+            
         }
         private void MainForm_DragDrop(object sender, DragEventArgs e)
         {
-            string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
-            foreach(string file in files)
+            try
             {
-                openPicFile(file);
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                foreach (string file in files)
+                {
+                    openPicFile(file);
+                }
+
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
+            
         }
         private void MainForm_DragEnter(object sender, DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+            try
+            {
+                if (e.Data.GetDataPresent(DataFormats.FileDrop)) e.Effect = DragDropEffects.Copy;
+
+            } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+           
         }
+        private void horizontalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ((ImageBox)this.ActiveMdiChild).horizontal_edge();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void verticalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ((ImageBox)this.ActiveMdiChild).vertical_edge();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void magnitudeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ((ImageBox)this.ActiveMdiChild).magnitude_edge();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                PictureForm new_picture = new PictureForm();
+                Image paste = Clipboard.GetImage();
+                Bitmap img = new Bitmap(paste);
+                new_picture.opened_image = new TypicalImage();
+                new_picture.opened_image.bitmap = img;
+                this.open_this_mdi_picture(new_picture);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void customMaskToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ((ImageBox)this.ActiveMdiChild).custom_filter();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+      
 
 
     }

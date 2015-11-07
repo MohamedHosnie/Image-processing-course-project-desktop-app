@@ -50,6 +50,8 @@
             this.sigma = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonOK = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Original)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxResult)).BeginInit();
             this.MeanPanel.SuspendLayout();
@@ -61,7 +63,7 @@
             this.Original.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Original.Location = new System.Drawing.Point(35, 40);
             this.Original.Name = "Original";
-            this.Original.Size = new System.Drawing.Size(250, 250);
+            this.Original.Size = new System.Drawing.Size(300, 300);
             this.Original.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Original.TabIndex = 14;
             this.Original.TabStop = false;
@@ -70,7 +72,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(131, 21);
+            this.label1.Location = new System.Drawing.Point(164, 21);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(56, 16);
             this.label1.TabIndex = 16;
@@ -79,9 +81,9 @@
             // pictureBoxResult
             // 
             this.pictureBoxResult.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureBoxResult.Location = new System.Drawing.Point(291, 40);
+            this.pictureBoxResult.Location = new System.Drawing.Point(341, 40);
             this.pictureBoxResult.Name = "pictureBoxResult";
-            this.pictureBoxResult.Size = new System.Drawing.Size(250, 250);
+            this.pictureBoxResult.Size = new System.Drawing.Size(300, 300);
             this.pictureBoxResult.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBoxResult.TabIndex = 28;
             this.pictureBoxResult.TabStop = false;
@@ -90,7 +92,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(382, 21);
+            this.label6.Location = new System.Drawing.Point(465, 21);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(67, 16);
             this.label6.TabIndex = 29;
@@ -103,7 +105,7 @@
             this.dropListOperation.Items.AddRange(new object[] {
             "Mean Filter",
             "Gaussian Filter "});
-            this.dropListOperation.Location = new System.Drawing.Point(87, 308);
+            this.dropListOperation.Location = new System.Drawing.Point(87, 355);
             this.dropListOperation.Name = "dropListOperation";
             this.dropListOperation.Size = new System.Drawing.Size(122, 21);
             this.dropListOperation.TabIndex = 33;
@@ -113,7 +115,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(32, 309);
+            this.label4.Location = new System.Drawing.Point(32, 356);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(41, 16);
             this.label4.TabIndex = 34;
@@ -130,7 +132,7 @@
             this.MeanPanel.Controls.Add(this.label7);
             this.MeanPanel.Controls.Add(this.label3);
             this.MeanPanel.Controls.Add(this.label2);
-            this.MeanPanel.Location = new System.Drawing.Point(225, 316);
+            this.MeanPanel.Location = new System.Drawing.Point(313, 346);
             this.MeanPanel.Name = "MeanPanel";
             this.MeanPanel.Size = new System.Drawing.Size(328, 109);
             this.MeanPanel.TabIndex = 35;
@@ -221,15 +223,15 @@
             this.gaussianPanel.Controls.Add(this.sigma);
             this.gaussianPanel.Controls.Add(this.label10);
             this.gaussianPanel.Controls.Add(this.label9);
-            this.gaussianPanel.Location = new System.Drawing.Point(284, 316);
+            this.gaussianPanel.Location = new System.Drawing.Point(370, 346);
             this.gaussianPanel.Name = "gaussianPanel";
-            this.gaussianPanel.Size = new System.Drawing.Size(269, 122);
+            this.gaussianPanel.Size = new System.Drawing.Size(271, 138);
             this.gaussianPanel.TabIndex = 36;
             this.gaussianPanel.Visible = false;
             // 
             // guassianButton
             // 
-            this.guassianButton.Location = new System.Drawing.Point(174, 83);
+            this.guassianButton.Location = new System.Drawing.Point(176, 83);
             this.guassianButton.Name = "guassianButton";
             this.guassianButton.Size = new System.Drawing.Size(75, 23);
             this.guassianButton.TabIndex = 21;
@@ -271,13 +273,36 @@
             this.label9.TabIndex = 17;
             this.label9.Text = "Sigma ";
             // 
+            // buttonCancel
+            // 
+            this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.buttonCancel.Location = new System.Drawing.Point(570, 490);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.TabIndex = 37;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            // 
+            // buttonOK
+            // 
+            this.buttonOK.Location = new System.Drawing.Point(489, 490);
+            this.buttonOK.Name = "buttonOK";
+            this.buttonOK.Size = new System.Drawing.Size(75, 23);
+            this.buttonOK.TabIndex = 36;
+            this.buttonOK.Text = "OK";
+            this.buttonOK.UseVisualStyleBackColor = true;
+            this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
+            // 
             // SmoothForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(582, 450);
+            this.CancelButton = this.buttonCancel;
+            this.ClientSize = new System.Drawing.Size(675, 524);
             this.Controls.Add(this.gaussianPanel);
             this.Controls.Add(this.MeanPanel);
+            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.buttonOK);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.dropListOperation);
             this.Controls.Add(this.label6);
@@ -328,5 +353,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button meanSmooth;
+        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Button buttonOK;
     }
 }

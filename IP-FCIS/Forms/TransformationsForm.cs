@@ -27,7 +27,7 @@ namespace IP_FCIS.Forms
                 {
                     float PX = (float)Convert.ToDouble(ScaleX.Text),
                           PY = (float)Convert.ToDouble(ScaleY.Text);
-                    this.working_on.scale(PX, PY);
+                    this.working_on.scale(PX, PY, (TypicalImage.Interpolation)comboInterpolation.SelectedIndex);
                     this.Close();
                 }
 
@@ -47,7 +47,7 @@ namespace IP_FCIS.Forms
                 {
                     float PW = (float)Convert.ToDouble(RWidth.Text),
                           PH = (float)Convert.ToDouble(RHeight.Text);
-                    this.working_on.resize(PW, PH);
+                    this.working_on.resize(PW, PH, (TypicalImage.Interpolation)comboInterpolation.SelectedIndex);
                     this.Close();
                 }
 
@@ -66,7 +66,7 @@ namespace IP_FCIS.Forms
                 if (RotateAngle.Text != "")
                 {
                     float PAngle = (float)Convert.ToDouble(RotateAngle.Text);
-                    this.working_on.rotate(PAngle);
+                    this.working_on.rotate(PAngle, (TypicalImage.Interpolation)comboInterpolation.SelectedIndex);
                     this.Close();
                 }
 
@@ -86,7 +86,7 @@ namespace IP_FCIS.Forms
                     float PX = (float)Convert.ToDouble(ShearX.Text),
                           PY = (float)Convert.ToDouble(ShearY.Text);
 
-                    this.working_on.shear(PX, PY);
+                    this.working_on.shear(PX, PY, (TypicalImage.Interpolation)comboInterpolation.SelectedIndex);
                     this.Close();
                 }
 
@@ -107,12 +107,23 @@ namespace IP_FCIS.Forms
                           SX = (float)Convert.ToDouble(ShearX.Text),
                           SY = (float)Convert.ToDouble(ShearY.Text),
                           PAngle = (float)Convert.ToDouble(RotateAngle.Text);
-                    this.working_on.full_transform(PX, PY, SX, SY, PAngle);
+                    this.working_on.full_transform(PX, PY, SX, SY, PAngle, (TypicalImage.Interpolation)comboInterpolation.SelectedIndex);
                     this.Close();
                 }
 
             }
             catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        private void TransformationsForm_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                comboInterpolation.SelectedIndex = 1;
+
+            } catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }

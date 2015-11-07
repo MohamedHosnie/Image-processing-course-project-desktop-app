@@ -52,6 +52,8 @@
             this.label6 = new System.Windows.Forms.Label();
             this.ScaleY = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
+            this.comboInterpolation = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -67,17 +69,17 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Width:";
             // 
-            // Width
+            // RWidth
             // 
             this.RWidth.Location = new System.Drawing.Point(50, 26);
-            this.RWidth.Name = "Width";
+            this.RWidth.Name = "RWidth";
             this.RWidth.Size = new System.Drawing.Size(64, 20);
             this.RWidth.TabIndex = 0;
             // 
-            // Height
+            // RHeight
             // 
             this.RHeight.Location = new System.Drawing.Point(168, 26);
-            this.RHeight.Name = "Height";
+            this.RHeight.Name = "RHeight";
             this.RHeight.Size = new System.Drawing.Size(64, 20);
             this.RHeight.TabIndex = 1;
             // 
@@ -128,7 +130,7 @@
             // 
             // RotateAngle
             // 
-            this.RotateAngle.Location = new System.Drawing.Point(165, 29);
+            this.RotateAngle.Location = new System.Drawing.Point(168, 29);
             this.RotateAngle.Name = "RotateAngle";
             this.RotateAngle.Size = new System.Drawing.Size(64, 20);
             this.RotateAngle.TabIndex = 9;
@@ -210,7 +212,7 @@
             // 
             // TransformOK
             // 
-            this.TransformOK.Location = new System.Drawing.Point(177, 328);
+            this.TransformOK.Location = new System.Drawing.Point(250, 360);
             this.TransformOK.Name = "TransformOK";
             this.TransformOK.Size = new System.Drawing.Size(75, 23);
             this.TransformOK.TabIndex = 11;
@@ -221,7 +223,7 @@
             // Cancel
             // 
             this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.Cancel.Location = new System.Drawing.Point(258, 328);
+            this.Cancel.Location = new System.Drawing.Point(169, 360);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(75, 23);
             this.Cancel.TabIndex = 12;
@@ -284,12 +286,35 @@
             this.label7.TabIndex = 3;
             this.label7.Text = "Y:";
             // 
+            // comboInterpolation
+            // 
+            this.comboInterpolation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboInterpolation.FormattingEnabled = true;
+            this.comboInterpolation.Items.AddRange(new object[] {
+            "None",
+            "Bilinear"});
+            this.comboInterpolation.Location = new System.Drawing.Point(100, 333);
+            this.comboInterpolation.Name = "comboInterpolation";
+            this.comboInterpolation.Size = new System.Drawing.Size(121, 21);
+            this.comboInterpolation.TabIndex = 13;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(18, 336);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(76, 13);
+            this.label8.TabIndex = 14;
+            this.label8.Text = "Interpolation: ";
+            // 
             // TransformationsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.Cancel;
-            this.ClientSize = new System.Drawing.Size(345, 365);
+            this.ClientSize = new System.Drawing.Size(345, 392);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.comboInterpolation);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.Cancel);
             this.Controls.Add(this.TransformOK);
@@ -304,6 +329,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Geometric Transformation";
+            this.Load += new System.EventHandler(this.TransformationsForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -313,6 +339,7 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -342,5 +369,7 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox ScaleY;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox comboInterpolation;
+        private System.Windows.Forms.Label label8;
     }
 }
