@@ -37,13 +37,30 @@ namespace IP_FCIS.Forms
         }
         private void dropListImage1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FirstImage.Image = images_array[dropListImage1.SelectedIndex].get_bitmap();
-            first = images_array[dropListImage1.SelectedIndex];
+            try
+            {
+                first = new TypicalImage(images_array[dropListImage1.SelectedIndex]);
+                FirstImage.Image = first.get_bitmap();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+            
         }
         private void dropListImage2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SecondImage.Image = images_array[dropListImage2.SelectedIndex].get_bitmap();
-            second = images_array[dropListImage2.SelectedIndex];
+            try
+            {
+                second = new TypicalImage(images_array[dropListImage2.SelectedIndex]);
+                SecondImage.Image = second.get_bitmap();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
         private void dropListOperation_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -69,30 +86,48 @@ namespace IP_FCIS.Forms
         }
         private void trackFraction_ValueChanged(object sender, EventArgs e)
         {
-            decimal value = (decimal)this.trackFraction.Value;
-            this.numericFraction.Value = value / (decimal)100;
-            second.resize((float)first.get_width(), (float)first.get_height());
-            result = first.Add(second, (float)Convert.ToDouble(this.numericFraction.Value));
-            pictureBoxResult.Image = result.get_bitmap();
-            //edited_current = small_current.change_gamma(Convert.ToDouble(this.numericGamma.Value));
-            //this.Adjusted.Image = edited_current.get_bitmap();
+            try
+            {
+                decimal value = (decimal)this.trackFraction.Value;
+                this.numericFraction.Value = value / (decimal)100;
+                second.resize((float)first.get_width(), (float)first.get_height());
+                result = first.Add(second, (float)Convert.ToDouble(this.numericFraction.Value));
+                pictureBoxResult.Image = result.get_bitmap();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         private void numericFraction_ValueChanged(object sender, EventArgs e)
         {
-            this.trackFraction.Value = Convert.ToInt32(this.numericFraction.Value * 100);
+            try
+            {
+                this.trackFraction.Value = Convert.ToInt32(this.numericFraction.Value * 100);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
         private void buttonOK_Click(object sender, EventArgs e)
         {
-            PictureForm new_picture = new PictureForm();
-            result.set_file_name(first.get_file_name() + " + " + second.get_file_name());
-            new_picture.opened_image = result;
+            try
+            {
+                PictureForm new_picture = new PictureForm();
+                result.id = TypicalImage.get_an_id();
+                result.set_file_name("Image" +  result.id + "." + first.get_extension());
+                new_picture.opened_image = result;
+                Program.mainForm.open_this_mdi_picture(new_picture);
+                new_picture.Activate();
 
-            Program.mainForm.open_this_mdi_picture(new_picture);
-
-            this.Close();
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
-
-
 
        
 

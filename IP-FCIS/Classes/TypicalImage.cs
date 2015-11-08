@@ -93,6 +93,10 @@ namespace IP_FCIS.Classes
         {
             return bitmap;
         }
+        public static int get_an_id()
+        {
+            return photo_num++;
+        }
         public Color[,] get_buffer2d()
         {
             return buffer2d;
@@ -287,13 +291,35 @@ namespace IP_FCIS.Classes
         }
         public void resize(float Width, float Height, Interpolation interpol = Interpolation.Bilinear)
         {
+            TypicalImage newImg = new TypicalImage(this);
             Matrix transform_matrix = new Matrix();
             float ScaleX = Width / (float)width,
                   ScaleY = Height / (float)height;
             
             transform_matrix.Scale(ScaleX, ScaleY);
 
-            Transform(transform_matrix, interpol);
+            newImg.Transform(transform_matrix, interpol);
+
+            if(newImg.width == Width && newImg.height == height)
+            {
+                this.Transform(transform_matrix, interpol);
+
+            }
+            else
+            {
+                this.bitmap = new Bitmap(this.bitmap, new Size((int)Width, (int)Height));
+                this.width = this.bitmap.Width;
+                this.height = this.bitmap.Height;
+                buffer2d = new Color[width, height];
+                for(int j = 0; j < height; j++)
+                {
+                    for(int i = 0; i < width; i++)
+                    {
+                        buffer2d[i, j] = bitmap.GetPixel(i, j);
+                    }
+                }
+
+            }
         }
         public void rotate(float RotateAngle, Interpolation interpol = Interpolation.Bilinear)
         {
@@ -312,9 +338,9 @@ namespace IP_FCIS.Classes
         public void full_transform(float ScX, float ScY, float ShX, float ShY, float RoAngle, Interpolation interpol = Interpolation.Bilinear)
         {
             Matrix transform_matrix = new Matrix();
-            transform_matrix.Shear(ShX, ShY, MatrixOrder.Append);
-            transform_matrix.Rotate(RoAngle, MatrixOrder.Append);
-            transform_matrix.Scale(ScX, ScY, MatrixOrder.Append);
+            transform_matrix.Shear(ShX, ShY);
+            transform_matrix.Rotate(RoAngle, MatrixOrder.Prepend);
+            transform_matrix.Scale(ScX, ScY, MatrixOrder.Prepend);
 
             Transform(transform_matrix, interpol);
         }
@@ -1113,7 +1139,8 @@ namespace IP_FCIS.Classes
             {
               
                 if (buffer[z] < 0)
-                    buffer[z]=Math.Abs(buffer[z]);
+                    buffer[z] = Math.Abs(buffer[z]);
+                if (buffer[z] > 255) buffer[z] = 255;
             }
             int i = 0;
             for (int y = 0; y < height; y++)

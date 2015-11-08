@@ -405,16 +405,19 @@ namespace IP_FCIS.Forms
         {
             try
             {
-                PictureForm new_picture = new PictureForm();
-                if(!Clipboard.ContainsData(DataFormats.Text))
+                PictureForm new_picture;
+                if (Clipboard.ContainsData(DataFormats.Bitmap) && !Clipboard.ContainsData(DataFormats.Text))
                 {
+                    new_picture = new PictureForm();
                     new_picture.opened_image = new TypicalImage((Bitmap)Clipboard.GetImage());
                 }
-                else
+                else if (Clipboard.ContainsData(DataFormats.Bitmap) && Clipboard.ContainsData(DataFormats.Text))
                 {
+                    new_picture = new PictureForm();
                     IDataObject clips = Clipboard.GetDataObject();
                     new_picture.opened_image = new TypicalImage((Bitmap)clips.GetData(DataFormats.Bitmap), (string)clips.GetData(DataFormats.Text), true);
-                }   
+                }
+                else return;
                 this.open_this_mdi_picture(new_picture);
             }
             catch (Exception ex)

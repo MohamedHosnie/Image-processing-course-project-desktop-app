@@ -105,18 +105,18 @@ namespace IP_FCIS.Forms
                 }
                 
                 float sum = 0;
-                float[,] filter = new float[height, width];
-                for (int i = 0; i < width; i++)
+                float[,] filter = new float[width, height];
+                for (int i = 0; i < height; i++)
                 {
-                    for (int j = 0; j < height; j++)
+                    for (int j = 0; j < width; j++)
                     {
                         if (filterGrid.Rows[i].Cells[j].Value == null)
                         {
                             filterGrid.Rows[i].Cells[j].Value = Convert.ToString(0);
-                            filter[i, j] = 0;
+                            filter[j, i] = 0;
                         }
-                        else filter[i, j] = (float)Decimal.Parse((String)filterGrid.Rows[i].Cells[j].Value);
-                        sum += filter[i, j];
+                        else filter[j, i] = (float)Decimal.Parse((String)filterGrid.Rows[i].Cells[j].Value);
+                        sum += filter[j, i];
                     }
                 }
 
