@@ -44,6 +44,10 @@ namespace IP_FCIS.Forms
                 {
                     this.histogram();
                 }
+                if (Program.mainForm.info_form != null)
+                {
+                    this.info();
+                }
 
             } catch(Exception ex)
             {
@@ -70,6 +74,10 @@ namespace IP_FCIS.Forms
                 if(Program.mainForm.histogram_form != null)
                 {
                     histogram();
+                }
+                if (Program.mainForm.info_form != null)
+                {
+                    info();
                 }
 
             } catch(Exception ex)
@@ -385,6 +393,40 @@ namespace IP_FCIS.Forms
                 Copy();
 
             } catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+        public void info()
+        {
+            if (Program.mainForm.info_form == null)
+            {
+                Program.mainForm.info_form = new InfoForm();
+                Program.mainForm.info_form.MdiParent = this.ParentForm;
+            }
+
+            Program.mainForm.info_form.Text = "Info " + this.Text;
+            Program.mainForm.info_form.image = this.opened_image;
+            Program.mainForm.info_form.refreshData();
+
+            if (!Program.mainForm.info_form.Visible)
+            {
+                Program.mainForm.info_form.Show();
+
+            } 
+        }
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (Program.mainForm.info_form != null)
+                {
+                    Program.mainForm.info_form.Activate();
+                }
+                this.info();
+
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }

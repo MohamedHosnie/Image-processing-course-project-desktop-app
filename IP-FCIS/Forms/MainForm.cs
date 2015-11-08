@@ -37,6 +37,7 @@ namespace IP_FCIS.Forms
 
         }
         public HistogramForm histogram_form;
+        public InfoForm info_form;
         public List<TypicalImage> images_array;
         public MainForm()
         {
@@ -443,6 +444,39 @@ namespace IP_FCIS.Forms
                 MessageBox.Show(ex.Message);
             }
 
+        }
+        private void fileInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (this.ActiveMdiChild != null && this.ActiveMdiChild is ImageBox)
+                {
+                    ((PictureForm)this.ActiveMdiChild).info();
+
+                }
+                else
+                {
+                    if (this.info_form == null)
+                    {
+                        this.info_form = new InfoForm();
+                        this.info_form.MdiParent = this;
+                        this.info_form.Text = "Info";
+                        this.info_form.Show();
+
+                    }
+
+                }
+
+                if (this.info_form != null)
+                {
+                    this.info_form.Activate();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
 
