@@ -139,7 +139,7 @@ namespace IP_FCIS.Forms
                 {
                     opened_image.save_common(save.FileName, ImageFormat.Gif);
                 }
-                else if (ext == ".jpeg")
+                else if (ext == ".jpeg" || ext == ".jpg")
                 {
                     opened_image.save_common(save.FileName, ImageFormat.Jpeg);
                 }
@@ -147,7 +147,7 @@ namespace IP_FCIS.Forms
                 {
                     opened_image.save_common(save.FileName, ImageFormat.Png);
                 }
-                else if (ext == ".tiff")
+                else if (ext == ".tiff" || ext == ".tif")
                 {
                     opened_image.save_common(save.FileName, ImageFormat.Tiff);
                 }
